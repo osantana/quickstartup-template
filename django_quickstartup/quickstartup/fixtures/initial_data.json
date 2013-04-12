@@ -1,0 +1,38 @@
+[
+    {
+        "pk": 1,
+        "model": "quickstartup.page",
+        "fields": {
+            "url": "/",
+            "name": "home",
+            "content": "<div class=\"container\">\r\n      <div class=\"hero-unit\">\r\n        <h1>{{ PROJECT_NAME }}</h1>\r\n        <p>This is a template for a simple web application in Django.</p>\r\n        <p><a href=\"{% url \"signup\" %}\" class=\"btn btn-primary btn-large\">Create your Account!</a></p>\r\n      </div>\r\n      <div class=\"row\">\r\n        <div class=\"span4\">\r\n          <h2>Heading</h2>\r\n          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>\r\n          <p><a class=\"btn\" href=\"#\">View details &raquo;</a></p>\r\n        </div>\r\n        <div class=\"span4\">\r\n          <h2>Heading</h2>\r\n          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>\r\n          <p><a class=\"btn\" href=\"#\">View details &raquo;</a></p>\r\n       </div>\r\n        <div class=\"span4\">\r\n          <h2>Heading</h2>\r\n          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>\r\n          <p><a class=\"btn\" href=\"#\">View details &raquo;</a></p>\r\n        </div>\r\n      </div>\r\n</div>",
+            "template_name": "",
+            "registration_required": false,
+            "title": ""
+        }
+    },
+    {
+        "pk": 2,
+        "model": "quickstartup.page",
+        "fields": {
+            "url": "/privacy/",
+            "name": "privacy",
+            "content": "<div class=\"container\">\r\n  <div class=\"row-fluid\">\r\n    <div class=\"offset1 span10\">\r\n<div class=\"content\">\r\n<h1>Privacy Policy</h1>\r\n<p><a href=\"https://www.iubenda.com/\">Create your Privacy Policy here</a></p>\r\n</div>\r\n    </div>\r\n  </div>\r\n</div>",
+            "template_name": "",
+            "registration_required": false,
+            "title": "Privacy Policy"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "quickstartup.page",
+        "fields": {
+            "url": "/terms/",
+            "name": "terms",
+            "content": "<div class=\"container\">\r\n  <div class=\"row-fluid\">\r\n    <div class=\"offset1 span10\">\r\n<div class=\"content\">\r\n<h1>Terms of Service</h1>\r\n</div>\r\n    </div>\r\n  </div>\r\n</div>",
+            "template_name": "",
+            "registration_required": false,
+            "title": "Terms of Service"
+        }
+    }
+]

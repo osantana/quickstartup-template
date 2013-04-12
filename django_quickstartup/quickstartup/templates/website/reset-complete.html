@@ -1,0 +1,16 @@
+{% extends "website/project.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+
+
+{% block container %}
+    <div class="container">
+        <div class="row">
+            <div class="offset3 span6">
+                <div class="login-panel form-horizontal">
+                    <h2>{% trans "Password reset complete" %}</h2>
+                    <p>{% trans "Your password has been set. You may go ahead and log in now." %}</p>
+                    <a class="btn" href="{% url "signin" %}">{% trans "Back to Sign in" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,8 @@
+*.py[co]
+*.mo
+*.db
+.DS_Store
+.idea
+*.swp*
+*~
+*.tmproj

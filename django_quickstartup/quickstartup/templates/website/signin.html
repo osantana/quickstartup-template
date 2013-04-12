@@ -1,0 +1,59 @@
+{% extends "website/project.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+
+
+{% block menu_signin %}<li class="active"><a href="{% url "signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
+
+
+{% block container %}
+    <div class="container">
+        <div class="row">
+            <div class="offset3 span6">
+                <form action="" method="post" class="login-panel form-horizontal">
+                    {% csrf_token %}
+                        <h2>{% trans "Please sign in" %}</h2>
+
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-error">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ form.non_field_errors|join:", " }}
+                        </div>
+                        {% endif %}
+
+                        {% with field=form.username %}
+                            <div class="control-group{% if field.errors %} error{% endif %}">
+                                <label class="control-label" for="id_username">{{ field.label }}</label>
+
+                                <div class="controls">
+                                    {{ field }}
+                                    {% if field.errors %}<span class="help-inline">{{ field.errors|join:", " }}
+                                        </span>{% endif %}
+                                </div>
+                            </div>
+                        {% endwith %}
+
+                        {% with field=form.password %}
+                            <div class="control-group{% if field.errors %} error{% endif %}">
+                                <label class="control-label" for="id_username">{{ field.label }}</label>
+
+                                <div class="controls">
+                                    {{ field }}
+                                    {% if field.errors %}<span class="help-inline">{{ field.errors|join:", " }}
+                                        </span>{% endif %}
+                                </div>
+                            </div>
+                        {% endwith %}
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <a href="{% url "password-reset" %}">{% trans "Forgot password?" %}</a>
+                            </div>
+                        </div>
+
+                        <div class="controls">
+                            <button class="btn btn-primary" type="submit">{% trans "Sign in" %}</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

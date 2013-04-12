@@ -1,0 +1,79 @@
+# Brazilian Portuguese translations of django-quickstartup messages
+# Copyright (C) 2013 Osvaldo Santana Neto
+# This file is distributed under the same license as the django-quickstartup package.
+# Osvaldo Santana Neto <quickstartup@osantana.me>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: django-quickstartup 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-07 01:52-0300\n"
+"PO-Revision-Date: 2013-04-07 01:46-0300\n"
+"Last-Translator: Osvaldo Santana Neto <quickstartup@osantana.me>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"Language: Brazilia Portuguese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: django_quickstartup/quickstartup/admin.py:15
+msgid "Advanced options"
+msgstr "Opções avançadas"
+
+#: django_quickstartup/quickstartup/forms.py:11
+#: django_quickstartup/quickstartup/models.py:9
+msgid "URL"
+msgstr "URL"
+
+#: django_quickstartup/quickstartup/forms.py:20
+msgid "URL is missing a leading slash."
+msgstr "Falta a barra no início da URL"
+
+#: django_quickstartup/quickstartup/forms.py:23
+msgid "URL is missing a trailing slash."
+msgstr "Falta a barra no fim da URL"
+
+#: django_quickstartup/quickstartup/models.py:10
+msgid "title"
+msgstr "título"
+
+#: django_quickstartup/quickstartup/models.py:11
+msgid "content"
+msgstr "conteúdo"
+
+#: django_quickstartup/quickstartup/models.py:12
+msgid "template"
+msgstr "template"
+
+#: django_quickstartup/quickstartup/models.py:13
+msgid "registration required"
+msgstr "necessário registro"
+
+#: django_quickstartup/quickstartup/templates/website/base.html:29
+msgid "Sign in"
+msgstr "Entrar"
+
+#: django_quickstartup/quickstartup/templates/website/base.html:32
+msgid "Sign up"
+msgstr "Cadastrar"
+
+#: django_quickstartup/quickstartup/templates/website/base.html:35
+msgid "Contact"
+msgstr "Contato"
+
+#: django_quickstartup/quickstartup/templates/website/base.html:52
+msgid "Privacy"
+msgstr "Política de Privacidade"
+
+#: django_quickstartup/quickstartup/templates/website/base.html:53
+msgid "Terms"
+msgstr "Termos de uso"
+
+#: django_quickstartup/settings/base.py:10
+msgid "Django Quickstartup"
+msgstr "Django Quickstartup"
+
+#: django_quickstartup/settings/base.py:13
+msgid "MIT License"
+msgstr "Licença MIT"

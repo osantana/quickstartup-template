@@ -1,0 +1,69 @@
+{% extends "base.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+
+
+{% block styles %}{{ block.super }}
+    <link rel="stylesheet" href="{{ STATIC_URL }}website/base.css">
+{% endblock %}
+
+
+{% block end_body %}{{ block.super }}
+    <script src="{{ STATIC_URL }}website/base.js"></script>
+{% endblock %}
+
+
+{% block page_title %}
+    {% if title %}{{ title }} — {{ PROJECT_NAME }}{% else %}{{ PROJECT_NAME }}{% endif %}
+{% endblock %}
+
+
+{% block body_tag %}<body class="page {{ page.name }}">{% endblock %}
+
+
+{% block html_body %}
+    {% block navbar %}
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        {% block navbar_responsive %}
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        {% endblock %}
+                    </button>
+
+                    {% block brand %}<a class="brand" href="{% page_url "home" %}">{{ PROJECT_NAME }}</a>{% endblock %}
+
+                    {% block navbar_menu %}
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                {% block navbar_options %}{% endblock %}
+                            </ul>
+
+                            <ul class="nav pull-right">
+                                {% block navbar_right_options %}{% endblock %}
+                                {% block menu_signin %}<li><a href="{% url "signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
+                                {% block menu_signup %}<li><a href="{% url "signup" %}">{% trans "Sign up" %}</a></li>{% endblock %}
+                                {% block menu_contact %}<li><a href="{% url "contact" %}">{% trans "Contact" %}</a></li>{% endblock %}
+                            </ul>
+                        </div>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block container %}{{ content }}{% endblock %}
+
+    {% block footer %}
+        <div class="container">
+            <hr>
+            <footer>
+                <p>&copy; {{ PROJECT_COPYRIGHT }}. {{ PROJECT_LICENSE }}
+                    · <a href="{% page_url "privacy" %}">{% trans "Privacy" %}</a>
+                    · <a href="{% page_url "terms" %}">{% trans "Terms" %}</a>
+                </p>
+            </footer>
+        </div>
+    {% endblock footer %}
+{% endblock %}
