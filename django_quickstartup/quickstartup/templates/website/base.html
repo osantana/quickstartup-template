@@ -16,8 +16,7 @@
 {% endblock %}
 
 
-{% block body_tag %}<body class="page {{ page.name }}">{% endblock %}
-
+{% block body_tag %}<body>{% endblock %}
 
 {% block html_body %}
     {% block navbar %}
@@ -32,7 +31,7 @@
                         {% endblock %}
                     </button>
 
-                    {% block brand %}<a class="brand" href="{% page_url "home" %}">{{ PROJECT_NAME }}</a>{% endblock %}
+                    {% block brand %}{% endblock %}
 
                     {% block navbar_menu %}
                         <div class="nav-collapse collapse">
@@ -58,12 +57,7 @@
     {% block footer %}
         <div class="container">
             <hr>
-            <footer>
-                <p>&copy; {{ PROJECT_COPYRIGHT }}. {{ PROJECT_LICENSE }}
-                    · <a href="{% page_url "privacy" %}">{% trans "Privacy" %}</a>
-                    · <a href="{% page_url "terms" %}">{% trans "Terms" %}</a>
-                </p>
-            </footer>
+            <footer>{% block footer_content %}{% endblock %}</footer>
         </div>
     {% endblock footer %}
 {% endblock %}

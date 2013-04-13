@@ -2,7 +2,7 @@
 
 
 {% block sidebar %}
-    {% block sidebar_dashboard %}<li><a href="#">{% trans "Dashboard" %}</a></li>{% endblock %}
+    {% block sidebar_dashboard %}<li><a href="{% url "dashboard" %}">{% trans "Dashboard" %}</a></li>{% endblock %}
     <li class="nav-header">Sidebar</li>
     {% block sidebar_link1 %}<li><a href="#">Link 1</a></li>{% endblock %}
     {% block sidebar_link2 %}<li><a href="#">Link 2</a></li>{% endblock %}

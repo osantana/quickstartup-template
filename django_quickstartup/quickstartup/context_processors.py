@@ -10,4 +10,5 @@ def project_infos(request):
         "PROJECT_DOMAIN": settings.PROJECT_DOMAIN,
         "PROJECT_COPYRIGHT": settings.PROJECT_COPYRIGHT,
         "PROJECT_LICENSE": settings.PROJECT_LICENSE,
+        "PROJECT_ADDRESS": settings.PROJECT_ADDRESS,
     }

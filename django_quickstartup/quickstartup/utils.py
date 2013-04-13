@@ -4,6 +4,9 @@
 import os
 import re
 import email.charset
+
+from hashlib import sha512
+from datetime import datetime, timedelta
 from email.mime.image import MIMEImage
 
 from django.conf import settings
@@ -15,10 +18,10 @@ INLINE_SCHEME = re.compile(r' src="inline://(?P<path>.*?)" ?', re.MULTILINE)
 
 DEFAULT_CHARSET = "utf-8"
 
-email.Charset.add_charset(DEFAULT_CHARSET, email.charset.SHORTEST, None, None)
+email.charset.add_charset(DEFAULT_CHARSET, email.charset.SHORTEST, None, None)
 
 
-class HTMLMail(object):
+class HTMLMessage(object):
     def __init__(self, from_, to_, subject_template, text_template_name, html_template_name, context):
         self.from_ = from_
         self.to_ = to_
@@ -66,3 +69,17 @@ class HTMLMail(object):
             mail.attach(image)
 
         return mail
+
+
+def get_anticaptcha_tokens():
+    date_format = "%Y-%m-%d"
+
+    today = datetime.utcnow().strftime(date_format)
+    yesterday = (datetime.utcnow() - timedelta(1)).strftime(date_format)
+
+    secrets = (
+        settings.SECRET_KEY + today,
+        settings.SECRET_KEY + yesterday,
+    )
+
+    return [sha512(secret).hexdigest() for secret in secrets]

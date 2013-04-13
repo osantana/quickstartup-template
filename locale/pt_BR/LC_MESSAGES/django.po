@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-quickstartup 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-13 04:39-0300\n"
+"POT-Creation-Date: 2013-04-13 17:05-0300\n"
 "PO-Revision-Date: 2013-04-07 01:46-0300\n"
 "Last-Translator: Osvaldo Santana Neto <quickstartup@osantana.me>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
@@ -17,70 +17,143 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: django_quickstartup/quickstartup/admin.py:16
+#: django_quickstartup/quickstartup/admin.py:17
 msgid "Advanced options"
 msgstr "Opções avançadas"
 
-#: django_quickstartup/quickstartup/forms.py:17
-#: django_quickstartup/quickstartup/models.py:27
+#: django_quickstartup/quickstartup/fields.py:12
+msgid "You need to enable JavaScript to complete this form."
+msgstr ""
+"Você precisa habilitar o JavaScript do seu navegador para enviar este "
+"formulário."
+
+#: django_quickstartup/quickstartup/forms.py:18
+#: django_quickstartup/quickstartup/models.py:29
 msgid "URL"
 msgstr "URL"
 
-#: django_quickstartup/quickstartup/forms.py:26
+#: django_quickstartup/quickstartup/forms.py:27
 msgid "URL is missing a leading slash."
 msgstr "Falta a barra no início da URL"
 
-#: django_quickstartup/quickstartup/forms.py:29
+#: django_quickstartup/quickstartup/forms.py:30
 msgid "URL is missing a trailing slash."
 msgstr "Falta a barra no fim da URL"
 
-#: django_quickstartup/quickstartup/forms.py:35
-msgid "password"
-msgstr "senha"
-
-#: django_quickstartup/quickstartup/forms.py:36
-msgid "password (verify)"
-msgstr "senha (verificação)"
-
-#: django_quickstartup/quickstartup/models.py:26
-msgid "name"
-msgstr "nome"
-
-#: django_quickstartup/quickstartup/models.py:28
-msgid "title"
-msgstr "título"
-
-#: django_quickstartup/quickstartup/models.py:29
-msgid "content"
-msgstr "conteúdo"
-
-#: django_quickstartup/quickstartup/models.py:30
-msgid "template"
-msgstr "template"
-
-#: django_quickstartup/quickstartup/models.py:31
-msgid "registration required"
-msgstr "necessário registro"
-
-#: django_quickstartup/quickstartup/models.py:105
+#: django_quickstartup/quickstartup/forms.py:40
+#: django_quickstartup/quickstartup/models.py:65
+#: django_quickstartup/quickstartup/models.py:150
 msgid "email"
 msgstr "email"
 
-#: django_quickstartup/quickstartup/models.py:106
+#: django_quickstartup/quickstartup/forms.py:41
+#: django_quickstartup/quickstartup/models.py:66
+msgid "phone"
+msgstr "fone"
+
+#: django_quickstartup/quickstartup/forms.py:42
+#: django_quickstartup/quickstartup/models.py:67
+msgid "message"
+msgstr "mensagem"
+
+#: django_quickstartup/quickstartup/forms.py:47
+msgid "password"
+msgstr "senha"
+
+#: django_quickstartup/quickstartup/forms.py:48
+msgid "password (verify)"
+msgstr "senha (verificação)"
+
+#: django_quickstartup/quickstartup/models.py:28
+#: django_quickstartup/quickstartup/models.py:64
+msgid "name"
+msgstr "nome"
+
+#: django_quickstartup/quickstartup/models.py:30
+msgid "title"
+msgstr "título"
+
+#: django_quickstartup/quickstartup/models.py:31
+msgid "content"
+msgstr "conteúdo"
+
+#: django_quickstartup/quickstartup/models.py:32
+msgid "template"
+msgstr "template"
+
+#: django_quickstartup/quickstartup/models.py:33
+msgid "registration required"
+msgstr "necessário registro"
+
+#: django_quickstartup/quickstartup/models.py:52
+msgid "New"
+msgstr "Novo"
+
+#: django_quickstartup/quickstartup/models.py:53
+msgid "Ongoing"
+msgstr "Em Andamento"
+
+#: django_quickstartup/quickstartup/models.py:54
+msgid "Resolved"
+msgstr "Resolvido"
+
+#: django_quickstartup/quickstartup/models.py:55
+msgid "Closed"
+msgstr "Fechado"
+
+#: django_quickstartup/quickstartup/models.py:56
+msgid "Invalid"
+msgstr "Inválido"
+
+#: django_quickstartup/quickstartup/models.py:61
+msgid "status"
+msgstr "situação"
+
+#: django_quickstartup/quickstartup/models.py:62
+msgid "created at"
+msgstr "criado em"
+
+#: django_quickstartup/quickstartup/models.py:63
+msgid "updated at"
+msgstr "atualizado em"
+
+#: django_quickstartup/quickstartup/models.py:75
+msgid ""
+"Contact From: {instance.name} <{instance.email}>\n"
+"Phone: {instance.phone}\n"
+"Message:\n"
+"{instance.message}"
+msgstr ""
+"Contato de: {instance.name} <{instance.email}>\n"
+"Fone: {instance.phone}\n"
+"Mensagem:\n"
+"{instance.message}"
+
+#: django_quickstartup/quickstartup/models.py:82
+#, python-format
+msgid "New Contact from %s"
+msgstr "Novo Contato de %s"
+
+#: django_quickstartup/quickstartup/models.py:151
 msgid "created"
 msgstr "criado em"
 
-#: django_quickstartup/quickstartup/models.py:107
+#: django_quickstartup/quickstartup/models.py:152
 msgid "active"
 msgstr "ativo"
 
-#: django_quickstartup/quickstartup/models.py:108
+#: django_quickstartup/quickstartup/models.py:153
 msgid "staff"
 msgstr "gestor"
 
-#: django_quickstartup/quickstartup/models.py:109
+#: django_quickstartup/quickstartup/models.py:154
 msgid "activation key"
 msgstr "chave de ativação"
+
+#: django_quickstartup/quickstartup/views.py:64
+#, fuzzy
+msgid "Your message was sent successfully!"
+msgstr "Senha redefinida com sucesso"
 
 #: django_quickstartup/quickstartup/templates/app/base.html:50
 #: django_quickstartup/quickstartup/templates/app/profile.html:6
@@ -97,101 +170,45 @@ msgstr "Sair"
 msgid "Dashboard"
 msgstr "Painel"
 
-#: django_quickstartup/quickstartup/templates/website/base.html:45
+#: django_quickstartup/quickstartup/templates/app/dashboard.html:9
+#, fuzzy
+msgid "This is the dashboard."
+msgstr "Este é o painel de controle."
+
+#: django_quickstartup/quickstartup/templates/website/base.html:44
 #: django_quickstartup/quickstartup/templates/website/reset-confirm.html:4
 #: django_quickstartup/quickstartup/templates/website/reset.html:4
-#: django_quickstartup/quickstartup/templates/website/signin.html:4
-#: django_quickstartup/quickstartup/templates/website/signin.html:53
+#: django_quickstartup/quickstartup/templates/website/signin.html:5
+#: django_quickstartup/quickstartup/templates/website/signin.html:54
 msgid "Sign in"
 msgstr "Entrar"
 
-#: django_quickstartup/quickstartup/templates/website/base.html:46
+#: django_quickstartup/quickstartup/templates/website/base.html:45
 msgid "Sign up"
 msgstr "Cadastrar"
 
-#: django_quickstartup/quickstartup/templates/website/base.html:47
+#: django_quickstartup/quickstartup/templates/website/base.html:46
+#: django_quickstartup/quickstartup/templates/website/contact.html:7
+#: django_quickstartup/quickstartup/templates/website/contact.html:27
 msgid "Contact"
 msgstr "Contato"
 
-#: django_quickstartup/quickstartup/templates/website/base.html:63
+#: django_quickstartup/quickstartup/templates/website/contact.html:114
+msgid "Send"
+msgstr "Enviar"
+
+#: django_quickstartup/quickstartup/templates/website/contact.html:115
+#: django_quickstartup/quickstartup/templates/website/reset.html:38
+msgid "Back"
+msgstr "Voltar"
+
+#: django_quickstartup/quickstartup/templates/website/project.html:9
 msgid "Privacy"
 msgstr "Política de Privacidade"
 
-#: django_quickstartup/quickstartup/templates/website/base.html:64
+#: django_quickstartup/quickstartup/templates/website/project.html:10
 msgid "Terms"
 msgstr "Termos de uso"
-
-#: django_quickstartup/quickstartup/templates/website/password-reset-email.html:203
-msgid "Password Reset"
-msgstr "Redefinir Senha"
-
-#: django_quickstartup/quickstartup/templates/website/password-reset-email.html:222
-#, python-format
-msgid ""
-"\n"
-"                                You're receiving this email because you "
-"requested a password reset for your user account\n"
-"                                at %(PROJECT_NAME)s\n"
-"                            "
-msgstr ""
-"\n"
-"                                Você está recebendo este email por ter "
-"solicitado uma redefinição de senha para sua conta\n"
-"                                no %(PROJECT_NAME)s\n"
-"                            "
-
-#: django_quickstartup/quickstartup/templates/website/password-reset-email.html:228
-msgid "To reset your password"
-msgstr "Para redefinir sua senha"
-
-#: django_quickstartup/quickstartup/templates/website/password-reset-email.html:230
-msgid "click here"
-msgstr "clique aqui"
-
-#: django_quickstartup/quickstartup/templates/website/password-reset-email.html:234
-msgid "Or you can copy & paste the following link in your browser address bar:"
-msgstr ""
-"Ou você pode copiar & colar o link a seguir na barra de endereço do seu "
-"navegador:"
-
-#: django_quickstartup/quickstartup/templates/website/password-reset-email.html:259
-msgid "If you did not request this change ignore this email."
-msgstr "Se você não solicitou essa alteração ignore este email."
-
-#: django_quickstartup/quickstartup/templates/website/password-reset-email.txt:2
-#, python-format
-msgid ""
-"\n"
-"You're receiving this email because you requested a password reset\n"
-"for your user account at %(PROJECT_NAME)s.\n"
-msgstr ""
-"\n"
-"Você está recebendo este email porque solicitou uma redefinição de senha\n"
-"para sua conta no %(PROJECT_NAME)s.\n"
-
-#: django_quickstartup/quickstartup/templates/website/password-reset-email.txt:6
-msgid "Please go to the following page and choose a new password:"
-msgstr "Por favor, vá para a página a seguir e escolha uma nova senha:"
-
-#: django_quickstartup/quickstartup/templates/website/password-reset-email.txt:10
-msgid "Your username, in case you've forgotten:"
-msgstr "Seu nome de usuário, caso tenha se esquecido:"
-
-#: django_quickstartup/quickstartup/templates/website/password-reset-email.txt:11
-#, python-format
-msgid ""
-"\n"
-"Thanks,\n"
-"The %(PROJECT_NAME)s team\n"
-msgstr ""
-"\n"
-"Obrigado,\n"
-"Equipe %(PROJECT_NAME)s\n"
-
-#: django_quickstartup/quickstartup/templates/website/password-reset-subject.txt:2
-#, python-format
-msgid "Password reset on %(PROJECT_NAME)s"
-msgstr "Redefinição de senha no %(PROJECT_NAME)s"
 
 #: django_quickstartup/quickstartup/templates/website/reset-complete.html:9
 msgid "Password reset complete"
@@ -259,17 +276,85 @@ msgstr ""
 msgid "Reset"
 msgstr "Redefinir"
 
-#: django_quickstartup/quickstartup/templates/website/reset.html:38
-msgid "Back"
-msgstr "Voltar"
-
-#: django_quickstartup/quickstartup/templates/website/signin.html:13
+#: django_quickstartup/quickstartup/templates/website/signin.html:14
 msgid "Please sign in"
 msgstr "Entre"
 
-#: django_quickstartup/quickstartup/templates/website/signin.html:48
+#: django_quickstartup/quickstartup/templates/website/signin.html:49
 msgid "Forgot password?"
 msgstr "Esqueceu sua senha?"
+
+#: django_quickstartup/quickstartup/templates/website/mail/password-reset-subject.txt:2
+#, python-format
+msgid "Password reset on %(PROJECT_NAME)s"
+msgstr "Redefinição de senha no %(PROJECT_NAME)s"
+
+#: django_quickstartup/quickstartup/templates/website/mail/password-reset.html:3
+msgid "Password Reset"
+msgstr "Redefinir Senha"
+
+#: django_quickstartup/quickstartup/templates/website/mail/password-reset.html:8
+#, python-format
+msgid ""
+"\n"
+"        You're receiving this email because you requested a password reset "
+"for your user account\n"
+"        at %(PROJECT_NAME)s\n"
+"    "
+msgstr ""
+"\n"
+"        Você está recebendo este email porque solicitou uma redefinição de "
+"senha para sua conta\n"
+"        no %(PROJECT_NAME)s.\n"
+"    "
+
+#: django_quickstartup/quickstartup/templates/website/mail/password-reset.html:14
+msgid "To reset your password"
+msgstr "Para redefinir sua senha"
+
+#: django_quickstartup/quickstartup/templates/website/mail/password-reset.html:16
+msgid "click here"
+msgstr "clique aqui"
+
+#: django_quickstartup/quickstartup/templates/website/mail/password-reset.html:20
+msgid "Or you can copy & paste the following link in your browser address bar:"
+msgstr ""
+"Ou você pode copiar & colar o link a seguir na barra de endereço do seu "
+"navegador:"
+
+#: django_quickstartup/quickstartup/templates/website/mail/password-reset.html:26
+msgid "If you did not request this change ignore this email."
+msgstr "Se você não solicitou essa alteração ignore este email."
+
+#: django_quickstartup/quickstartup/templates/website/mail/password-reset.txt:2
+#, python-format
+msgid ""
+"\n"
+"You're receiving this email because you requested a password reset\n"
+"for your user account at %(PROJECT_NAME)s.\n"
+msgstr ""
+"\n"
+"Você está recebendo este email porque solicitou uma redefinição de senha\n"
+"para sua conta no %(PROJECT_NAME)s.\n"
+
+#: django_quickstartup/quickstartup/templates/website/mail/password-reset.txt:6
+msgid "Please go to the following page and choose a new password:"
+msgstr "Por favor, vá para a página a seguir e escolha uma nova senha:"
+
+#: django_quickstartup/quickstartup/templates/website/mail/password-reset.txt:10
+msgid "Your username, in case you've forgotten:"
+msgstr "Seu nome de usuário, caso tenha se esquecido:"
+
+#: django_quickstartup/quickstartup/templates/website/mail/password-reset.txt:11
+#, python-format
+msgid ""
+"\n"
+"Thanks,\n"
+"The %(PROJECT_NAME)s team\n"
+msgstr ""
+"\n"
+"Obrigado,\n"
+"Equipe %(PROJECT_NAME)s\n"
 
 #: django_quickstartup/settings/base.py:12
 msgid "Django Quickstartup"
@@ -278,3 +363,6 @@ msgstr "Django Quickstartup"
 #: django_quickstartup/settings/base.py:15
 msgid "MIT License"
 msgstr "Licença MIT"
+
+#~ msgid "Here you can put main management informations for your user."
+#~ msgstr "Aqui você pode colocar as informações principais da sua aplicação"

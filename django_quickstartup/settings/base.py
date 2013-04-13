@@ -14,7 +14,11 @@ PROJECT_DOMAIN = "djangoquickstartup.io"
 PROJECT_COPYRIGHT = "2013 Osvaldo Santana Neto"
 PROJECT_LICENSE = _("MIT License")
 PROJECT_CONTACT = "contact@djangoquickstartup.io"
-ACCOUNT_ACTIVATION_DAYS = 7
+PROJECT_ADDRESS = """<strong>Django Quickstartup Co.</strong><br>
+  0 Dumb Street<br>
+  Brazil<br>
+  <abbr title="Phone">P:</abbr> (123) 456-7890
+"""
 
 # Debug & Development
 DEBUG = False
@@ -63,13 +67,17 @@ DATABASES = {
 
 # Email
 DEFAULT_FROM_EMAIL = PROJECT_CONTACT
-
+DEFAULT_TRANSACTIONAL_EMAIL = {
+    "contact": True,
+}
 
 # Security & Authentication
 ALLOWED_HOSTS = []
 SECRET_KEY = "0(q2&ku+ysx9-zi&5(-r=l6y7k)!*p4bf2jhwj7dd4+7k5m4%+"  # TODO: put in secretsrc
 AUTH_USER_MODEL = "quickstartup.User"
-LOGIN_REDIRECT_URL = "/app/"
+LOGIN_REDIRECT_URL = "/dashboard/"
+LOGIN_URL = "/accounts/signin/"
+ACCOUNT_ACTIVATION_DAYS = 7
 
 
 # i18n & l10n

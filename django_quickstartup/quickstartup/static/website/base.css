@@ -4,6 +4,16 @@ body {
     padding-bottom: 40px;
 }
 
+label {
+    text-transform: capitalize;
+}
+
+.sidebar-nav {
+    padding: 9px 0;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
 /* Home */
 body.page {
     background-color: #f5f5f5;
@@ -14,7 +24,7 @@ body.page.home {
 }
 
 /* Content Pages */
-.page .content {
+.content {
     border: 1px solid #d4d4d4;
     background-color: #ffffff;
     padding: 10px 20px 20px 20px;
@@ -22,7 +32,16 @@ body.page.home {
     text-shadow: 0px 1px 0px #fff;
 }
 
-/* Login */
+/* Contact */
+body.contact {
+    background-color: #f5f5f5;
+}
+
+/* Signin */
+body.signin {
+    background-color: #f5f5f5;
+}
+
 .login-panel {
     background-color: #ffffff;
     border: 1px solid #e5e5e5;
@@ -37,3 +56,4 @@ body.page.home {
 
 .login-panel label.control-label { width: 110px; }
 .login-panel .controls { margin-left: 130px; }
+

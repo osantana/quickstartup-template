@@ -1,5 +1,6 @@
 {% extends "website/project.html" %}{% load i18n %}{% load l10n %}{% load pages %}
 
+{% block body_tag %}<body class="signin">{% endblock %}
 
 {% block menu_signin %}<li class="active"><a href="{% url "signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
 
@@ -21,7 +22,7 @@
 
                         {% with field=form.username %}
                             <div class="control-group{% if field.errors %} error{% endif %}">
-                                <label class="control-label" for="id_username">{{ field.label }}</label>
+                                <label class="control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
 
                                 <div class="controls">
                                     {{ field }}
@@ -33,7 +34,7 @@
 
                         {% with field=form.password %}
                             <div class="control-group{% if field.errors %} error{% endif %}">
-                                <label class="control-label" for="id_username">{{ field.label }}</label>
+                                <label class="control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
 
                                 <div class="controls">
                                     {{ field }}

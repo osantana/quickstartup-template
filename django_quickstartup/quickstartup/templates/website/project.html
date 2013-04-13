@@ -1,1 +1,12 @@
 {% extends "website/base.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+
+
+{% block brand %}<a class="brand" href="{% page_url "home" %}">{{ PROJECT_NAME }}</a>{% endblock %}
+
+
+{% block footer_content %}
+    <p>&copy; {{ PROJECT_COPYRIGHT }}. {{ PROJECT_LICENSE }}
+        · <a href="{% page_url "privacy" %}">{% trans "Privacy" %}</a>
+        · <a href="{% page_url "terms" %}">{% trans "Terms" %}</a>
+    </p>
+{% endblock %}

@@ -7,10 +7,11 @@ from django.core.mail import get_connection
 from django.utils.http import int_to_base36
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.auth.forms import ReadOnlyPasswordHashField, PasswordResetForm, AuthenticationForm
-from django_quickstartup.quickstartup.widgets import HTML5Email
 
-from .models import Page, User
-from .htmlmail import HTMLMail
+from .models import Page, User, Contact
+from .utils import HTMLMessage
+from .fields import AntiCaptchaField
+from .widgets import EmailInput, PhoneInput
 
 
 class PageForm(forms.ModelForm):
@@ -31,7 +32,18 @@ class PageForm(forms.ModelForm):
         return url
 
 
-class UserCreationForm(forms.ModelForm):
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ("name", "email", "phone", "message", "anticaptcha")
+
+    email = forms.EmailField(label=_("email"), max_length=255, widget=EmailInput)
+    phone = forms.CharField(label=_("phone"), max_length=100, widget=PhoneInput, required=False)
+    message = forms.CharField(label=_("message"), widget=forms.Textarea(attrs={"class": "input-block-level"}))
+    anticaptcha = AntiCaptchaField()
+
+
+class CustomUserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label=_('password'), widget=forms.PasswordInput)
     password2 = forms.CharField(label=_('password (verify)'), widget=forms.PasswordInput)
 
@@ -49,7 +61,7 @@ class UserCreationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        user = super(UserCreationForm, self).save(commit=False)
+        user = super(CustomUserCreationForm, self).save(commit=False)
 
         user.set_password(self.cleaned_data["password1"])
         if commit:
@@ -58,7 +70,7 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 
-class UserChangeForm(forms.ModelForm):
+class CustomUserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
@@ -69,13 +81,15 @@ class UserChangeForm(forms.ModelForm):
 
 
 class CustomAuthenticationForm(AuthenticationForm):
-    username = forms.EmailField(max_length=254, widget=HTML5Email())
+    username = forms.EmailField(max_length=254, widget=EmailInput())
 
 
 class CustomPasswordResetForm(PasswordResetForm):
     def notify(self, context, token_generator, subject_template_name, email_template_name, html_email_template_name,
                use_https):
+
         for user in self.users_cache:
+
             context.update({
                 "user": user,
                 "token": token_generator.make_token(user),
@@ -83,7 +97,8 @@ class CustomPasswordResetForm(PasswordResetForm):
                 "protocol": use_https and 'https' or 'http',
             })
 
-            message = HTMLMail(settings.DEFAULT_FROM_EMAIL, user.email, subject_template_name, email_template_name,
+            message = HTMLMessage(settings.DEFAULT_FROM_EMAIL, user.email, subject_template_name, email_template_name,
                                html_email_template_name, context)
+
             connection = get_connection()
             connection.send_messages([message])

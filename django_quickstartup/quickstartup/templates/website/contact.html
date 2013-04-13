@@ -1,0 +1,127 @@
+{% extends "website/project.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+
+
+{% block body_tag %}<body class="contact">{% endblock %}
+
+
+{% block menu_contact %}<li class="active"><a href="{% url "contact" %}">{% trans "Contact" %}</a></li>{% endblock %}
+
+{% block container %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                        <address>{{ PROJECT_ADDRESS|safe }}</address>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="span9">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="content">
+
+                            <form action="" method="post" class="form-horizontal">
+                                {% csrf_token %}
+                                <h2>{% trans "Contact" %}</h2>
+
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert alert-success">
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% if form.non_field_errors %}
+                                    <div class="alert alert-error">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        {{ form.non_field_errors|join:", " }}
+                                    </div>
+                                {% endif %}
+
+                                {{ form.anticaptcha }}
+                                {% if form.anticaptcha.errors %}
+                                    <div class="alert alert-error">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        {{ form.anticaptcha.errors|join:", " }}
+                                    </div>
+                                {% endif %}
+
+                                {% with field=form.name %}
+                                    <div class="control-group{% if field.errors %} error{% endif %}">
+                                        <label class="control-label" for="{{ field.auto_id }}">
+                                            {{ field.label|title }}
+                                        </label>
+
+                                        <div class="controls">
+                                            {{ field }}
+                                            {% if field.errors %}
+                                                <span class="help">{{ field.errors|join:", " }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endwith %}
+
+                                {% with field=form.email %}
+                                    <div class="control-group{% if field.errors %} error{% endif %}">
+                                        <label class="control-label" for="{{ field.auto_id }}">
+                                            {{ field.label|title }}
+                                        </label>
+
+                                        <div class="controls">
+                                            {{ field }}
+                                            {% if field.errors %}
+                                                <span class="help">{{ field.errors|join:", " }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endwith %}
+
+                                {% with field=form.phone %}
+                                    <div class="control-group{% if field.errors %} error{% endif %}">
+                                        <label class="control-label" for="{{ field.auto_id }}">
+                                            {{ field.label|title }}
+                                        </label>
+
+                                        <div class="controls">
+                                            {{ field }}
+                                            {% if field.errors %}
+                                                <span class="help">{{ field.errors|join:", " }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endwith %}
+
+                                {% with field=form.message %}
+                                    <div class="control-group{% if field.errors %} error{% endif %}">
+                                        <label class="control-label" for="{{ field.auto_id }}">
+                                            {{ field.label|title }}
+                                        </label>
+
+                                        <div class="controls">
+                                            {{ field }}
+                                            {% if field.errors %}
+                                                <span class="help">{{ field.errors|join:", " }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endwith %}
+
+                                <div class="controls">
+                                    <button class="btn btn-primary" type="submit">{% trans "Send" %}</button>
+                                    <a class="btn" href="{% page_url "home" %}">{% trans "Back" %}</a>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

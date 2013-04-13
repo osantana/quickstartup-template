@@ -2,11 +2,12 @@
 
 
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 
-from .forms import PageForm, UserChangeForm, UserCreationForm
-from .models import Page, User
+from .forms import PageForm, CustomUserChangeForm, CustomUserCreationForm
+from .models import Page, User, Contact
 
 
 class PageAdmin(admin.ModelAdmin):
@@ -25,8 +26,8 @@ admin.site.register(Page, PageAdmin)
 
 
 class UserAdmin(UserAdmin):
-    form = UserChangeForm
-    add_form = UserCreationForm
+    form = CustomUserChangeForm
+    add_form = CustomUserCreationForm
     list_display = ("email", "is_staff", "last_login")
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
     fieldsets = (
@@ -42,4 +43,17 @@ class UserAdmin(UserAdmin):
     filter_horizontal = ('groups', 'user_permissions')
 
 
-admin.site.register(User, UserAdmin)
+if get_user_model() is User:
+    admin.site.register(User, UserAdmin)
+
+
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('updated_at', 'name', 'email', 'phone', 'status')
+    list_display_links = ('updated_at', 'name', 'email', 'phone')
+    list_editable = ("status",)
+    list_filter = ('status',)
+    search_fields = ('name', 'email')
+    ordering = ("-updated_at",)
+
+
+admin.site.register(Contact, ContactAdmin)
