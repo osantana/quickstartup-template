@@ -3,12 +3,14 @@
 
 from django import forms
 from django.conf import settings
-from django.template import loader
+from django.core.mail import get_connection
 from django.utils.http import int_to_base36
 from django.utils.translation import ugettext, ugettext_lazy as _
-from django.contrib.auth.forms import ReadOnlyPasswordHashField, PasswordResetForm
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, PasswordResetForm, AuthenticationForm
+from django_quickstartup.quickstartup.widgets import HTML5Email
 
 from .models import Page, User
+from .htmlmail import HTMLMail
 
 
 class PageForm(forms.ModelForm):
@@ -66,20 +68,22 @@ class UserChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 
-class CustomPasswordResetForm(PasswordResetForm):
-    def notify(self, context, token_generator, subject_template_name, email_template_name, use_https):
-        from django.core.mail import send_mail
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.EmailField(max_length=254, widget=HTML5Email())
 
+
+class CustomPasswordResetForm(PasswordResetForm):
+    def notify(self, context, token_generator, subject_template_name, email_template_name, html_email_template_name,
+               use_https):
         for user in self.users_cache:
-            ctx = {
+            context.update({
                 "user": user,
                 "token": token_generator.make_token(user),
                 "uid": int_to_base36(user.pk),
                 "protocol": use_https and 'https' or 'http',
-            }
-            context.update(ctx)
+            })
 
-            subject = loader.render_to_string(subject_template_name, context)
-            subject = ''.join(subject.splitlines())
-            email = loader.render_to_string(email_template_name, context)
-            send_mail(subject, email, settings.DEFAULT_FROM_EMAIL, [user.email])
+            message = HTMLMail(settings.DEFAULT_FROM_EMAIL, user.email, subject_template_name, email_template_name,
+                               html_email_template_name, context)
+            connection = get_connection()
+            connection.send_messages([message])

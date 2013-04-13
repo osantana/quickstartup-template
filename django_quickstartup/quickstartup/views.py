@@ -7,7 +7,6 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template import loader, RequestContext, Template
 from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import redirect_to_login
 from django_quickstartup.quickstartup.forms import CustomPasswordResetForm
@@ -62,20 +61,29 @@ def profile(request, *args, **kwargs):
 
 
 @csrf_protect
-def password_reset(request):
+def password_reset(request, post_reset_redirect=None, form_class=CustomPasswordResetForm,
+                   template_name="website/reset.html",
+                   subject_template_name="website/password-reset-subject.txt",
+                   email_template_name="website/password-reset-email.txt",
+                   html_email_template_name="website/password-reset-email.html"):
+
+    if post_reset_redirect is None:
+        post_reset_redirect = reverse("password-reset-done")
+
     if request.method == "POST":
-        form = CustomPasswordResetForm(request.POST)
+        form = form_class(request.POST)
         if form.is_valid():
             context = RequestContext(request)
             form.notify(
                 context=context,
                 token_generator=default_token_generator,
-                subject_template_name="website/password-reset-subject.txt",
-                email_template_name="website/password-reset-email.html",
+                subject_template_name=subject_template_name,
+                email_template_name=email_template_name,
+                html_email_template_name=html_email_template_name,
                 use_https=request.is_secure(),
             )
-            return redirect(reverse('django.contrib.auth.views.password_reset_done'))
+            return redirect(post_reset_redirect)
     else:
-        form = CustomPasswordResetForm()
+        form = form_class()
 
-    return render(request, "website/reset.html", {'form': form})
+    return render(request, template_name, {'form': form})

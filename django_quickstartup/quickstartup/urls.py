@@ -3,10 +3,13 @@
 
 from django.conf.urls import patterns, url
 
+from .forms import CustomAuthenticationForm
+
 
 urlpatterns = patterns('',
     url(r"^accounts/signin/$", "django.contrib.auth.views.login",
-       {"template_name": "website/signin.html"}, name="signin"),
+        {"template_name": "website/signin.html", "authentication_form": CustomAuthenticationForm},
+        name="signin"),
     url(r"^accounts/signup/$", "django_quickstartup.quickstartup.views.boilerplate", name="signup"),
     url(r"^account/logout/$", "django.contrib.auth.views.logout", {"next_page": "/"}, name="logout"),
     url(r"^accounts/profile/$", "django_quickstartup.quickstartup.views.profile", name="profile"),

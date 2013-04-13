@@ -95,8 +95,8 @@ WSGI_APPLICATION = "django_quickstartup.wsgi.application"
 
 
 # Media & Static
-MEDIA_ROOT = ""  # XXX: Host-specific setting
-STATIC_ROOT = ""  # XXX: Host-specific setting
+MEDIA_ROOT = BASE_DIR.parent.child("media")
+STATIC_ROOT = BASE_DIR.parent.child("static")
 MEDIA_URL = "/media/"
 STATIC_URL = "/static/"
 
