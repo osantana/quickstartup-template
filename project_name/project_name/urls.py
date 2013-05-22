@@ -15,5 +15,5 @@ urlpatterns = patterns('',
     # Replace URL below with your application urls.py
     # url("^app/", include("django_quickstartup.your_app.urls")),
 
-    url(r"^", include("django_quickstartup.quickstartup.urls")),
+    url(r"^", include("quickstartup.urls")),
 )

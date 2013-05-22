@@ -4,7 +4,7 @@
 from django import forms
 from django.utils.safestring import mark_safe
 
-from .utils import get_anticaptcha_tokens
+from .django_quickstartup.quickstartup.utils import get_anticaptcha_tokens
 
 
 class EmailInput(forms.TextInput):

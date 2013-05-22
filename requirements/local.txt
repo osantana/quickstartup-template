@@ -1,4 +1,4 @@
--r project.txt
+-r base.txt
 Fabric==1.6.0
 paramiko==1.10.1
 pycrypto==2.6

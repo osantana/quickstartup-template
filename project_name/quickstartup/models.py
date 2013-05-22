@@ -7,7 +7,7 @@ import hashlib
 import datetime
 
 from django.conf import settings
-from django.core.mail import mail_managers, EmailMessage
+from django.core.mail import EmailMessage
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import Signal
@@ -18,7 +18,6 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 SHA1_RE = re.compile('^[a-f0-9]{40}$')
 ACTIVATED = u"ALREADY_ACTIVATED"
-
 
 inactive_user_created = Signal(providing_args=["user", "extra_info"])
 user_activated = Signal(providing_args=["user"])
@@ -67,7 +66,7 @@ class Contact(models.Model):
     message = models.TextField(_("message"))
 
 
-def send_contact_mail(sender, instance, created, **kwargs):
+def send_contact_mail(instance, created, **kwargs):
     if not created:
         return
 
@@ -88,8 +87,10 @@ def send_contact_mail(sender, instance, created, **kwargs):
 
     email.send(fail_silently=True)
 
+
 if settings.DEFAULT_TRANSACTIONAL_EMAIL.get("contact"):
     post_save.connect(send_contact_mail, Contact, dispatch_uid="quickstartup.contact")
+
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, is_active=True):

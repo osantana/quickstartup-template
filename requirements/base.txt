@@ -1,7 +1,4 @@
-# DO NOT EDIT!
-# django-quickstartup requirements
-Django>=1.5,<1.6
-Unipath==0.2.1
+Django==1.5.1
+Unipath==1.0
 South==0.7.6
 django-extensions==1.1.1
-dnspython==1.10.0

@@ -6,8 +6,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 
-from .forms import PageForm, CustomUserChangeForm, CustomUserCreationForm
-from .models import Page, User, Contact
+from .django_quickstartup.quickstartup.forms import PageForm, CustomUserChangeForm, CustomUserCreationForm
+from .django_quickstartup.quickstartup.models import Page, User, Contact
 
 
 class PageAdmin(admin.ModelAdmin):

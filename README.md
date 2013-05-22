@@ -1,18 +1,20 @@
 TO-DO
 =====
 
-* django-pipeline
-* Multitarget Deploy (Webfaction, Heroku, gondor.io)
-* E-mail settings for both environment settings
+* Upgrade Django requirement to 1.6
 * Google Analytics (if UA- exists)
-* Get all 'secret' infos via os.environ
-* .secrets used by fab deploy to SetEnv
+* User envdir for settings selection (and secrets)
+  http://bruno.im/2013/may/18/django-stop-writing-settings-files/
+* Multitarget Deploy (Webfaction, Heroku, AWS, …)
+* Facebook, Twitter & G+ Signin/Signup
+  https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
+* Include LESS compilation to enable Bootstrap configuration (at least local compilation)
+* django-pipeline
 * Rename django_quickstartup -> project_name
 * A/B test support in 'flatpages'
 * i18n support in 'flatpages'
-* Include LESS compilation to enable Bootstrap configuration (at least local compilation)
+* Bootstrap Theme support?
 * Send activation e-mail on signup (connect signal) (text+html with inline images)
 * PayPal (& PagSeguro) integration
-* Facebook, Twitter & G+ Signin/Signup
 * Support for mobile apps backend (push notification, REST APIs)
-* REST API with OAuth2 authentication support
+* Support for two-way authentication (google auth + twillio)

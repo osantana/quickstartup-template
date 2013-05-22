@@ -136,7 +136,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
-    "django_quickstartup.quickstartup.context_processors.project_infos",
+    "quickstartup.context_processors.project_infos",
 )
 
 
@@ -165,7 +165,13 @@ INSTALLED_APPS = (
     'django_extensions',
 
     # Quick Startup Apps
-    'django_quickstartup.quickstartup',
+    'quickstartup',
+    #'quickstartup.base',  # basically statics & templates
+    #'quickstartup.website',
+    #'quickstartup.users',
+
+    # Disable app below and use your main app instead
+    #'quickstartup.boilerplate',
 
     # Your apps
     # ...

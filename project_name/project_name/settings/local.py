@@ -1,6 +1,7 @@
 # coding: utf-8
 
-from .project import *
+
+from .settings import *
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
