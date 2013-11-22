@@ -1,19 +1,18 @@
 # coding: utf-8
 
 
-from django.conf import settings
 from django.conf.urls import patterns, url
 
 from .forms import CustomAuthenticationForm
 
 
 urlpatterns = patterns('',
-    url(r"^accounts/signin/$", "django.contrib.auth.views.login",
+    url(r"^signin/$", "django.contrib.auth.views.login",
         {"template_name": "website/signin.html", "authentication_form": CustomAuthenticationForm},
         name="signin"),
-    url(r"^account/logout/$", "django.contrib.auth.views.logout", {"next_page": "/"}, name="logout"),
+    url(r"^logout/$", "django.contrib.auth.views.logout", {"next_page": "/"}, name="logout"),
 
-    url(r'^password/reset/$', "quickstartup.views.password_reset", name="password-reset"),
+    url(r'^password/reset/$', "quickstartup.users.views.password_reset", name="password-reset"),
     url(r'^password/reset/done/$', "django.contrib.auth.views.password_reset_done",
         {"template_name": "website/reset-done.html"},
         name="password-reset-done"),
@@ -25,15 +24,8 @@ urlpatterns = patterns('',
         name='password_reset_complete'),
 
     # TODO:
-    url(r"^accounts/signup/$", "quickstartup.views.signup", name="signup"),
-    url(r"^accounts/profile/$", "quickstartup.views.profile", name="profile"),
+    url(r"^signup/$", "quickstartup.users.views.signup", name="signup"),
+    url(r"^profile/$", "quickstartup.users.views.profile", name="profile"),
     url(r'^password/change/$', 'django.contrib.auth.views.password_change', name='password-change'),
     url(r'^password/change/done/$', 'django.contrib.auth.views.password_change_done', name='password-change-done'),
-
-    # APP
-    url(r"^%s/$" % (settings.LOGIN_REDIRECT_URL.strip("/"),), 'quickstartup.views.dashboard', name="dashboard"),  # to be override...
-
-    # CMS
-    url(r"^contact/$", "quickstartup.views.contact", name="contact"),
-    url(r"^(?P<url>.*)$", "quickstartup.views.website_page", name="page"),
 )

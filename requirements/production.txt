@@ -1,0 +1,5 @@
+Django==1.6
+pathlib==0.8
+South==0.8.3
+django-extensions==1.2.5
+dj-database-url==0.2.2

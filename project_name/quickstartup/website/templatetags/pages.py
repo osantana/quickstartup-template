@@ -4,7 +4,7 @@
 from django import template
 from django.shortcuts import get_object_or_404
 
-from ..django_quickstartup.quickstartup.models import Page
+from ..models import Page
 
 
 register = template.Library()

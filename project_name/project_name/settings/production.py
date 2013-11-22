@@ -1,11 +1,13 @@
 # coding: utf-8
 
 
-from unipath import Path
 from django.utils.translation import ugettext_lazy as _
 
+# TODO: Replace this module with envconfig project https://github.com/osantana/envconfig
+from .utils import get_env_setting, get_project_directory, get_database_settings
 
-BASE_DIR = Path(__file__).ancestor(3)
+
+BASE_DIR, FRONTEND_DIR = get_project_directory(__file__)
 
 
 # Project Info
@@ -21,48 +23,12 @@ PROJECT_ADDRESS = """<strong>Django Quickstartup Co.</strong><br>
 """
 
 # Debug & Development
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
-}
-
-
-# Admins & Managers
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
-)
-MANAGERS = ADMINS
+DEBUG = get_env_setting("debug", False)
+TEMPLATE_DEBUG = get_env_setting("template_debug", DEBUG)
 
 
 # Database
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR.child("project.db"),  # TODO: use {{ project_name }}
-    }
-}
+DATABASES = get_database_settings(BASE_DIR)
 
 
 # Email
@@ -73,15 +39,15 @@ DEFAULT_TRANSACTIONAL_EMAIL = {
 
 # Security & Authentication
 ALLOWED_HOSTS = []
-SECRET_KEY = "0(q2&ku+ysx9-zi&5(-r=l6y7k)!*p4bf2jhwj7dd4+7k5m4%+"  # TODO: put in secretsrc
-AUTH_USER_MODEL = "quickstartup.User"
+SECRET_KEY = get_env_setting("secret_key")
+AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "/dashboard/"
 LOGIN_URL = "/accounts/signin/"
 ACCOUNT_ACTIVATION_DAYS = 7
 
 
 # i18n & l10n
-TIME_ZONE = "America/Chicago"
+TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -93,23 +59,22 @@ LANGUAGES = (
 )
 
 LOCALE_PATHS = (
-    BASE_DIR.child("locale"),
+    str(BASE_DIR["locale"]),
 )
 
 
 # Miscelaneous
-ROOT_URLCONF = "django_quickstartup.urls"
-WSGI_APPLICATION = "django_quickstartup.wsgi.application"
+ROOT_URLCONF = "project_name.urls"
+WSGI_APPLICATION = "project_name.wsgi.application"
 
 
 # Media & Static
-MEDIA_ROOT = BASE_DIR.parent.child("media")
-STATIC_ROOT = BASE_DIR.parent.child("static")
 MEDIA_URL = "/media/"
-STATIC_URL = "/static/"
+MEDIA_ROOT = str(FRONTEND_DIR["media"])    # FIXME: Deployment config
 
+STATIC_URL = "/static/"
 STATICFILES_DIRS = (
-    BASE_DIR.child("static"),
+    str(FRONTEND_DIR["static"]),
 )
 
 STATICFILES_FINDERS = (
@@ -120,12 +85,7 @@ STATICFILES_FINDERS = (
 
 # Template
 TEMPLATE_DIRS = (
-    BASE_DIR.child("templates"),
-)
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
+    str(FRONTEND_DIR["templates"]),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -136,14 +96,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
-    "quickstartup.context_processors.project_infos",
+    "quickstartup.commons.context_processors.project_infos",
 )
 
 
 # Application
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -152,27 +112,22 @@ MIDDLEWARE_CLASSES = (
 )
 
 INSTALLED_APPS = (
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
 
-    # 3rd libs
+    # 3rd party libs
     'south',
     'django_extensions',
 
     # Quick Startup Apps
-    'quickstartup',
-    #'quickstartup.base',  # basically statics & templates
-    #'quickstartup.website',
-    #'quickstartup.users',
+    'quickstartup.commons',
+    'quickstartup.users',
+    'quickstartup.website',
 
-    # Disable app below and use your main app instead
-    #'quickstartup.boilerplate',
-
-    # Your apps
-    # ...
+    # QUICKSTARTUP: Your apps, you can replace the sample aplication bellow with your app
+    'apps.sample',
 )

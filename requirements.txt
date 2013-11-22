@@ -1,1 +1,2 @@
--r requirements/requirements.txt
+# This file is used by heroku to install application dependencies
+-r requirements/heroku.txt

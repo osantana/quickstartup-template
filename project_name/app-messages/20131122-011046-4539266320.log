@@ -1,0 +1,15 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: New Contact from Django Quickstartup
+From: asd@asd.com
+To: contact@djangoquickstartup.io
+Date: Fri, 22 Nov 2013 03:10:46 -0000
+Message-ID: <20131122031046.48458.1873@knuth.local>
+Reply-To: asd@asd.com
+
+Contact From: asd <asd@asd.com>
+Phone: 1234
+Message:
+asd
+-------------------------------------------------------------------------------

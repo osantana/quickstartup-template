@@ -9,11 +9,13 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r"^admin/doc/", include("django.contrib.admindocs.urls")),
+    # QUICKSTARTUP: Replace the url mapping bellow with your application urls module
+    url("^", include("apps.sample.urls")),
+
+    # Django Admin Interface
     url(r"^admin/", include(admin.site.urls)),
 
-    # Replace URL below with your application urls.py
-    # url("^app/", include("django_quickstartup.your_app.urls")),
-
-    url(r"^", include("quickstartup.urls")),
+    # This url must be the last one
+    url(r"^accounts/", include("quickstartup.users.urls")),
+    url(r"^", include("quickstartup.website.urls")),
 )

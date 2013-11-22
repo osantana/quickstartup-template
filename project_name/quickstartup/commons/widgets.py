@@ -4,7 +4,7 @@
 from django import forms
 from django.utils.safestring import mark_safe
 
-from .django_quickstartup.quickstartup.utils import get_anticaptcha_tokens
+from .security import get_antispam_tokens
 
 
 class EmailInput(forms.TextInput):
@@ -18,5 +18,5 @@ class PhoneInput(forms.TextInput):
 class AntiCaptchaWidget(forms.widgets.Widget):
     def render(self, name, value, attrs=None):
         output = '''<script>document.write('<input type="hidden" name="anticaptcha" value="%s"/>')</script>
-        ''' % (get_anticaptcha_tokens()[0],)
+        ''' % (get_antispam_tokens()[0],)
         return mark_safe(output)

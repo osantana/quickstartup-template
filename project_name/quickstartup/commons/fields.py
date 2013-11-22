@@ -4,8 +4,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-
-from .utils import get_anticaptcha_tokens
+from .security import get_antispam_tokens
 from .widgets import AntiCaptchaWidget
 
 
@@ -21,5 +20,5 @@ class AntiCaptchaField(forms.CharField):
     def clean(self, value):
         value = super(AntiCaptchaField, self).clean(value)
 
-        if value not in get_anticaptcha_tokens():
+        if value not in get_antispam_tokens():
             raise forms.ValidationError(ERROR_MESSAGE)

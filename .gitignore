@@ -6,3 +6,5 @@
 *.swp*
 *~
 *.tmproj
+.env
+deploy.cfg
