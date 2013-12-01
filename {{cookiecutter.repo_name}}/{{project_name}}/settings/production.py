@@ -3,15 +3,17 @@
 
 from django.utils.translation import ugettext_lazy as _
 
-# TODO: Replace this module with envconfig project https://github.com/osantana/envconfig
-from .utils import get_env_setting, get_project_directory, get_database_settings
+from pathlib import Path
+from decouple import config
+from dj_database_url import parse as parse_db_url
 
 
-BASE_DIR, FRONTEND_DIR = get_project_directory(__file__)
+BASE_DIR = Path(__file__).parent(3)
+FRONTEND_DIR = BASE_DIR["frontend"]
 
 
 # Project Info
-PROJECT_NAME = _("Django Quickstartup")
+PROJECT_NAME = "{{cookiecutter.project_name}}"
 PROJECT_DOMAIN = "djangoquickstartup.io"
 PROJECT_COPYRIGHT = "2013 Osvaldo Santana Neto"
 PROJECT_LICENSE = _("MIT License")
@@ -23,12 +25,18 @@ PROJECT_ADDRESS = """<strong>Django Quickstartup Co.</strong><br>
 """
 
 # Debug & Development
-DEBUG = get_env_setting("debug", False)
-TEMPLATE_DEBUG = get_env_setting("template_debug", DEBUG)
+DEBUG = config("DEBUG", default=False, cast=bool)
+TEMPLATE_DEBUG = config("TEMPLATE_DEBUG", default=DEBUG, cast=bool)
 
 
 # Database
-DATABASES = get_database_settings(BASE_DIR)
+DATABASES = {
+    'default': config(
+        'DATABASE_URL',
+        default='sqlite:///' + BASE_DIR.child('db.sqlite3'),
+        cast=parse_db_url
+    )
+}
 
 
 # Email
@@ -39,7 +47,7 @@ DEFAULT_TRANSACTIONAL_EMAIL = {
 
 # Security & Authentication
 ALLOWED_HOSTS = []
-SECRET_KEY = get_env_setting("secret_key")
+SECRET_KEY = config("SECRET_KEY")
 AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "/dashboard/"
 LOGIN_URL = "/accounts/signin/"

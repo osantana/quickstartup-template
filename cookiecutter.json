@@ -1,0 +1,5 @@
+{
+    "deploy_method": "webfaction",
+    "repo_name": "project_name",
+    "project_name": "Django QuickStartup",
+}
