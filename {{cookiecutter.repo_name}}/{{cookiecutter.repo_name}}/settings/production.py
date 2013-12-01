@@ -1,28 +1,21 @@
 # coding: utf-8
 
 
-from django.utils.translation import ugettext_lazy as _
-
 from pathlib import Path
 from decouple import config
 from dj_database_url import parse as parse_db_url
 
 
-BASE_DIR = Path(__file__).parent(3)
-FRONTEND_DIR = BASE_DIR["frontend"]
+BASE_DIR = Path(__file__).parent(4)
+PROJECT_DIR = Path(__file__).parent(3)
+FRONTEND_DIR = PROJECT_DIR["frontend"]
 
 
 # Project Info
 PROJECT_NAME = "{{cookiecutter.project_name}}"
-PROJECT_DOMAIN = "djangoquickstartup.io"
-PROJECT_COPYRIGHT = "2013 Osvaldo Santana Neto"
-PROJECT_LICENSE = _("MIT License")
-PROJECT_CONTACT = "contact@djangoquickstartup.io"
-PROJECT_ADDRESS = """<strong>Django Quickstartup Co.</strong><br>
-  0 Dumb Street<br>
-  Brazil<br>
-  <abbr title="Phone">P:</abbr> (123) 456-7890
-"""
+PROJECT_DOMAIN = "{{cookiecutter.domain_name}}"
+PROJECT_CREATOR = "{{cookiecutter.creator_name}}"
+PROJECT_CONTACT = "{{cookiecutter.contact_address}}"
 
 # Debug & Development
 DEBUG = config("DEBUG", default=False, cast=bool)
@@ -33,7 +26,7 @@ TEMPLATE_DEBUG = config("TEMPLATE_DEBUG", default=DEBUG, cast=bool)
 DATABASES = {
     'default': config(
         'DATABASE_URL',
-        default='sqlite:///' + BASE_DIR.child('db.sqlite3'),
+        default='sqlite:///' + PROJECT_DIR.child('db.sqlite3'),
         cast=parse_db_url
     )
 }
@@ -67,7 +60,7 @@ LANGUAGES = (
 )
 
 LOCALE_PATHS = (
-    str(BASE_DIR["locale"]),
+    str(PROJECT_DIR["locale"]),
 )
 
 
