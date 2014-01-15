@@ -4,5 +4,5 @@
 from fabric.api import env
 
 
-env.deploy_method = "{{cookiecutter.deploymethod}}"
+env.deploy_method = "webfaction"
 

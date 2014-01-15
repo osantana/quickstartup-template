@@ -29,7 +29,7 @@ pip install cookiecutter
 - Start a new project environment
 
 ```shell
-cookiecutter https://github.com/osantana/quickstartup.git
+cookiecutter https://github.com/osantana/cookiecutter-quickstartup.git
 ```
 
 Cookiecutter will ask you some questions regarding your project and will use

@@ -12,10 +12,10 @@ FRONTEND_DIR = PROJECT_DIR["frontend"]
 
 
 # Project Info
-PROJECT_NAME = "{{cookiecutter.project_name}}"
-PROJECT_DOMAIN = "{{cookiecutter.domain_name}}"
-PROJECT_CREATOR = "{{cookiecutter.creator_name}}"
-PROJECT_CONTACT = "{{cookiecutter.contact_address}}"
+PROJECT_NAME = "Example Project"
+PROJECT_DOMAIN = "example.com"
+PROJECT_CREATOR = "Quickstartup Inc."
+PROJECT_CONTACT = "contact@example.com"
 
 # Debug & Development
 DEBUG = config("DEBUG", default=False, cast=bool)
