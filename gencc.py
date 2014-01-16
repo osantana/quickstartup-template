@@ -20,6 +20,7 @@ LOG_FORMAT = "* [view commit](http://github.com/osantana/cookiecutter-quickstart
 
 RAW_FILES_EXT = (
     ".html",
+    ".txt",
 )
 
 
