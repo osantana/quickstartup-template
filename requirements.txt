@@ -1,3 +1,4 @@
--r project_root/requirements/local.txt
+# This is cookiecutter's generator requirements!
+-r project_name/requirements/local.txt
 cookiecutter
 binaryornot
