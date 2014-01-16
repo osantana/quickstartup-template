@@ -16,7 +16,7 @@ QUOTED = '''["']%s["']'''
 CHANGELOG_HEADER = """# Changelog
 
 """
-LOG_FORMAT = "* [view commit](http://github.com/osantana/cookiecutter-quickstartup/commit/%H) %s"
+LOG_FORMAT = u"* [\U0001F512](http://github.com/osantana/quickstartup/commit/%H) %s"
 
 RAW_FILES_EXT = (
     ".html",
