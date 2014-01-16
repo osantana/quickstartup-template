@@ -1,3 +1,0 @@
--r local.txt
-cookiecutter
-binaryornot
