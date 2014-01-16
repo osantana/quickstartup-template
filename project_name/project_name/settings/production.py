@@ -12,10 +12,9 @@ FRONTEND_DIR = PROJECT_DIR["frontend"]
 
 
 # Project Info
-PROJECT_NAME = "Example Project"
-PROJECT_DOMAIN = "example.com"
-PROJECT_CREATOR = "Quickstartup Inc."
-PROJECT_CONTACT = "contact@example.com"
+PROJECT_NAME = "Django QuickStartup"
+PROJECT_DOMAIN = "quickstartup.us"
+PROJECT_CONTACT = "contact@quickstartup.us"
 
 # Debug & Development
 DEBUG = config("DEBUG", default=False, cast=bool)
