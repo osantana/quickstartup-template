@@ -21,6 +21,7 @@ LOG_FORMAT = u"* [\U0001F512](http://github.com/osantana/quickstartup/commit/%H)
 RAW_FILES_EXT = (
     ".html",
     ".txt",
+    ".json",
 )
 
 
