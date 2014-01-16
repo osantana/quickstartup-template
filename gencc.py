@@ -16,7 +16,7 @@ QUOTED = '''["']%s["']'''
 CHANGELOG_HEADER = """# Changelog
 
 """
-LOG_FORMAT = "* [view commit](http://github.com/osantana/cookiecutter-quickstartup/commit/%H) %s"
+LOG_FORMAT = u"* [\U0001F512](http://github.com/osantana/quickstartup/commit/%H) %s"
 
 RAW_FILES_EXT = (
     ".html",
@@ -47,10 +47,10 @@ def export(target):
 
 def generate_changelog(target):
     changelog = os.path.join(target, "Changelog.md")
-    cmd = 'git log --pretty=format:"%s"' % LOG_FORMAT
+    cmd = u'git log --pretty=format:"%s"' % LOG_FORMAT
     with open(changelog, "w") as log:
         log.write(CHANGELOG_HEADER)
-    os.system("{cmd} >> {changelog}".format(cmd=cmd, changelog=changelog))
+    os.system(u"{cmd} >> {changelog}".format(cmd=cmd, changelog=changelog).encode("utf-8"))
 
 
 def load_settings(target):
