@@ -6,9 +6,11 @@ import argparse
 import shutil
 import json
 import codecs
+import re
 
 
 COOKIECUTTER_REPO = "git@github.com:osantana/cookiecutter-quickstartup.git"
+QUOTED = '''["']%s["']'''
 
 REMOVE_LIST = (
     'gencc.py',
@@ -34,7 +36,6 @@ def clone(target):
 
         path = os.path.join(target, filename)
 
-        print path,
         if os.path.isdir(path):
             shutil.rmtree(os.path.join(target, filename))
         else:
@@ -82,7 +83,7 @@ def generate_cookiecutter(target, settings):
             target = []
             for line in source:
                 for key, value in settings.iteritems():
-                    line = line.replace(key, value)
+                    line = re.sub(QUOTED % (key,), '"%s"' % (value,), line)
                 target.append(line)
 
             if ext in RAW_FILES_EXT:
