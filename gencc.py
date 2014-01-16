@@ -8,6 +8,8 @@ import json
 import codecs
 import re
 
+from binaryornot.check import is_binary
+
 
 COOKIECUTTER_REPO = "git@github.com:osantana/cookiecutter-quickstartup.git"
 QUOTED = '''["']%s["']'''
@@ -18,10 +20,6 @@ REMOVE_LIST = (
 
 RAW_FILES_EXT = (
     ".html",
-)
-
-SKIP_FILES_EXT = (
-    ".png",
 )
 
 
@@ -66,9 +64,8 @@ def generate_cookiecutter(target, settings):
 
         for basename in files:
             filename = os.path.join(path, basename)
-            ext = os.path.splitext(filename)[-1]
 
-            if ext in SKIP_FILES_EXT:
+            if is_binary(filename) or basename == "cookiecutter.json":
                 continue
 
             if basename in REMOVE_LIST:
@@ -86,6 +83,7 @@ def generate_cookiecutter(target, settings):
                     line = re.sub(QUOTED % (key,), '"%s"' % (value,), line)
                 target.append(line)
 
+            ext = os.path.splitext(filename)[-1]
             if ext in RAW_FILES_EXT:
                 target[0] = "{% raw %}" + target[0]
                 target[-1] += "{% endraw %}"
