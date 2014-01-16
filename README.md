@@ -20,7 +20,7 @@ mkproject myproject  # mkproject is a virtualenvwrapper alias
 This will auto-activate `myproject` virtualenv. Make sure that this virtualenv
 is enabled when developing your project.
 
-- Install cookiecooter
+- Install cookiecutter
 
 ```shell
 pip install cookiecutter
