@@ -16,6 +16,7 @@ QUOTED = '''["']%s["']'''
 
 REMOVE_LIST = (
     'gencc.py',
+    'meta.txt',
 )
 
 RAW_FILES_EXT = (
