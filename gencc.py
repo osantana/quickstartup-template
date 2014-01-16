@@ -13,11 +13,10 @@ from binaryornot.check import is_binary
 
 COOKIECUTTER_REPO = "git@github.com:osantana/cookiecutter-quickstartup.git"
 QUOTED = '''["']%s["']'''
+CHANGELOG_HEADER = """# Changelog
 
-REMOVE_LIST = (
-    'gencc.py',
-    'meta.txt',
-)
+"""
+LOG_FORMAT = "* [view commit](http://github.com/osantana/cookiecutter-quickstartup/commit/%H) %s"
 
 RAW_FILES_EXT = (
     ".html",
@@ -45,6 +44,14 @@ def export(target):
     os.system("git archive master | tar -x -C {dir}".format(dir=target))
 
 
+def generate_changelog(target):
+    changelog = os.path.join(target, "Changelog.md")
+    cmd = 'git log --pretty=format:"%s"' % LOG_FORMAT
+    with open(changelog, "w") as log:
+        log.write(CHANGELOG_HEADER)
+    os.system("{cmd} >> {changelog}".format(cmd=cmd, changelog=changelog))
+
+
 def load_settings(target):
     with open(os.path.join(target, "cookiecutter.json")) as settings_file:
         settings = json.load(settings_file)
@@ -67,10 +74,6 @@ def generate_cookiecutter(target, settings):
             filename = os.path.join(path, basename)
 
             if is_binary(filename) or basename == "cookiecutter.json":
-                continue
-
-            if basename in REMOVE_LIST:
-                os.remove(filename)
                 continue
 
             source = codecs.open(filename, encoding="utf-8").readlines()
@@ -104,7 +107,8 @@ def main():
     export(target)
     settings = load_settings(target)
     generate_cookiecutter(target, settings)
-
+    generate_changelog(target)
+    # TODO: commit with changelog message & push (?)
 
 if __name__ == "__main__":
     main()
