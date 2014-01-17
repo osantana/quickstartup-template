@@ -25,7 +25,7 @@ TEMPLATE_DEBUG = config("TEMPLATE_DEBUG", default=DEBUG, cast=bool)
 DATABASES = {
     'default': config(
         'DATABASE_URL',
-        default='sqlite:///' + PROJECT_DIR.child('db.sqlite3'),
+        default='sqlite:///%s' % (PROJECT_DIR["db.sqlite3"],),
         cast=parse_db_url
     )
 }
