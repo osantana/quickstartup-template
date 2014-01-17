@@ -51,7 +51,8 @@ class CustomUserChangeForm(forms.ModelForm):
 
 
 class CustomAuthenticationForm(AuthenticationForm):
-    username = forms.EmailField(max_length=254, widget=EmailInput())
+    username = forms.EmailField(label=_("E-Mail"), max_length=254, widget=EmailInput(attrs={"class": "form-control"}))
+    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput(attrs={"class": "form-control"}))
 
 
 class CustomPasswordResetForm(PasswordResetForm):

@@ -1,6 +1,7 @@
 *.py[co]
 *.mo
 *.db
+*.sqlite3
 .DS_Store
 .idea
 *.swp*
