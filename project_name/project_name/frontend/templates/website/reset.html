@@ -7,8 +7,8 @@
 {% block container %}
     <div class="container">
         <div class="row">
-            <div class="offset3 span6">
-                <form action="" method="post" class="login-panel form-horizontal">
+            <div class="col-md-offset-3 col-md-6">
+                <form action="" method="post" class="form-panel" role="form">
                     {% csrf_token %}
                         <h2>{% trans "Reset password" %}</h2>
 
@@ -22,23 +22,17 @@
                         {% endif %}
 
                         {% with field=form.email %}
-                            <div class="control-group{% if field.errors %} error{% endif %}">
+                            <div class="form-group{% if field.errors %} has-error{% endif %}">
                                 <label class="control-label" for="id_username">{{ field.label }}</label>
-
-                                <div class="controls">
-                                    {{ field }}
-                                    {% if field.errors %}<span class="help-inline">{{ field.errors|join:", " }}</span>{% endif %}
-                                </div>
-
+                                {{ field }}
+                                {% if field.errors %}<span class="help-block">{{ field.errors|join:", " }}</span>{% endif %}
                             </div>
                         {% endwith %}
 
-                        <div class="controls">
+                        <div class="form-group">
                             <button class="btn btn-primary" type="submit">{% trans "Reset" %}</button>
-                            <a href="{% url "signin" %}" class="btn">{% trans "Back" %}</a>
+                            <a class="btn btn-default" href="{% url "signin" %}" class="btn">{% trans "Back" %}</a>
                         </div>
-
-
                 </form>
             </div>
         </div>

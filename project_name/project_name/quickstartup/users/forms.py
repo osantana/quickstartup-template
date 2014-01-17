@@ -3,7 +3,10 @@
 
 from django import forms
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import get_connection
+from django.template import RequestContext
 from django.utils.http import int_to_base36
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import ReadOnlyPasswordHashField, PasswordResetForm, AuthenticationForm
@@ -56,9 +59,24 @@ class CustomAuthenticationForm(AuthenticationForm):
 
 
 class CustomPasswordResetForm(PasswordResetForm):
-    def notify(self, context, token_generator, subject_template_name, email_template_name, html_email_template_name,
-               use_https):
-        for user in self.users_cache:
+    email = forms.EmailField(label=_("E-Mail"), max_length=254, widget=EmailInput(attrs={"class": "form-control"}))
+
+    def save(self, domain_override=None,
+         subject_template_name='registration/password_reset_subject.txt',
+         email_template_name='registration/password_reset_email.txt',
+         html_email_template_name='registration/password_reset_email.html',
+         use_https=False, token_generator=default_token_generator,
+         from_email=None, request=None):
+
+        context = RequestContext(request)
+
+        user_model = get_user_model()
+        email = self.cleaned_data["email"]
+        active_users = user_model.objects.filter(email__iexact=email, is_active=True)
+        for user in active_users:
+            if not user.has_usable_password():
+                continue
+
             context.update({
                 "user": user,
                 "token": token_generator.make_token(user),

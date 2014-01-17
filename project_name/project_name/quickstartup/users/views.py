@@ -28,9 +28,8 @@ def password_reset(request, post_reset_redirect=None, form_class=CustomPasswordR
     if request.method == "POST":
         form = form_class(request.POST)
         if form.is_valid():
-            context = RequestContext(request)
-            form.notify(
-                context=context,
+            form.save(
+                request=request,
                 token_generator=default_token_generator,
                 subject_template_name=subject_template_name,
                 email_template_name=text_email_template_name,
