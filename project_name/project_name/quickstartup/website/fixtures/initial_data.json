@@ -3,18 +3,6 @@
         "pk": 1,
         "model": "website.page",
         "fields": {
-            "url": "/",
-            "name": "home",
-            "content": "<div class=\"container\">\r\n      <div class=\"jumbotron\">\r\n        <h1>{{ PROJECT_NAME }}</h1>\r\n        <p>This is a template for a simple web application in Django.</p>\r\n        <p><a href=\"{% url \"signup\" %}\" class=\"btn btn-primary btn-large\">Create your Account!</a></p>\r\n      </div>\r\n      <div class=\"row\">\r\n        <div class=\"span4\">\r\n          <h2>Start Now!</h2>\r\n          <p>Quickstartup provides the basic components and design to start your web application quickly.</p>\r\n          </div>\r\n        <div class=\"span4\">\r\n          <h2>Go Live!</h2>\r\n          <p>Quickstartup includes deployment script for the major Django host providers. You can put your application online with one command.</p>\r\n          </div>\r\n        <div class=\"span4\">\r\n          <h2>Customize!</h2>\r\n          <p>Quickstartup is highly customizable. You can change almost everything in functionalities provided by Quickstartup.</p>\r\n          </div>\r\n      </div>\r\n</div>",
-            "template_name": "",
-            "registration_required": false,
-            "title": ""
-        }
-    },
-    {
-        "pk": 2,
-        "model": "website.page",
-        "fields": {
             "url": "/privacy/",
             "name": "privacy",
             "content": "<div class=\"container\">\r\n  <div class=\"row-fluid\">\r\n    <div class=\"offset1 span10\">\r\n<div class=\"content\">\r\n<h1>Privacy Policy</h1>\r\n<p><a href=\"https://www.iubenda.com/\">Create your Privacy Policy here</a></p>\r\n</div>\r\n    </div>\r\n  </div>\r\n</div>",
@@ -24,7 +12,7 @@
         }
     },
     {
-        "pk": 3,
+        "pk": 2,
         "model": "website.page",
         "fields": {
             "url": "/terms/",

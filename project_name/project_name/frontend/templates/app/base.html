@@ -20,80 +20,56 @@
 
 
 {% block html_body %}
+<div id="wrap">
     {% block navbar %}
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        {% block navbar_responsive %}
-                            <span class="icon-bar"></span>
-                        {% endblock %}
-                    </button>
-
-                    {% block brand %}<a class="brand" href="{% url "app-dashboard" %}">{{ PROJECT_NAME }}</a>{% endblock %}
-
-                    {% block navbar_menu %}
-                        <div class="nav-collapse collapse">
-                            <ul class="nav">
-                                {% block navbar_options %}{% endblock %}
+    <div class="container">
+        <div class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {% block brand %}{% endblock %}
+            </div> <!-- .navbar-header -->
+            {% block navbar_menu %}
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    {% block navbar_options %}{% endblock %}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% block navbar_right_options %}{% endblock %}
+                    {% block menu_profile %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                {{ user.email }} <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url "profile" %}">{% trans "Profile" %}</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{% url "logout" %}">{% trans "Logout" %}</a></li>
                             </ul>
-
-                            <ul class="nav pull-right">
-                                {% block navbar_right_options %}{% endblock %}
-
-                                {% block menu_profile %}
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            {{ user.email }} <b class="caret"></b>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="{% url "profile" %}">{% trans "Profile" %}</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="{% url "logout" %}">{% trans "Logout" %}</a></li>
-                                        </ul>
-                                    </li>
-                                {% endblock %}
-
-                            </ul>
-                        </div>
+                        </li>
                     {% endblock %}
-                </div>
-            </div>
-        </div>
+                </ul>
+            </div> <!-- .navbar-collapse -->
+            {% endblock %}
+        </div> <!-- .navbar-default -->
+    </div> <!-- container -->
     {% endblock %}
 
-    {% block container %}
-        <div class="container-fluid">
-            <div class="row-fluid">
+    {% block container %}{% endblock %}
 
-                <div class="span3">
-                    <div class="well sidebar-nav">
-                        <ul class="nav nav-list">
-                            {% block sidebar %}{% endblock %}
-                        </ul>
-                    </div>
-                </div>
+</div> <!-- #wrap -->
 
-                <div class="span9">
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <div class="content">
-                                {% block content %}{% endblock %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{% block footer %}
+<footer><div id="footer" role="footer">
+    <div class="container">
+        <hr>
+        {% block footer_content %}{% endblock %}
+    </div>
+</div></footer>
+{% endblock footer %}
 
-            </div>
-        </div>
-    {% endblock %}
-
-    {% block footer %}
-        <div class="container">
-            <hr>
-            <footer>
-                <p>&copy; {{ PROJECT_COPYRIGHT }}. {{ PROJECT_LICENSE }}</p>
-            </footer>
-        </div>
-    {% endblock footer %}
 {% endblock %}

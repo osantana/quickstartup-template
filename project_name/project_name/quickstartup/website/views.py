@@ -62,3 +62,7 @@ def contact(request, post_contact_redirect=None, form_class=ContactForm, templat
         form = form_class()
 
     return render(request, template_name, {"form": form})
+
+
+def homepage(request):
+    return render(request, "website/homepage.html")

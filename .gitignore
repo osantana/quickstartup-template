@@ -8,4 +8,4 @@
 *~
 *.tmproj
 .env
-deploy.cfg
+app-messages

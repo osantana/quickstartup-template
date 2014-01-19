@@ -12,7 +12,7 @@ FRONTEND_DIR = PROJECT_DIR["frontend"]
 
 
 # Project Info
-PROJECT_NAME = "Django QuickStartup"
+PROJECT_NAME = "Django Quickstartup"
 PROJECT_DOMAIN = "quickstartup.us"
 PROJECT_CONTACT = "contact@quickstartup.us"
 
@@ -41,7 +41,7 @@ DEFAULT_TRANSACTIONAL_EMAIL = {
 ALLOWED_HOSTS = []
 SECRET_KEY = config("SECRET_KEY")
 AUTH_USER_MODEL = "users.User"
-LOGIN_REDIRECT_URL = "/dashboard/"
+LOGIN_REDIRECT_URL = "/app/"
 LOGIN_URL = "/accounts/signin/"
 ACCOUNT_ACTIVATION_DAYS = 7
 

@@ -1,0 +1,10 @@
+{% extends "app/project.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+
+
+{% block sidebar_home %}<li class="active"><a href="{% url "app-home" %}">{% trans "Home" %}</a></li>{% endblock %}
+
+
+{% block content %}
+    <h1>{% trans "Home" %}</h1>
+    <p>{% trans "This is the home." %}</p>
+{% endblock %}

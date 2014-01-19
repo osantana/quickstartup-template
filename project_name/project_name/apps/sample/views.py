@@ -6,5 +6,5 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required
-def dashboard(request, *args, **kwargs):
-    return render(request, "app/dashboard.html", kwargs)
+def home(request, *args, **kwargs):
+    return render(request, "app/home.html", kwargs)

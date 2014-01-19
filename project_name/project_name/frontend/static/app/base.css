@@ -1,12 +1,6 @@
 /* Global */
 body {
-    padding-top: 60px;
-    padding-bottom: 40px;
-}
-
-/* App page */
-body.app {
-    background-color: #f5f5f5;
+    padding-top: 10px;
 }
 
 /* Sidebar */

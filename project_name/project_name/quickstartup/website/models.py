@@ -27,7 +27,7 @@ class Page(models.Model):
     class Meta:
         ordering = ('name',)
 
-    def __repr__(self):
+    def __unicode__(self):
         return "<Page: %s url: %s>" % (self.name, self.url)
 
     def get_absolute_url(self):

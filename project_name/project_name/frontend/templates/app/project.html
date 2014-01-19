@@ -1,9 +1,41 @@
 {% extends "app/base.html" %}{% load i18n %}{% load l10n %}{% load pages %}
 
 
-{% block sidebar %}
-    {% block sidebar_dashboard %}<li><a href="{% url "app-dashboard" %}">{% trans "Dashboard" %}</a></li>{% endblock %}
-    <li class="nav-header">Sidebar</li>
-    {% block sidebar_link1 %}<li><a href="#">Link 1</a></li>{% endblock %}
-    {% block sidebar_link2 %}<li><a href="#">Link 2</a></li>{% endblock %}
-{% endblock %}
+{% block brand %}<a class="navbar-brand" href="{% url "app-home" %}">{{ PROJECT_NAME }}</a>{% endblock %}
+
+
+{% block container %}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    {% block sidebar %}{% endblock %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="span9">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="content">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock container %}
+
+
+{% block footer_content %}
+    <p class="pull-left">
+        &copy; {{ PROJECT_NAME }}
+    </p>
+    <p class="pull-right">
+        <a href="{% page_url "privacy" %}">{% trans "Privacy" %}</a> |
+        <a href="{% page_url "terms" %}">{% trans "Terms" %}</a>
+    </p>
+{% endblock footer_content %}
