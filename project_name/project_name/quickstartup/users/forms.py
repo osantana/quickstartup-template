@@ -7,9 +7,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import get_connection
 from django.template import RequestContext
-from django.utils.http import int_to_base36
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.forms import ReadOnlyPasswordHashField, PasswordResetForm, AuthenticationForm
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, PasswordResetForm, AuthenticationForm, SetPasswordForm
 
 from ..commons.messages import HTMLMessage
 from ..commons.widgets import EmailInput
@@ -62,11 +63,11 @@ class CustomPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label=_("E-Mail"), max_length=254, widget=EmailInput(attrs={"class": "form-control"}))
 
     def save(self, domain_override=None,
-         subject_template_name='registration/password_reset_subject.txt',
-         email_template_name='registration/password_reset_email.txt',
-         html_email_template_name='registration/password_reset_email.html',
-         use_https=False, token_generator=default_token_generator,
-         from_email=None, request=None):
+             subject_template_name='registration/password_reset_subject.txt',
+             email_template_name='registration/password_reset_email.txt',
+             html_email_template_name='registration/password_reset_email.html',
+             use_https=False, token_generator=default_token_generator,
+             from_email=None, request=None):
 
         context = RequestContext(request)
 
@@ -78,10 +79,11 @@ class CustomPasswordResetForm(PasswordResetForm):
                 continue
 
             context.update({
-                "user": user,
-                "token": token_generator.make_token(user),
-                "uid": int_to_base36(user.pk),
-                "protocol": use_https and 'https' or 'http',
+                'email': user.email,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'user': user,
+                'token': token_generator.make_token(user),
+                'protocol': 'https' if use_https else 'http',
             })
 
             message = HTMLMessage(settings.DEFAULT_FROM_EMAIL, user.email, subject_template_name, email_template_name,
@@ -89,3 +91,8 @@ class CustomPasswordResetForm(PasswordResetForm):
 
             connection = get_connection()
             connection.send_messages([message])
+
+
+class CustomSetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(label=_("New password"), widget=forms.PasswordInput(attrs={"class": "form-control"}))
+    new_password2 = forms.CharField(label=_("New password confirmation"), widget=forms.PasswordInput(attrs={"class": "form-control"}))

@@ -3,7 +3,7 @@
 
 from django.conf.urls import patterns, url
 
-from .forms import CustomAuthenticationForm
+from .forms import CustomAuthenticationForm, CustomSetPasswordForm
 
 
 urlpatterns = patterns('',
@@ -16,8 +16,9 @@ urlpatterns = patterns('',
     url(r'^password/reset/done/$', "django.contrib.auth.views.password_reset_done",
         {"template_name": "website/reset-done.html"},
         name="password-reset-done"),
-    url(r'^password/reset/(?P<uidb36>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        "django.contrib.auth.views.password_reset_confirm", {"template_name": "website/reset-confirm.html"},
+    url(r'^password/reset/(?P<uidb64>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        "django.contrib.auth.views.password_reset_confirm",
+        {"template_name": "website/reset-confirm.html", "set_password_form": CustomSetPasswordForm},
         name='password_reset_confirm'),
     url(r'^password/reset/complete/$', "django.contrib.auth.views.password_reset_complete",
         {"template_name": "website/reset-complete.html"},

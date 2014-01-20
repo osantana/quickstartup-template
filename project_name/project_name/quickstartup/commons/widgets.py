@@ -14,6 +14,11 @@ class EmailInput(forms.TextInput):
 class PhoneInput(forms.TextInput):
     input_type = "tel"
 
+    class Media:
+        js = ("lib/jquery/jquery.js",
+              "lib/jquery/jquery.inputmask.js",
+              "widgets/phone.js")
+
 
 class AntiCaptchaWidget(forms.widgets.Widget):
     def render(self, name, value, attrs=None):

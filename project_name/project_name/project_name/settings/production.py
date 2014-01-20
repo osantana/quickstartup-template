@@ -70,7 +70,6 @@ WSGI_APPLICATION = "project_name.wsgi.application"
 
 # Media & Static
 MEDIA_URL = "/media/"
-MEDIA_ROOT = str(FRONTEND_DIR["media"])    # FIXME: Deployment config
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (
@@ -109,6 +108,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
 )
 
 INSTALLED_APPS = (

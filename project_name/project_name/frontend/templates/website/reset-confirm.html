@@ -7,47 +7,39 @@
 {% block container %}
     <div class="container">
         <div class="row">
-            <div class="offset3 span6">
-                <form action="" method="post" class="login-panel form-horizontal">
+            <div class="col-md-offset-3 col-md-6">
+                <form action="" method="post" class="form-panel">
                     {% csrf_token %}
-                        <h2>{% trans "Enter new password" %}</h2>
+                    <h2>{% trans "Enter new password" %}</h2>
 
-                        <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
+                    <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
 
-                        {% if form.non_field_errors %}
-                        <div class="alert alert-error">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            {{ form.non_field_errors|join:", " }}
-                        </div>
-                        {% endif %}
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-error">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ form.non_field_errors|join:", " }}
+                    </div>
+                    {% endif %}
 
-                        {% with field=form.new_password1 %}
-                            <div class="control-group{% if field.errors %} error{% endif %}">
-                                <label class="control-label" for="{{ field.auto_id }}">{% trans "Password" %}</label>
+                    {% with field=form.new_password1 %}
+                    <div class="form-group{% if field.errors %} has-error{% endif %}">
+                        <label class="control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<span class="help-block">{{ field.errors|join:", " }}</span>{% endif %}
+                    </div>
+                    {% endwith %}
 
-                                <div class="controls">
-                                    {{ field }}
-                                    {% if field.errors %}<span class="help-inline">{{ field.errors|join:", " }}</span>{% endif %}
-                                </div>
+                    {% with field=form.new_password2 %}
+                    <div class="form-group{% if field.errors %} has-error{% endif %}">
+                        <label class="control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<span class="help-block">{{ field.errors|join:", " }}</span>{% endif %}
+                    </div>
+                    {% endwith %}
 
-                            </div>
-                        {% endwith %}
-
-                        {% with field=form.new_password2 %}
-                            <div class="control-group{% if field.errors %} error{% endif %}">
-                                <label class="control-label" for="{{ field.auto_id }}">{% trans "Password" %} <small>{% trans "(again)" %}</small></label>
-
-                                <div class="controls">
-                                    {{ field }}
-                                    {% if field.errors %}<span class="help-inline">{{ field.errors|join:", " }}</span>{% endif %}
-                                </div>
-
-                            </div>
-                        {% endwith %}
-
-                        <div class="controls">
-                            <button class="btn btn-primary" type="submit">{% trans "Change my password" %}</button>
-                        </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">{% trans "Change my password" %}</button>
+                    </div>
                 </form>
             </div>
         </div>

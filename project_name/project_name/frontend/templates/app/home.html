@@ -1,7 +1,7 @@
 {% extends "app/project.html" %}{% load i18n %}{% load l10n %}{% load pages %}
 
 
-{% block sidebar_home %}<li class="active"><a href="{% url "app-home" %}">{% trans "Home" %}</a></li>{% endblock %}
+{% block sidebar_home %}<a class="list-group-item active" href="{% url "app-home" %}">{% trans "Home" %}</a>{% endblock %}
 
 
 {% block content %}

@@ -5,19 +5,19 @@
 
 
 {% block container %}
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span3">
-            <div class="well sidebar-nav">
-                <ul class="nav nav-list">
-                    {% block sidebar %}{% endblock %}
-                </ul>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            {% block sidebar %}
+            <div class="sidebar-nav list-group">
+                {% block sidebar_home %}<a class="list-group-item" href="{% url "app-home" %}">{% trans "Home" %}</a>{% endblock %}
             </div>
+            {% endblock %}
         </div>
 
-        <div class="span9">
-            <div class="row-fluid">
-                <div class="span12">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12">
                     <div class="content">
                         {% block content %}{% endblock %}
                     </div>

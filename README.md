@@ -7,7 +7,6 @@
 - pip
 - virtualenvwrapper (recommended)
 - autoenv (recommended)
-- node.js (for frontend development)
 
 ## Starting a new project
 
