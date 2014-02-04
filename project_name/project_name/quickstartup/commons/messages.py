@@ -3,12 +3,16 @@
 
 import os
 import re
+import posixpath
 import email.charset
+
 from email.mime.image import MIMEImage
+from urllib import unquote
 
 from django.conf import settings
 from django.core.mail import SafeMIMEMultipart, SafeMIMEText
 from django.template import loader
+from django.contrib.staticfiles import finders
 
 
 INLINE_SCHEME = re.compile(r' src="inline://(?P<path>.*?)" ?', re.MULTILINE)
@@ -54,16 +58,21 @@ class HTMLMessage(object):
         mail.attach(alternative)
 
         for index, path in enumerate(paths):
+            path = path.strip()
             if path.startswith(settings.STATIC_URL):
                 path = path[len(settings.STATIC_URL):]
 
-            path = os.path.join(settings.STATIC_ROOT, path)
+            path = posixpath.normpath(unquote(path)).lstrip('/')
 
-            with open(path, "rb") as fp:
+            if settings.DEBUG:
+                resolved_path = finders.find(path)
+            else:
+                resolved_path = os.path.join(settings.STATIC_ROOT, path)
+
+            with open(resolved_path, "rb") as fp:
                 image = MIMEImage(fp.read())
 
             image.add_header('Content-ID', '<image-%05d>' % (index + 1))
             mail.attach(image)
 
         return mail
-

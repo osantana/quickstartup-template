@@ -25,7 +25,7 @@ TEMPLATE_DEBUG = config("TEMPLATE_DEBUG", default=DEBUG, cast=bool)
 DATABASES = {
     'default': config(
         'DATABASE_URL',
-        default='sqlite:///%s' % (PROJECT_DIR["db.sqlite3"],),
+        default='sqlite:///%s' % (BASE_DIR["db.sqlite3"],),
         cast=parse_db_url
     )
 }
@@ -38,7 +38,7 @@ DEFAULT_TRANSACTIONAL_EMAIL = {
 }
 
 # Security & Authentication
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 SECRET_KEY = config("SECRET_KEY")
 AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "/app/"
@@ -70,8 +70,10 @@ WSGI_APPLICATION = "project_name.wsgi.application"
 
 # Media & Static
 MEDIA_URL = "/media/"
+MEDIA_ROOT = str(BASE_DIR["media"])
 
 STATIC_URL = "/static/"
+STATIC_ROOT = str(BASE_DIR["static"])
 STATICFILES_DIRS = (
     str(FRONTEND_DIR["static"]),
 )

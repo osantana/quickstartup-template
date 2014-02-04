@@ -4,8 +4,8 @@
 {% block head_title %}{{ subject }}{% endblock %}
 
 
-{% block logo %}<img src="inline://{% static "website/logo-200x50.png" %}"/>{% endblock %}
+{% block logo %}<img src="inline://{{ STATIC_URL }}website/logo-200x50.png  "/>{% endblock %}
 
 {% block footer_content %}
-    <p>&copy; {{ PROJECT_COPYRIGHT }}. {{ PROJECT_LICENSE }}</p>
+    <p>&copy; {{ PROJECT_NAME }}</p>
 {% endblock %}

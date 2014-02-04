@@ -1,10 +1,11 @@
 *.py[co]
 *.mo
-*.sqlite3
 .DS_Store
 .idea
 *.swp*
 *~
 *.tmproj
 .env
-app-messages
+project_name/app-messages
+project_name/static
+project_name/db.sqlite3
