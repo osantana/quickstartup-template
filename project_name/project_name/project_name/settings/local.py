@@ -8,7 +8,7 @@ EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = str(BASE_DIR["app-messages"])
 
 # Media & Static
-MEDIA_ROOT = str(FRONTEND_DIR["media"])    # FIXME: Deployment config
+MEDIA_ROOT = str(BASE_DIR["media"])    # FIXME: Deployment config
 STATIC_ROOT = str(BASE_DIR["static"])
 
 TIME_ZONE = "America/Sao_Paulo"
