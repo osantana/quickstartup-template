@@ -4,3 +4,4 @@ South==0.8.4
 django-extensions==1.2.5
 dj-database-url==0.2.2
 django-decouple==2.1
+django-widget-tweaks==1.3
