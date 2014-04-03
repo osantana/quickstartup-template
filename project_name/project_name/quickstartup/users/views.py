@@ -65,11 +65,11 @@ def password_reset(request, is_admin_site=False,
 @csrf_protect
 @login_required
 def profile(request, *args, **kwargs):
-    feedback = {}
+    feedbacks = []
     if request.method == 'POST':
         form = CustomUserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
-            feedback['form'] = _(u'Succesfully updated profile')
+            feedbacks.append(_(u'Succesfully updated profile'))
             form.save()
 
         # skip password_form if the user does not try to change it
@@ -79,7 +79,7 @@ def profile(request, *args, **kwargs):
             data = request.POST
         password_form = CustomSetPasswordForm(request.user, data)
         if password_form.is_valid():
-            feedback['password_form'] = _(u'Succesfully updated password')
+            feedbacks.append(_(u'Succesfully updated password'))
             password_form.save()
     else:
         form = CustomUserProfileForm(instance=request.user)
@@ -87,5 +87,5 @@ def profile(request, *args, **kwargs):
 
     context = {'form': form,
                'password_form': password_form,
-               'feedback': feedback}
+               'feedbacks': feedbacks}
     return render(request, 'app/profile.html', context)

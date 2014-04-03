@@ -4,11 +4,12 @@
 
 {% block content %}
     <h2>{% trans "Profile" %}</h2>
-    {% if feedback.form %}
-    <div class="alert alert-success">
-        {{ feedback.form }}
+    {% for feedback in feedbacks %}
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ feedback }}
     </div>
-    {% endif %}
+    {% endfor %}
     <form action="" method="post" class="form-panel" role="form">
         {% csrf_token %}
         {% if form.non_field_errors %}
@@ -27,11 +28,6 @@
         {% endfor %}
 
         <h4>{% trans "Change password" %}</h4>
-         {% if feedback.password_form %}
-        <div class="alert alert-success">
-            {{ feedback.password_form }}
-        </div>
-        {% endif %}
         {% if password_form.non_field_errors %}
         <div class="alert alert-warning">
             <span class="help-block">{{ password_form.non_field_errors|join:", " }}</span>
