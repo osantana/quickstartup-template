@@ -3,13 +3,14 @@
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, resolve_url
-from django.template import RequestContext
 from django.template.response import TemplateResponse
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import ugettext_lazy as _
 
-from .forms import CustomPasswordResetForm
+from .forms import (CustomPasswordResetForm, CustomSetPasswordForm,
+                    CustomUserProfileForm)
 
 
 # User
@@ -61,6 +62,30 @@ def password_reset(request, is_admin_site=False,
     return TemplateResponse(request, template_name, context, current_app=current_app)
 
 
+@csrf_protect
 @login_required
 def profile(request, *args, **kwargs):
-    return render(request, "app/profile.html", kwargs)
+    feedback = {}
+    if request.method == 'POST':
+        form = CustomUserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            feedback['form'] = _(u'Succesfully updated profile')
+            form.save()
+
+        # skip password_form if the user does not try to change it
+        if not (request.POST['new_password1'] or request.POST['new_password2']):
+            data = None
+        else:
+            data = request.POST
+        password_form = CustomSetPasswordForm(request.user, data)
+        if password_form.is_valid():
+            feedback['password_form'] = _(u'Succesfully updated password')
+            password_form.save()
+    else:
+        form = CustomUserProfileForm(instance=request.user)
+        password_form = CustomSetPasswordForm(user=request.user)
+
+    context = {'form': form,
+               'password_form': password_form,
+               'feedback': feedback}
+    return render(request, 'app/profile.html', context)

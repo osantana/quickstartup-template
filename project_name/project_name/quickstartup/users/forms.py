@@ -96,3 +96,10 @@ class CustomPasswordResetForm(PasswordResetForm):
 class CustomSetPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(label=_("New password"), widget=forms.PasswordInput(attrs={"class": "form-control"}))
     new_password2 = forms.CharField(label=_("New password confirmation"), widget=forms.PasswordInput(attrs={"class": "form-control"}))
+
+
+class CustomUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        exclude = ['last_login', 'is_superuser', 'groups', 'user_permissions',
+                   'created', 'is_active', 'is_staff', 'activation_key', 'password']
