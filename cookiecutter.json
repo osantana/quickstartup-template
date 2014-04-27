@@ -1,7 +1,0 @@
-{
-    "deploy_method": "webfaction",
-    "repo_name": "project_name",
-    "domain_name": "quickstartup.us",
-    "project_name": "Django Quickstartup",
-    "contact_address": "contact@quickstartup.us"
-}

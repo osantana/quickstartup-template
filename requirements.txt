@@ -1,4 +1,2 @@
-# This is cookiecutter's generator requirements!
--r project_name/requirements/local.txt
-cookiecutter
-binaryornot
+# This file is used by heroku to install application dependencies
+-r requirements/heroku.txt
