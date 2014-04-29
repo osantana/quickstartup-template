@@ -6,7 +6,7 @@ import sys
 
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_name.settings.production")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_name.settings.production")  # BOOTSTRAP: os.environ.setdefault("DJANGO_SETTINGS_MODULE", "@@name@@.settings.production")
 
     from django.core.management import execute_from_command_line
 

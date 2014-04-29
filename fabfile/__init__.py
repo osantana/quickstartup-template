@@ -3,6 +3,13 @@
 
 from fabric.api import env
 
+from .local import *
 
-env.deploy_method = "webfaction"
 
+DEPLOYMENT_METHODS = (
+    'webfaction',
+    'heroku',
+    'digital_ocean',
+    'linode',
+    'aws',
+)

@@ -5,34 +5,32 @@
 - Python 2.7 or newer
 - virtualenv
 - pip
-- virtualenvwrapper (recommended)
-- autoenv (recommended)
 
 ## Starting a new project
 
-- Create a new project virtualenv
+To start a new project you'll need to install all project requirements and follow the steps bellow.
 
-```shell
-mkproject myproject  # mkproject is a virtualenvwrapper alias
+### Create a new and clone repository
+
+Replace `myproject` with the project's repository name.
+
+```
+$ mkdir myproject
+$ cd myproject
+$ virtualenv .venv
+$ git clone https://github.com/osantana/quickstartup.git myproject
 ```
 
-This will auto-activate `myproject` virtualenv. Make sure that this virtualenv
-is enabled when developing your project.
+### Bootstrap new project
 
-- Install cookiecutter
+Now you need to run the bootstrap script that will ask you some questions about the project that you will start:
 
-```shell
-pip install cookiecutter
+```
+$ myproject/bootstrap.py
 ```
 
-- Start a new project environment
+You can call `bootstrap.py` passing the answers as arguments to script. Show arguments available:
 
-```shell
-cookiecutter https://github.com/osantana/cookiecutter-quickstartup.git
 ```
-
-Cookiecutter will ask you some questions regarding your project and will use
-these informations to initialize your project data.
-
-You can answer the value of these answers in the future.
-
+$ myproject/bootstrap.py --help
+```

@@ -12,9 +12,9 @@ FRONTEND_DIR = PROJECT_DIR["frontend"]
 
 
 # Project Info
-PROJECT_NAME = "Django Quickstartup"
-PROJECT_DOMAIN = "quickstartup.us"
-PROJECT_CONTACT = "contact@quickstartup.us"
+PROJECT_NAME = "Django Quickstartup"  # BOOTSTRAP: PROJECT_NAME = "@@name@@"
+PROJECT_DOMAIN = "quickstartup.us"  # BOOTSTRAP: PROJECT_DOMAIN = "@@domain@@"
+PROJECT_CONTACT = "contact@quickstartup.us"  # BOOTSTRAP: PROJECT_CONTACT = "@@contact@@"
 
 # Debug & Development
 DEBUG = config("DEBUG", default=False, cast=bool)

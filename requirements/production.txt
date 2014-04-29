@@ -1,6 +1,6 @@
-Django==1.6
-pathlib==0.8
-South==0.8.4
+pip==1.5.4
+pathlib==1.0
+-e git+https://github.com/django/django.git@1.7b2#egg=django
 django-extensions==1.2.5
 dj-database-url==0.2.2
-django-decouple==2.1
+python-decouple==2.2
