@@ -6,6 +6,7 @@
 *~
 *.tmproj
 .env
+tmp
 project_name/app-messages
 project_name/static
 project_name/db.sqlite3
