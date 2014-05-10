@@ -5,7 +5,7 @@ from .production import *
 
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = str(BASE_DIR["app-messages"])
+EMAIL_FILE_PATH = str(BASE_DIR / "app-messages")
 
 TIME_ZONE = "America/Sao_Paulo"
 PROJECT_DOMAIN = "localhost:8000"

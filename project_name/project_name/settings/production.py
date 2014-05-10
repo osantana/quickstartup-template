@@ -6,9 +6,9 @@ from decouple import config
 from dj_database_url import parse as parse_db_url
 
 
-BASE_DIR = Path(__file__).parent(4)
-PROJECT_DIR = Path(__file__).parent(3)
-FRONTEND_DIR = PROJECT_DIR["frontend"]
+BASE_DIR = Path(__file__).parents[3]
+PROJECT_DIR = Path(__file__).parents[2]
+FRONTEND_DIR = PROJECT_DIR / "frontend"
 
 
 # Project Info
@@ -25,7 +25,7 @@ TEMPLATE_DEBUG = config("TEMPLATE_DEBUG", default=DEBUG, cast=bool)
 DATABASES = {
     'default': config(
         'DATABASE_URL',
-        default='sqlite:///%s' % (BASE_DIR["db.sqlite3"],),
+        default='sqlite:///%s' % ((BASE_DIR / "db.sqlite3"),),
         cast=parse_db_url
     )
 }
@@ -59,7 +59,7 @@ LANGUAGES = (
 )
 
 LOCALE_PATHS = (
-    str(PROJECT_DIR["locale"]),
+    str(PROJECT_DIR / "locale"),
 )
 
 
@@ -70,12 +70,12 @@ WSGI_APPLICATION = "project_name.wsgi.application"
 
 # Media & Static
 MEDIA_URL = "/media/"
-MEDIA_ROOT = str(BASE_DIR["media"])
+MEDIA_ROOT = str(BASE_DIR / "media")
 
 STATIC_URL = "/static/"
-STATIC_ROOT = str(BASE_DIR["static"])
+STATIC_ROOT = str(BASE_DIR / "static")
 STATICFILES_DIRS = (
-    str(FRONTEND_DIR["static"]),
+    str(FRONTEND_DIR / "static"),
 )
 
 STATICFILES_FINDERS = (
@@ -86,7 +86,7 @@ STATICFILES_FINDERS = (
 
 # Template
 TEMPLATE_DIRS = (
-    str(FRONTEND_DIR["templates"]),
+    str(FRONTEND_DIR / "templates"),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
