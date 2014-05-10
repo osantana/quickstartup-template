@@ -10,12 +10,7 @@ EMAIL_FILE_PATH = str(BASE_DIR / "app-messages")
 TIME_ZONE = "America/Sao_Paulo"
 PROJECT_DOMAIN = "localhost:8000"
 
-MIDDLEWARE_CLASSES += (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
-
-INTERNAL_IPS = ('127.0.0.1',)
-
-INSTALLED_APPS += (
-    'debug_toolbar',
+# Make test running fast
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.MD5PasswordHasher',
 )

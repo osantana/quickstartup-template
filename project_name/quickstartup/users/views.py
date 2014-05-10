@@ -3,7 +3,6 @@
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, resolve_url
-from django.template import RequestContext
 from django.template.response import TemplateResponse
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.tokens import default_token_generator
@@ -29,7 +28,6 @@ def password_reset(request, is_admin_site=False,
                    from_email=None,
                    current_app=None,
                    extra_context=None):
-
     if post_reset_redirect is None:
         post_reset_redirect = reverse('password-reset-done')
     else:

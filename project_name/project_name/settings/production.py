@@ -123,7 +123,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # 3rd party libs
-    'south',
     'django_extensions',
 
     # Quick Startup Apps
