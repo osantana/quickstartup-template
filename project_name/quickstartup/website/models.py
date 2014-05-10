@@ -16,30 +16,6 @@ CONTACT_STATUS = (
 )
 
 
-class Page(models.Model):
-    name = models.CharField(_("name"), max_length=255, unique=True, db_index=True)
-    url = models.CharField(_("URL"), max_length=255, unique=True, db_index=True)
-    title = models.CharField(_("title"), max_length=255, blank=True)
-    content = models.TextField(_("content"), blank=True)
-    template_name = models.CharField(_("template"), max_length=70, blank=True)
-    registration_required = models.BooleanField(_("registration required"), default=False)
-
-    class Meta:
-        ordering = ('name',)
-
-    def __unicode__(self):
-        return "<Page: %s url: %s>" % (self.name, self.url)
-
-    def get_absolute_url(self):
-        return self.url
-
-    def save(self, *args, **kwargs):
-        if not self.name:
-            self.name = self.url.replace("/", "-").strip("-")
-
-        return super(Page, self).save(*args, **kwargs)
-
-
 class Contact(models.Model):
     status = models.CharField(_("status"), max_length=1, choices=CONTACT_STATUS, default="N")
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)

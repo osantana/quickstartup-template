@@ -111,6 +111,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.gzip.GZipMiddleware',
+    'quickstartup.website.middleware.WebsitePageMiddleware',
 )
 
 INSTALLED_APPS = (

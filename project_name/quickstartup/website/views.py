@@ -4,46 +4,19 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
-from django.template import RequestContext, Template, loader
-from django.shortcuts import get_object_or_404, redirect, render
+from django.template import RequestContext
+from django.shortcuts import redirect, render
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
-from django.contrib.auth.views import redirect_to_login
 
 from .forms import ContactForm
-from .models import Page
+from .urlresolver import get_template
 
 
-DEFAULT_TEMPLATE = 'website/page.html'
-
-
-@csrf_protect
-def website_page(request, url):
-    if not url.startswith('/'):
-        url = '/' + url
-
-    if not url.endswith('/'):
-        url += "/"
-
-    page = get_object_or_404(Page, url__exact=url)
-
-    if page.registration_required and not request.user.is_authenticated():
-        return redirect_to_login(request.path)
-
-    page_context = RequestContext(request, {'page': page})
-
-    context = RequestContext(request, {
-        'page': page,
-        'title': Template(page.title).render(page_context),
-        'content': Template(page.content).render(page_context),
-    })
-
-    if page.template_name:
-        template = loader.select_template((page.template_name, DEFAULT_TEMPLATE))
-    else:
-        template = loader.get_template(DEFAULT_TEMPLATE)
-
-    response = HttpResponse(template.render(context))
+def website_page(request, path):
+    template = get_template(path)
+    page_context = RequestContext(request, {'path': path})
+    response = HttpResponse(template.render(page_context))
     return response
 
 
