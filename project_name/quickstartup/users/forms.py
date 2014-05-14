@@ -56,12 +56,12 @@ class CustomUserChangeForm(forms.ModelForm):
 
 
 class CustomAuthenticationForm(AuthenticationForm):
-    username = forms.EmailField(label=_("E-Mail"), max_length=254, widget=EmailInput(attrs={"class": "form-control"}))
-    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput(attrs={"class": "form-control"}))
+    username = forms.EmailField(label=_("E-Mail"), max_length=254, widget=EmailInput())
+    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput())
 
 
 class CustomPasswordResetForm(PasswordResetForm):
-    email = forms.EmailField(label=_("E-Mail"), max_length=254, widget=EmailInput(attrs={"class": "form-control"}))
+    email = forms.EmailField(label=_("E-Mail"), max_length=254, widget=EmailInput())
 
     def save(self, domain_override=None,
              subject_template_name='registration/password_reset_subject.txt',
@@ -95,5 +95,5 @@ class CustomPasswordResetForm(PasswordResetForm):
 
 
 class CustomSetPasswordForm(SetPasswordForm):
-    new_password1 = forms.CharField(label=_("New password"), widget=forms.PasswordInput(attrs={"class": "form-control"}))
-    new_password2 = forms.CharField(label=_("New password confirmation"), widget=forms.PasswordInput(attrs={"class": "form-control"}))
+    new_password1 = forms.CharField(label=_("New password"), widget=forms.PasswordInput())
+    new_password2 = forms.CharField(label=_("New password confirmation"), widget=forms.PasswordInput())

@@ -2,7 +2,7 @@
 
 
 from datetime import datetime, timedelta
-from hashlib import sha512
+from hashlib import sha1
 
 from django.conf import settings
 
@@ -18,4 +18,4 @@ def get_antispam_tokens():
         settings.SECRET_KEY + yesterday,
     )
 
-    return [sha512(secret).hexdigest() for secret in secrets]
+    return [sha1(secret).hexdigest() for secret in secrets]

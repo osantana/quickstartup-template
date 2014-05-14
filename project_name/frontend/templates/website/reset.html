@@ -1,4 +1,4 @@
-{% extends "website/project.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+{% extends "website/project.html" %}{% load i18n l10n pages widget_tweaks %}
 
 
 {% block menu_signin %}<li class="active"><a href="{% url "signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
@@ -12,22 +12,10 @@
                     {% csrf_token %}
                     <h2>{% trans "Reset password" %}</h2>
 
-                    <p>{%  trans "Forgotten your password? Enter your email address below, and we'll email instructions for setting a new one." %}</p>
+                    <p>{% trans "Forgotten your password? Enter your email address below, and we'll email instructions for setting a new one." %}</p>
 
-                    {% if form.non_field_errors %}
-                    <div class="alert alert-error">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        {{ form.non_field_errors|join:", " }}
-                    </div>
-                    {% endif %}
-
-                    {% with field=form.email %}
-                    <div class="form-group{% if field.errors %} has-error{% endif %}">
-                        <label class="control-label" for="id_username">{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}<span class="help-block">{{ field.errors|join:", " }}</span>{% endif %}
-                    </div>
-                    {% endwith %}
+                    {% include "_includes/message_panels.html" %}
+                    {% include "_includes/field.html" with field=form.email|attr:"autofocus" %}
 
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">{% trans "Reset" %}</button>

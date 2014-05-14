@@ -1,9 +1,10 @@
 # coding: utf-8
 
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from ..commons.fields import AntiCaptchaField
+from ..commons.fields import AntiSpamField
 from ..commons.widgets import EmailInput, PhoneInput
 from .models import Contact
 
@@ -11,11 +12,10 @@ from .models import Contact
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ("name", "email", "phone", "message", "anticaptcha")
+        fields = ("name", "email", "phone", "message", "antispam")
 
-    name = forms.CharField(label=_("name"), max_length=255, widget=forms.TextInput(attrs={"class": "form-control"}))
-    email = forms.EmailField(label=_("email"), max_length=255, widget=EmailInput(attrs={"class": "form-control"}))
-    phone = forms.CharField(label=_("phone"), max_length=100, widget=PhoneInput(attrs={"class": "form-control"}),
-                            required=False)
-    message = forms.CharField(label=_("message"), widget=forms.Textarea(attrs={"class": "form-control"}))
-    anticaptcha = AntiCaptchaField()
+    name = forms.CharField(label=_("name"), max_length=255)
+    email = forms.EmailField(label=_("email"), max_length=255, widget=EmailInput())
+    phone = forms.CharField(label=_("phone"), max_length=100, widget=PhoneInput(), required=False)
+    message = forms.CharField(label=_("message"), widget=forms.Textarea())
+    antispam = AntiSpamField()

@@ -124,6 +124,7 @@ INSTALLED_APPS = (
 
     # 3rd party libs
     'django_extensions',
+    'widget_tweaks',
 
     # Quick Startup Apps
     'quickstartup.commons',

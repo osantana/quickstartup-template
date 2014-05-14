@@ -1,13 +1,8 @@
-{% extends "base.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+{% extends "base.html" %}{% load i18n l10n pages widget_tweaks %}
 
 
 {% block styles %}{{ block.super }}
     <link rel="stylesheet" href="{{ STATIC_URL }}website/base.css">
-{% endblock %}
-
-
-{% block end_body %}{{ block.super }}
-    <script src="{{ STATIC_URL }}website/base.js"></script>
 {% endblock %}
 
 

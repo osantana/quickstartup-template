@@ -40,6 +40,11 @@ def list_pages():
     return _cache_page_list
 
 
+def flush_pages_cache():
+    global _cache_page_list
+    _cache_page_list = None
+
+
 def page_reverse(page_name):
     if not valid_name(page_name):
         raise NoReverseMatch("Invalid page name: {}. It must match regex /[-\w]/.".format(page_name))
