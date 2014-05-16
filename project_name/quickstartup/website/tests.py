@@ -3,7 +3,7 @@
 
 from django.core.urlresolvers import NoReverseMatch
 
-from .base import BaseTestCase, TEST_ROOT_DIR
+from ..tests.base import BaseTestCase, TEST_ROOT_DIR
 from quickstartup.website.urlresolver import page_reverse, list_pages
 
 
@@ -62,9 +62,3 @@ class PageTest(BaseTestCase):
             response = self.client.get("/err/or/")
 
         self.assertEquals(response.status_code, 404)
-
-    def test_access_an_existent_url(self):
-        with self.settings(TEMPLATE_DIRS=TEMPLATE_DIRS):
-            response = self.client.get("/contact/")
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "website/contact.html")

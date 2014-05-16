@@ -15,7 +15,8 @@ urlpatterns = patterns('',
     # Django Admin Interface
     url(r"^admin/", include(admin.site.urls)),
 
-    # This url must be the last one
-    url(r"^accounts/", include("quickstartup.users.urls")),
+    # This url mappings must be the last one
+    url(r"^accounts/", include("quickstartup.account.urls")),
+    url(r"^contact/$", include("quickstartup.contact.urls")),
     url(r"^", include("quickstartup.website.urls")),
 )

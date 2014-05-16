@@ -40,7 +40,7 @@ DEFAULT_TRANSACTIONAL_EMAIL = {
 # Security & Authentication
 ALLOWED_HOSTS = ["*"]
 SECRET_KEY = config("SECRET_KEY")
-AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "account.User"
 LOGIN_REDIRECT_URL = "/app/"
 LOGIN_URL = "/accounts/signin/"
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -97,7 +97,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
-    "quickstartup.commons.context_processors.project_infos",
+    "quickstartup.context_processors.project_infos",
 )
 
 
@@ -127,9 +127,9 @@ INSTALLED_APPS = (
     'widget_tweaks',
 
     # Quick Startup Apps
-    'quickstartup.commons',
-    'quickstartup.users',
+    'quickstartup.account',
     'quickstartup.website',
+    'quickstartup.contact',
 
     # QUICKSTARTUP: Your apps, you can replace the sample aplication bellow with your app
     'apps.sample',

@@ -12,18 +12,18 @@ from .models import User
 class UserAdmin(DjangoUserAdmin):
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
-    list_display = ("email", "is_staff", "last_login")
+    list_display = ("name", "email", "is_staff", "last_login")
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (None, {"fields": ("name", "email", "password")}),
         ("Permissions", {"fields": ("is_active", "is_staff", "is_superuser", "groups", "user_permissions")}),
         ("Important dates", {"fields": ("last_login", "created")}),
     )
     add_fieldsets = (
-        (None, {"classes": ("wide",), "fields": ("email", "password1", "password2")},),
+        (None, {"classes": ("wide",), "fields": ("name", "email", "password1", "password2")},),
     )
-    search_fields = ("email",)
-    ordering = ("email",)
+    search_fields = ("name", "email")
+    ordering = ("name", "email")
     filter_horizontal = ('groups', 'user_permissions')
 
 

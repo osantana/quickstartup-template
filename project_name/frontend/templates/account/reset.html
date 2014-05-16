@@ -1,4 +1,4 @@
-{% extends "website/project.html" %}{% load i18n l10n pages widget_tweaks %}
+{% extends "website.html" %}{% load i18n l10n pages widget_tweaks %}
 
 
 {% block menu_signin %}<li class="active"><a href="{% url "signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
@@ -10,16 +10,16 @@
             <div class="col-md-offset-3 col-md-6">
                 <form action="" method="post" class="form-panel" role="form">
                     {% csrf_token %}
-                    <h2>{% trans "Enter new password" %}</h2>
+                    <h2>{% trans "Reset password" %}</h2>
 
-                    <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
+                    <p>{% trans "Forgotten your password? Enter your email address below, and we'll email instructions for setting a new one." %}</p>
 
                     {% include "_includes/message_panels.html" %}
-                    {% include "_includes/field.html" with field=form.new_password1|attr:"autofocus" %}
-                    {% include "_includes/field.html" with field=form.new_password2 %}
+                    {% include "_includes/field.html" with field=form.email|attr:"autofocus" %}
 
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit">{% trans "Change my password" %}</button>
+                        <button class="btn btn-primary" type="submit">{% trans "Reset" %}</button>
+                        <a class="btn btn-default" href="{% url "signin" %}" class="btn">{% trans "Back" %}</a>
                     </div>
                 </form>
             </div>

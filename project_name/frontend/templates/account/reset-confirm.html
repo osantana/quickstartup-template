@@ -1,0 +1,28 @@
+{% extends "website.html" %}{% load i18n l10n pages widget_tweaks %}
+
+
+{% block menu_signin %}<li class="active"><a href="{% url "signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
+
+
+{% block container %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <form action="" method="post" class="form-panel" role="form">
+                    {% csrf_token %}
+                    <h2>{% trans "Enter new password" %}</h2>
+
+                    <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
+
+                    {% include "_includes/message_panels.html" %}
+                    {% include "_includes/field.html" with field=form.new_password1|attr:"autofocus" %}
+                    {% include "_includes/field.html" with field=form.new_password2 %}
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">{% trans "Change my password" %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

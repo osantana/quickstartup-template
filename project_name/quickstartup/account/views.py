@@ -11,17 +11,21 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomPasswordResetForm
 
 
-# User
 def signup(request, *args, **kwargs):
-    return render(request, "website/page.html", kwargs)
+    return render(request, "account/signup.html", kwargs)
+
+
+@login_required
+def profile(request, *args, **kwargs):
+    return render(request, "account/profile.html", kwargs)
 
 
 @csrf_protect
 def password_reset(request, is_admin_site=False,
-                   template_name="website/reset.html",
-                   subject_template_name="website/mail/password-reset-subject.txt",
-                   text_email_template_name="website/mail/password-reset.txt",
-                   html_email_template_name="website/mail/password-reset.html",
+                   template_name="account/reset.html",
+                   subject_template_name="mail/password-reset-subject.txt",
+                   text_email_template_name="mail/password-reset.txt",
+                   html_email_template_name="mail/password-reset.html",
                    password_reset_form=CustomPasswordResetForm,
                    token_generator=default_token_generator,
                    post_reset_redirect=None,
@@ -57,8 +61,3 @@ def password_reset(request, is_admin_site=False,
     if extra_context is not None:
         context.update(extra_context)
     return TemplateResponse(request, template_name, context, current_app=current_app)
-
-
-@login_required
-def profile(request, *args, **kwargs):
-    return render(request, "app/profile.html", kwargs)

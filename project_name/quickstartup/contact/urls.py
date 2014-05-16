@@ -5,5 +5,5 @@ from django.conf.urls import patterns, url
 
 
 urlpatterns = patterns('',
-    url(r"^$", "quickstartup.website.views.homepage", name="homepage"),
+    url(r"^$", "quickstartup.contact.views.contact", name="contact"),
 )

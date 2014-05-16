@@ -1,8 +1,8 @@
 # coding: utf-8
 
-from django.http import Http404
 
 from django.conf import settings
+from django.http import Http404
 
 from .views import website_page
 

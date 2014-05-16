@@ -12,18 +12,18 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import ReadOnlyPasswordHashField, PasswordResetForm, AuthenticationForm, SetPasswordForm
 
-from ..commons.messages import HTMLMessage
-from ..commons.widgets import EmailInput
+from ..messages import HTMLMessage
+from ..widgets import EmailInput
 from .models import User
 
 
 class CustomUserCreationForm(forms.ModelForm):
-    password1 = forms.CharField(label=_('password'), widget=forms.PasswordInput)
-    password2 = forms.CharField(label=_('password (verify)'), widget=forms.PasswordInput)
+    password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_('Password (verify)'), widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('email',)
+        fields = ('name', 'email')
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -49,7 +49,7 @@ class CustomUserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("email", "password")
+        fields = ("name", "email", "password")
 
     def clean_password(self):
         return self.initial["password"]

@@ -1,4 +1,7 @@
-{% extends "website/project.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+{% extends "website.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+
+
+{% block menu_signin %}<li class="active"><a href="{% url "signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
 
 
 {% block container %}

@@ -4,8 +4,8 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from ..commons.fields import AntiSpamField
-from ..commons.widgets import EmailInput, PhoneInput
+from ..fields import AntiSpamField
+from ..widgets import EmailInput, PhoneInput
 from .models import Contact
 
 

@@ -75,7 +75,7 @@ class UserManager(BaseUserManager):
             return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class BaseUser(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     email = models.EmailField(_("email"), max_length=255, unique=True, db_index=True)
@@ -85,6 +85,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     activation_key = models.CharField(_('activation key'), max_length=40, db_index=True)
 
     USERNAME_FIELD = "email"
+
+    class Meta:
+        abstract = True
 
     def get_short_name(self):
         return self.email
@@ -101,3 +104,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             return True
 
     activation_key_expired.boolean = True
+
+
+class User(BaseUser):
+    name = models.CharField(max_length=255, blank=True, null=True)
