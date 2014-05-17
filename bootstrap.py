@@ -6,29 +6,46 @@ from __future__ import print_function, unicode_literals
 
 import argparse
 import codecs
+import fnmatch
 import os
 import random
 import re
 import sys
 
 import pip
-from fabric.tasks import execute
 
-from fabfile import DEPLOYMENT_METHODS
-from fabfile.local import local_setup
 
+DEPLOYMENT_METHODS = (
+    'webfaction',
+    'heroku',
+    'digital_ocean',
+    'linode',
+    'aws',
+)
 
 PY3 = sys.version[0] == 3
 BASE_PATH = os.path.realpath(os.path.dirname(__file__))
 PLACEHOLDER_CONTENT = re.compile(r'^(\s*).*# BOOTSTRAP: *(.*)$')
 PLACEHOLDER_NAME = "project_name"
 SECRET_KEY_SIZE = 50
+DB_USERNAME_SIZE = 15
+DB_PASSWORD_SIZE = 15
 DEFAULT_PROJECT_NAME = "Quickstartup"
 DEFAULT_DOMAIN = "quickstartup.us"
 DEFAULT_CONTACT = "contact@quickstartup.us"
 REQUIREMENTS = [
     "Fabric==1.8.3",
 ]
+IGNORE_LIST = (
+    "bootstrap.py",
+    "*.py[co]",
+    "*.png",
+    "*.jpg",
+    "*.gif",
+    "*.ttf",
+    "*.eot",
+    "*.woff",
+)
 
 if not PY3:
     input = raw_input
@@ -98,6 +115,11 @@ def ask(question, options=None, default=None, validator=lambda v: v):
             return value
 
 
+def _execute_local_setup():
+    from fabric.tasks import execute
+    from fabfile.local import local_setup
+    execute(local_setup)
+
 def setup(echo):
     os.chdir(BASE_PATH)
 
@@ -107,17 +129,35 @@ def setup(echo):
         echo("Cannot install {}".format(", ".join(REQUIREMENTS)))
 
     print("Setup local environment...")
-    execute(local_setup)
+    _execute_local_setup()
+
+
+def generate_random_string(size, symbols=True):
+    allowed_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    if symbols:
+        allowed_chars += "!@#$%^&*(-_=+)"
+    return "".join(random.choice(allowed_chars) for _ in range(size))
 
 
 def create_secret_key():
-    allowed_chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
-    return ''.join(random.choice(allowed_chars) for i in range(SECRET_KEY_SIZE))
+    return generate_random_string(SECRET_KEY_SIZE)
+
+
+def create_db_username():
+    return generate_random_string(DB_USERNAME_SIZE, symbols=False)
+
+
+def create_db_password():
+    return generate_random_string(DB_PASSWORD_SIZE, symbols=False)
 
 
 def render(path, context):
-    with codecs.open(path, encoding="utf-8") as infile:
-        content = infile.readlines()
+    try:
+        with codecs.open(path, encoding="utf-8") as infile:
+            content = infile.readlines()
+    except (IOError, UnicodeError, OSError), ex:
+        print("Error reading {} ({})".format(path, ex))
+        return
 
     for i, line in enumerate(content):
         if not PLACEHOLDER_CONTENT.match(line):
@@ -140,6 +180,8 @@ def create_project(name, deploy_method, project, domain, contact):
         'domain': domain,
         'contact': contact,
         'secret_key': create_secret_key(),
+        'db_username': create_db_username(),
+        'db_password': create_db_password(),
     }
 
     for root, directories, files in os.walk(BASE_PATH):
@@ -155,12 +197,18 @@ def create_project(name, deploy_method, project, domain, contact):
             directories[i] = new_name
 
         for i, filename in enumerate(files):
+            if any(fnmatch.fnmatch(filename, pattern) for pattern in IGNORE_LIST):
+                print("Skipping {}...".format(filename))
+                continue
+
             if PLACEHOLDER_NAME in filename:
                 new_name = filename.replace(PLACEHOLDER_NAME, name)
                 os.rename(os.path.join(root, filename), os.path.join(root, new_name))
                 files[i] = new_name
 
             render(os.path.join(root, files[i]), context)
+
+    return context
 
 
 def main():
@@ -197,9 +245,18 @@ def main():
     if not args.skip_setup:
         setup(parser.error)
 
-    return create_project(name=args.name, deploy_method=args.deploy_method,
-                          project=args.project, domain=args.domain, contact=args.contact)
+    context = create_project(name=args.name, deploy_method=args.deploy_method,
+                             project=args.project, domain=args.domain, contact=args.contact)
+
+    print("⚠️  Create a database {name} in your local PostgreSQL server.".format(**context))
+    print("⚠️  Make database {name} with admin permissions for credentials:\n".format(**context))
+
+    print("    Username: {db_username}".format(**context))
+    print("    Password: {db_password}\n".format(**context))
+
+    print("⚠️  You can change these connection information in your .env file on project root.\n\n")
 
 
 if __name__ == "__main__":
     main()
+
