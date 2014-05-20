@@ -2,26 +2,20 @@
 
 
 from django.core.urlresolvers import reverse
-from django.views.decorators.csrf import csrf_protect
-from django.shortcuts import redirect, render
+from django.views.generic import CreateView
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 
 from .forms import ContactForm
 
 
-@csrf_protect
-def contact(request, post_contact_redirect=None, form_class=ContactForm, template_name="contact/contact.html"):
-    if post_contact_redirect is None:
-        post_contact_redirect = reverse("qs_contacts:contact")
+class ContactView(CreateView):
+    template_name = 'contact/contact.html'
+    form_class = ContactForm
 
-    if request.method == "POST":
-        form = form_class(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, _("Your message was sent successfully!"))
-            return redirect(post_contact_redirect)
-    else:
-        form = form_class()
+    def get_success_url(self):
+        return reverse("qs_contacts:contact")
 
-    return render(request, template_name, {"form": form})
+    def form_valid(self, form):
+        messages.success(self.request, _("Your message was sent successfully!"))
+        return super(ContactView, self).form_valid(form)

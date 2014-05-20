@@ -3,7 +3,9 @@
 
 from django.conf.urls import patterns, url
 
+from . import views
+
 
 urlpatterns = patterns('',
-    url(r"^$", "quickstartup.contact.views.contact", name="contact"),
+    url(r"^$", views.ContactView.as_view(), name="contact"),
 )
