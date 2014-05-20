@@ -13,7 +13,7 @@ from .forms import ContactForm
 @csrf_protect
 def contact(request, post_contact_redirect=None, form_class=ContactForm, template_name="contact/contact.html"):
     if post_contact_redirect is None:
-        post_contact_redirect = reverse("contact")
+        post_contact_redirect = reverse("qs_contacts:contact")
 
     if request.method == "POST":
         form = form_class(request.POST, request.FILES)

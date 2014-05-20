@@ -19,15 +19,15 @@
                     <span class="icon-bar"></span>
                 </button>
                 {% block brand %}<a class="navbar-brand" href="{% url "homepage" %}">{{ PROJECT_NAME }}</a>{% endblock %}
-            </div> <!-- .navbar-header -->
+            </div>
             {% block navbar_menu %}{% endblock %}
-        </div> <!-- .navbar-default -->
-    </div> <!-- container -->
+        </div>
+    </div>
     {% endblock %}
 
     {% block container %}{% endblock %}
 
-</div> <!-- #wrap -->
+</div>
 
 {% block footer %}
     <footer><div id="footer">

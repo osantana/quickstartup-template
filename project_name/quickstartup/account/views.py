@@ -33,7 +33,7 @@ def password_reset(request, is_admin_site=False,
                    current_app=None,
                    extra_context=None):
     if post_reset_redirect is None:
-        post_reset_redirect = reverse("password_reset_done")
+        post_reset_redirect = reverse("qs_accounts:password_reset_done")
     else:
         post_reset_redirect = resolve_url(post_reset_redirect)
 

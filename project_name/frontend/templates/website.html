@@ -18,9 +18,9 @@
 
     <ul class="nav navbar-nav navbar-right">
         {% block navbar_right_options %}{% endblock %}
-        {% block menu_signin %}<li><a href="{% url "signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
-        {% block menu_signup %}<li><a href="{% url "signup" %}">{% trans "Sign up" %}</a></li>{% endblock %}
-        {% block menu_contact %}<li><a href="{% url "contact" %}">{% trans "Contact" %}</a></li>{% endblock %}
+        {% block menu_signin %}<li><a href="{% url "qs_accounts:signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
+        {% block menu_signup %}<li><a href="{% url "qs_accounts:signup" %}">{% trans "Sign up" %}</a></li>{% endblock %}
+        {% block menu_contact %}<li><a href="{% url "qs_contacts:contact" %}">{% trans "Contact" %}</a></li>{% endblock %}
     </ul>
 </div>
 {% endblock %}

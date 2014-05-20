@@ -1,7 +1,7 @@
 {% extends "website.html" %}{% load i18n l10n pages widget_tweaks %}
 
 
-{% block menu_signin %}<li class="active"><a href="{% url "signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
+{% block menu_signin %}<li class="active"><a href="{% url "qs_accounts:signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
 
 
 {% block container %}
@@ -19,7 +19,7 @@
 
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">{% trans "Reset" %}</button>
-                        <a class="btn btn-default" href="{% url "signin" %}" class="btn">{% trans "Back" %}</a>
+                        <a class="btn btn-default" href="{% url "qs_accounts:signin" %}" class="btn">{% trans "Back" %}</a>
                     </div>
                 </form>
             </div>

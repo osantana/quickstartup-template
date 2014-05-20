@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r"^admin/", include(admin.site.urls)),
 
     # This url mappings must be the last one
-    url(r"^accounts/", include("quickstartup.account.urls")),
-    url(r"^contact/$", include("quickstartup.contact.urls")),
+    url(r"^accounts/", include("quickstartup.account.urls", namespace="qs_accounts")),
+    url(r"^contact/$", include("quickstartup.contact.urls", namespace="qs_contacts")),
     url(r"^", include("quickstartup.website.urls")),
 )
