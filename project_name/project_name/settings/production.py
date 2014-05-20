@@ -29,6 +29,8 @@ DATABASES = {
         cast=parse_db_url
     )
 }
+DATABASES['default']['ATOMIC_REQUESTS'] = True  # transactions tied to request->response
+DATABASES['default']['CONN_MAX_AGE'] = None  # always connected
 
 
 # Email
