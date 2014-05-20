@@ -42,7 +42,7 @@ DEFAULT_TRANSACTIONAL_EMAIL = {
 # Security & Authentication
 ALLOWED_HOSTS = ["*"]
 SECRET_KEY = config("SECRET_KEY")
-AUTH_USER_MODEL = "account.User"
+AUTH_USER_MODEL = "accounts.User"
 LOGIN_REDIRECT_URL = "/app/"
 LOGIN_URL = "/accounts/signin/"
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -113,7 +113,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.gzip.GZipMiddleware',
-    'quickstartup.website.middleware.WebsitePageMiddleware',
+    'quickstartup.pages.middleware.WebsitePageMiddleware',
 )
 
 INSTALLED_APPS = (
@@ -129,9 +129,9 @@ INSTALLED_APPS = (
     'widget_tweaks',
 
     # Quick Startup Apps
-    'quickstartup.account',
-    'quickstartup.website',
-    'quickstartup.contact',
+    'quickstartup.accounts',
+    'quickstartup.pages',
+    'quickstartup.contacts',
 
     # QUICKSTARTUP: Your apps, you can replace the sample aplication bellow with your app
     'apps.sample',

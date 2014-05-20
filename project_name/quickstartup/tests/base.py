@@ -5,7 +5,7 @@ from pathlib import Path
 
 from django.test import TestCase
 
-from quickstartup.website.urlresolver import flush_pages_cache
+from quickstartup.pages.urlresolver import flush_pages_cache
 
 
 TEST_ROOT_DIR = Path(__file__).parent

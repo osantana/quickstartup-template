@@ -7,4 +7,4 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request, *args, **kwargs):
-    return render(request, "app/home.html", kwargs)
+    return render(request, "apps/index.html", kwargs)

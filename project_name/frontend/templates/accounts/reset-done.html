@@ -1,0 +1,19 @@
+{% extends "pages.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+
+
+{% block menu_signin %}<li class="active"><a href="{% url "qs_accounts:signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
+
+
+{% block container %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="form-panel">
+                    <h2>{% trans "Password reset successful" %}</h2>
+                    <p>{% trans "We've emailed you instructions for setting your password to the email address you submitted. You should be receiving it shortly." %}</p>
+                    <a class="btn btn-default" href="{% url "qs_accounts:signin" %}">{% trans "Back to Sign in" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
