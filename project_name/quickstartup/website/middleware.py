@@ -12,6 +12,7 @@ class WebsitePageMiddleware(object):
         if response.status_code != 404:
             return response
 
+        # noinspection PyBroadException
         try:
             return website_page(request, request.path_info)
         except Http404:

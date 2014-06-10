@@ -2,6 +2,7 @@
 
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.core.mail import EmailMessage
 from django.db.models.signals import post_save
@@ -26,6 +27,10 @@ class Contact(models.Model):
     phone = models.CharField(_("phone"), max_length=100, blank=True)
     message = models.TextField(_("message"))
 
+    @property
+    def admin_url(self):
+        return reverse("admin:contacts_contact_change", args=(self.pk,))
+
 
 def send_contact_mail(instance, created, **kwargs):
     if not created:
@@ -35,12 +40,14 @@ def send_contact_mail(instance, created, **kwargs):
         "Contact From: {instance.name} <{instance.email}>\n"
         "Phone: {instance.phone}\n"
         "Message:\n"
-        "{instance.message}"
+        "{instance.message}\n"
+        "URL: http://{domain}{instance.admin_url}\n"
     )
 
+    domain = settings.PROJECT_DOMAIN
     email = EmailMessage(
         subject=_("New Contact from %s") % (settings.PROJECT_NAME,),
-        body=template.format(instance=instance),
+        body=template.format(domain=domain, instance=instance),
         from_email=instance.email,
         to=[settings.PROJECT_CONTACT],
         headers={"Reply-To": instance.email},

@@ -27,7 +27,9 @@ class ContactTest(BaseTestCase):
             "message": u"Hello World!",
             "antispam": u"1337",
         }
-        response = self.client.post(reverse("qs_contacts:contact"), data, follow=True)
+
+        url = reverse("qs_contacts:contact")
+        response = self.client.post(url, data, follow=True)
         self.assertStatusCode(response, 200)
         self.assertTemplateUsed(response, "contacts/contact.html")
         self.assertEqual(len(mail.outbox), 1)
@@ -51,10 +53,30 @@ class ContactTest(BaseTestCase):
             "message": u"Hello World!",
             "antispam": u"1337",
         }
-        response = self.client.post(reverse("qs_contacts:contact"), data, follow=True)
+
+        url = reverse("qs_contacts:contact")
+        response = self.client.post(url, data, follow=True)
         self.assertFormError(response, 'form', 'antispam', u'You need to enable JavaScript to complete this form.')
 
     def test_access_an_existent_url(self):
         response = self.client.get("/contact/")
         self.assertStatusCode(response, 200)
         self.assertTemplateUsed(response, "contacts/contact.html")
+
+    def test_send_email_once(self):
+        contact = Contact.objects.create(name="John Doe",
+                                         email="john@doe.com",
+                                         message="Hello!")
+        self.assertEquals(len(mail.outbox), 1)
+
+        contact.message = "Hello World!"
+        contact.save()
+        self.assertEquals(len(mail.outbox), 1)  # changes don't send a new mail
+
+    def test_url_in_admin(self):
+        contact = Contact.objects.create(name="John Doe",
+                                 email="john@doe.com",
+                                 message="Hello!")
+
+        message = mail.outbox[0].body
+        self.assertIn("http://localhost:8000/admin/contacts/contact/{}/".format(contact.pk), message)

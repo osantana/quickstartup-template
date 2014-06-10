@@ -1,4 +1,4 @@
-{% extends "pages.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+{% extends "pages.html" %}{% load i18n l10n pages %}
 
 
 {% block body_tag %}<body class="page index">{% endblock %}
@@ -9,7 +9,7 @@
         <div class="jumbotron">
             <h1>{{ PROJECT_NAME }}</h1>
 
-            <p>This is a template for a simple web application in Django.</p>
+            <p>{% blocktrans %}This is a template for a simple web application in Django.{% endblocktrans %}</p>
 
             <p><a href="{% url "qs_accounts:signup" %}" class="btn btn-primary btn-large">Create your Account!</a></p>
         </div>

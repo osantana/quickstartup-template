@@ -18,5 +18,5 @@ urlpatterns = patterns('',
     # This url mappings must be the last one
     url(r"^accounts/", include("quickstartup.accounts.urls", namespace="qs_accounts")),
     url(r"^contact/$", include("quickstartup.contacts.urls", namespace="qs_contacts")),
-    url(r"^", include("quickstartup.pages.urls", namespace="qs_pages")),
+    url(r"^", include("quickstartup.website.urls", namespace="qs_pages")),
 )

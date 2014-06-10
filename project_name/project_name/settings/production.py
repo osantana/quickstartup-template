@@ -113,7 +113,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.gzip.GZipMiddleware',
-    'quickstartup.pages.middleware.WebsitePageMiddleware',
+    'quickstartup.website.middleware.WebsitePageMiddleware',
 )
 
 INSTALLED_APPS = (
@@ -130,7 +130,7 @@ INSTALLED_APPS = (
 
     # Quick Startup Apps
     'quickstartup.accounts',
-    'quickstartup.pages',
+    'quickstartup.website',
     'quickstartup.contacts',
 
     # QUICKSTARTUP: Your apps, you can replace the sample aplication bellow with your app

@@ -1,5 +1,6 @@
-{% extends "pages/page.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+{% extends "website/page.html" %}{% load i18n %}{% load l10n %}{% load pages %}
 
+{% block page_title %}{% trans "Terms of Service" %} — {{ block.super }}{% endblock page_title %}
 
 {% block container %}
 <div class="container">

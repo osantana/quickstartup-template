@@ -1,10 +1,7 @@
 {# Here we define the common layout used by website and app #}
 {% extends "base.html" %}{% load i18n l10n pages widget_tweaks %}
 
-{% block page_title %}
-    {% if title %}{{ title }} — {{ PROJECT_NAME }}{% else %}{{ PROJECT_NAME }}{% endif %}
-{% endblock %}
-
+{% block page_title %}{{ PROJECT_NAME }}{% endblock page_title %}
 
 {% block html_body %}
 <div id="wrap">
