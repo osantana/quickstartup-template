@@ -1,0 +1,15 @@
+{% load i18n l10n %}
+{% if PROJECT_SETTINGS.THIRD_MAILCHIMP_NEWSLETTER %}
+<form action="{{ PROJECT_SETTINGS.THIRD_MAILCHIMP_NEWSLETTER }}" method="post" target="_blank"
+      role="form" class="form-horizontal">
+    <div style="position: absolute; left: -5000px;">
+        <input type="text" name="{{ PROJECT_SETTINGS.THIRD_MAILCHIMP_ANTIBOT }}" tabindex="-1" value="">
+    </div>
+    <div class="input-group">
+        <input class="form-control" placeholder="{% trans "Email" %}" type="email" value="" name="EMAIL" id="mce-EMAIL">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit">{% trans "Subscribe" %}</button>
+        </span>
+    </div>
+</form>
+{% endif %}

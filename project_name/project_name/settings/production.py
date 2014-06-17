@@ -16,6 +16,12 @@ PROJECT_NAME = "Django Quickstartup"  # BOOTSTRAP: PROJECT_NAME = "@@name@@"
 PROJECT_DOMAIN = "quickstartup.us"  # BOOTSTRAP: PROJECT_DOMAIN = "@@domain@@"
 PROJECT_CONTACT = "contact@quickstartup.us"  # BOOTSTRAP: PROJECT_CONTACT = "@@contact@@"
 
+
+# 3rd Party Settings (leave empty to disable)
+THIRD_MAILCHIMP_NEWSLETTER = config("MAILCHIMP_URL", default="")
+THIRD_MAILCHIMP_ANTIBOT = config("MAILCHIMP_ANTIBOT", default="")
+
+
 # Debug & Development
 DEBUG = config("DEBUG", default=False, cast=bool)
 TEMPLATE_DEBUG = config("TEMPLATE_DEBUG", default=DEBUG, cast=bool)
@@ -100,6 +106,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "quickstartup.context_processors.project_infos",
+    "quickstartup.context_processors.project_settings",
 )
 
 

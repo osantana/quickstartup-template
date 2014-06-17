@@ -10,3 +10,7 @@ def project_infos(request):
         "PROJECT_DOMAIN": settings.PROJECT_DOMAIN,
         "PROJECT_CONTACT": settings.PROJECT_CONTACT,
     }
+
+
+def project_settings(request):
+    return {"PROJECT_SETTINGS": settings}
