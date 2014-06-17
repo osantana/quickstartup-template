@@ -9,4 +9,4 @@ from .models import Page
 class PageForm(forms.ModelForm):
     class Meta:
         model = Page
-        fields = ("slug", "variation", "template", "login_required")
+        fields = ("slug", "template", "login_required")

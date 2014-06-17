@@ -16,15 +16,10 @@ class Migration(migrations.Migration):
             name=b'Page',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                (b'slug', models.SlugField(max_length=255, blank=b'')),
-                (b'variation', models.IntegerField(default=0)),
+                (b'slug', models.SlugField(max_length=255, blank=b'', unique=True, db_index=True)),
                 (b'template', models.CharField(max_length=255)),
                 (b'login_required', models.BooleanField(default=False)),
             ],
-            options={
-                'unique_together': set([(b'slug', b'variation')]),
-                'index_together': set([(b'slug', b'variation')]),
-            },
             bases=(models.Model,),
         ),
         migrations.RunPython(bootstrap_website_pages)
