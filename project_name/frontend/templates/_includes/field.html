@@ -1,0 +1,6 @@
+{% load i18n l10n pages widget_tweaks %}
+<div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+    {% render_field field class+="form-control" %}
+    {% if field.errors %}<span class="help-block">{{ field.errors|join:", " }}</span>{% endif %}
+</div>

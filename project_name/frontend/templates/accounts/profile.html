@@ -1,0 +1,24 @@
+{% extends "apps.html" %}{% load i18n l10n pages widget_tweaks %}
+
+{% block content %}
+    <form action="" method="post" class="form-panel" role="form">
+        {% csrf_token %}
+
+        <h1>{% trans "Profile" %}</h1>
+
+        {% include "_includes/message_panels.html" %}
+
+        {% include "_includes/field.html" with field=form.name|attr:"autofocus" %}
+        {% include "_includes/field.html" with field=form.email %}
+
+        <h3>{% trans "Change password" %}</h3>
+
+        {% include "_includes/field.html" with field=password_form.new_password1 %}
+        {% include "_includes/field.html" with field=password_form.new_password2 %}
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">{% trans "Update" %}</button>
+            <a class="btn btn-default" href="{% url "app:index" %}">{% trans "Back" %}</a>
+        </div>
+    </form>
+{% endblock %}

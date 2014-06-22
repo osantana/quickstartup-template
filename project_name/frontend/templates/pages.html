@@ -1,0 +1,33 @@
+{# Here we define the sctructure used by the public part of project website #}
+{% extends "project.html" %}{% load i18n l10n pages widget_tweaks %}
+
+
+{% block styles %}{{ block.super }}
+    <link rel="stylesheet" href="{{ STATIC_URL }}website/base.css">
+{% endblock %}
+
+
+{% block body_tag %}<body class="website">{% endblock %}
+
+
+{% block navbar_menu %}
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        {% block navbar_options %}{% endblock %}
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+        {% block navbar_right_options %}{% endblock %}
+        {% block menu_signin %}<li><a href="{% url "qs_accounts:signin" %}">{% trans "Sign in" %}</a></li>{% endblock %}
+        {% block menu_signup %}<li><a href="{% url "qs_accounts:signup" %}">{% trans "Sign up" %}</a></li>{% endblock %}
+        {% block menu_contact %}<li><a href="{% url "qs_contacts:contact" %}">{% trans "Contact" %}</a></li>{% endblock %}
+    </ul>
+</div>
+{% endblock %}
+
+{% block footer_links %}
+<p class="pull-right">
+<a href="{% page_url "privacy" %}">{% trans "Privacy" %}</a> |
+<a href="{% page_url "terms" %}">{% trans "Terms" %}</a>
+</p>
+{% endblock %}

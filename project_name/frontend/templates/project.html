@@ -1,0 +1,41 @@
+{# Here we define the common layout used by website and app #}
+{% extends "base.html" %}{% load i18n l10n pages widget_tweaks %}
+
+{% block page_title %}{{ PROJECT_NAME }}{% endblock page_title %}
+
+{% block html_body %}
+<div id="wrap">
+    {% block navbar %}
+    <div class="container">
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {% block brand %}<a class="navbar-brand" href="{% url "qs_pages:index" %}">{{ PROJECT_NAME }}</a>{% endblock %}
+            </div>
+            {% block navbar_menu %}{% endblock %}
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block container %}{% endblock %}
+
+</div>
+
+{% block footer %}
+    <footer><div id="footer">
+        <div class="container">
+            <hr>
+            {% block footer_content %}
+            <p class="pull-left">&copy; {{ PROJECT_NAME }}</p>
+            {% block footer_links %}{% endblock footer_links %}
+            {% endblock footer_content %}
+        </div>
+    </div></footer>
+{% endblock footer %}
+
+{% endblock html_body %}

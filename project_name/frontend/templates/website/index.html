@@ -1,0 +1,35 @@
+{% extends "pages.html" %}{% load i18n l10n pages %}
+
+
+{% block body_tag %}<body class="page index">{% endblock %}
+
+
+{% block container %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>{{ PROJECT_NAME }}</h1>
+
+            <p>{% blocktrans %}This is a template for a simple web application in Django.{% endblocktrans %}</p>
+
+            <p><a href="{% url "qs_accounts:signup" %}" class="btn btn-primary btn-large">Create your Account!</a></p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Start Now!</h2>
+
+                <p>Quickstartup provides the basic components and design to start your web application quickly.</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Go Live!</h2>
+
+                <p>Quickstartup includes deployment script for the major Django host providers. You can put your
+                    application online with one command.</p>
+            </div>
+            <div class="col-md-4">
+                <h2>{% trans "Subscribe our newsletter"%}</h2>
+                {% include "_includes/mailchimp_newsletter.html" %}
+            </div>
+        </div>
+    </div>{% endblock %}

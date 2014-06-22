@@ -1,0 +1,45 @@
+{% extends "pages.html" %}{% load i18n l10n pages widget_tweaks %}
+
+
+{% block body_tag %}<body class="contact">{% endblock %}
+
+
+{% block menu_contact %}<li class="active"><a href="{% url "qs_contacts:contact" %}">{% trans "Contact" %}</a></li>{% endblock %}
+
+{% block container %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <form action="" method="post" class="form-panel" role="form">
+                {% csrf_token %}
+                <h2>{% trans "Contact" %}</h2>
+
+                {% include "_includes/message_panels.html" %}
+
+                {{ form.antispam|safe }}
+                {% if form.antispam.errors %}
+                    <div class="alert alert-error">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ form.antispam.errors|join:", " }}
+                    </div>
+                {% endif %}
+
+                {% include "_includes/field.html" with field=form.name|attr:"autofocus" %}
+                {% include "_includes/field.html" with field=form.email %}
+                {% include "_includes/field.html" with field=form.phone %}
+                {% include "_includes/field.html" with field=form.message %}
+
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">{% trans "Send" %}</button>
+                    <a class="btn btn-default" href="{% url "qs_pages:index" %}">{% trans "Back" %}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block end_body %}{{ block.super }}
+<script src="{{ STATIC_URL }}lib/jquery/jquery.inputmask.js"></script>
+<script src="{{ STATIC_URL }}widgets/phone.js"></script>
+{% endblock end_body %}
