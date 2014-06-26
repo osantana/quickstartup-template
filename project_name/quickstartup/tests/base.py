@@ -18,4 +18,5 @@ class BaseTestCase(TestCase):
 
     # noinspection PyPep8Naming
     def assertStatusCode(self, response, code):
-        self.assertEquals(response.status_code, code, str(response.content))
+        self.assertEquals(response.status_code, code,
+                          "{} != {}\n{}".format(response.status_code, code, response.content))
