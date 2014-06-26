@@ -97,3 +97,9 @@ class CustomPasswordResetForm(PasswordResetForm):
 class CustomSetPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(label=_("New password"), widget=forms.PasswordInput())
     new_password2 = forms.CharField(label=_("New password confirmation"), widget=forms.PasswordInput())
+
+
+class CustomUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ("name", "email")
