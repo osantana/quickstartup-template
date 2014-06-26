@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import get_connection
+from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -79,12 +80,18 @@ class CustomPasswordResetForm(PasswordResetForm):
             if not user.has_usable_password():
                 continue
 
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = token_generator.make_token(user)
+            path = reverse("qs_accounts:password_reset_confirm",
+                           kwargs={"uidb64": uid, "token": token})
+
             context.update({
                 'email': user.email,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'user': user,
-                'token': token_generator.make_token(user),
+                'uid': uid,
+                'user_account': user,
+                'token': token,
                 'protocol': 'https' if use_https else 'http',
+                'path': path,
             })
 
             message = HTMLMessage(settings.DEFAULT_FROM_EMAIL, user.email, subject_template_name, email_template_name,
