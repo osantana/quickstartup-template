@@ -6,4 +6,4 @@ python-decouple==2.2
 dj-database-url==0.3.0
 django-widget-tweaks==1.3
 django-braces==1.4.0
-django-extensions==1.3.8
+django-model-utils==2.2
