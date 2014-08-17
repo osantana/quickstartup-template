@@ -1,4 +1,3 @@
 -r production.txt
-Fabric==1.9.1
 mock==1.0.1
 django-extensions==1.3.10

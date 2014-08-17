@@ -1,2 +1,2 @@
-# This file is used by heroku to install application dependencies
+# This file is used by Heroku to install application dependencies
 -r requirements/heroku.txt

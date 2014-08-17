@@ -18,7 +18,7 @@ import pip
 DEPLOYMENT_METHODS = (
     'webfaction',
     'heroku',
-    'digital_ocean',
+    'digitalocean',
     'linode',
     'aws',
 )
@@ -115,11 +115,6 @@ def ask(question, options=None, default=None, validator=lambda v: v):
             return value
 
 
-def _execute_local_setup():
-    from fabric.tasks import execute
-    from fabfile.local import local_setup
-    execute(local_setup)
-
 def setup(echo):
     os.chdir(BASE_PATH)
 
@@ -129,7 +124,6 @@ def setup(echo):
         echo("Cannot install {}".format(", ".join(REQUIREMENTS)))
 
     print("Setup local environment...")
-    _execute_local_setup()
 
 
 def generate_random_string(size, symbols=True):

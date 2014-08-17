@@ -12,14 +12,10 @@ FRONTEND_DIR = PROJECT_DIR / "frontend"
 
 
 # Project Info
+PROJECT_ID = "quickstartup"   # BOOTSTRAP: PROJECT_ID = "@@id@@"
 PROJECT_NAME = "Django Quickstartup"  # BOOTSTRAP: PROJECT_NAME = "@@name@@"
 PROJECT_DOMAIN = "quickstartup.us"  # BOOTSTRAP: PROJECT_DOMAIN = "@@domain@@"
 PROJECT_CONTACT = "contact@quickstartup.us"  # BOOTSTRAP: PROJECT_CONTACT = "@@contact@@"
-
-
-# 3rd Party Settings (leave empty to disable)
-THIRD_MAILCHIMP_NEWSLETTER = config("MAILCHIMP_URL", default="")
-THIRD_MAILCHIMP_ANTIBOT = config("MAILCHIMP_ANTIBOT", default="")
 
 
 # Debug & Development
