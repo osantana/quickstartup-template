@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
 
     # Quick Startup Apps
+    'quickstartup.deploy',
     'quickstartup.accounts',
     'quickstartup.website',
     'quickstartup.contacts',
@@ -139,3 +140,15 @@ INSTALLED_APPS = (
     # QUICKSTARTUP: Your apps, you can replace the sample aplication bellow with your app
     'apps.sample',
 )
+
+
+# Deployment Settings
+DEPLOY_METHOD = config("DEPLOY_METHOD", default="linode")
+
+# TODO: check these defaults
+DEPLOY_DATA = {
+    "hostname": config("DEPLOY_HOSTNAME", default=PROJECT_ID),
+    "server_ip": config("DEPLOY_SERVER_IP", default=PROJECT_DOMAIN),
+    "username": config("DEPLOY_USERNAME", default=PROJECT_ID),
+    "user_pubkey": config("DEPLOY_USER_PUBKEY", default="~/.ssh/id_rsa.pub"),
+}
