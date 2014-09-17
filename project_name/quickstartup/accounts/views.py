@@ -1,13 +1,12 @@
 # coding: utf-8
 
-
 from django.contrib import messages
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, resolve_url
 from django.template.response import TemplateResponse
 from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext_lazy as _
 
 from .forms import (CustomPasswordResetForm, CustomSetPasswordForm,
@@ -16,11 +15,6 @@ from .forms import (CustomPasswordResetForm, CustomSetPasswordForm,
 
 def signup(request, *args, **kwargs):
     return render(request, "accounts/signup.html", kwargs)
-
-
-@login_required
-def profile(request, *args, **kwargs):
-    return render(request, "accounts/profile.html", kwargs)
 
 
 @csrf_protect
@@ -66,31 +60,37 @@ def password_reset(request, is_admin_site=False,
     return TemplateResponse(request, template_name, context, current_app=current_app)
 
 
-@csrf_protect
-@login_required
-def profile(request, *args, **kwargs):
+def profile_user_data_handler(request, form_class):
     if request.method == 'POST':
         form = CustomUserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, _(u'Succesfully updated profile.'))
-
-        # skip password_form if the user does not try to change it
-        data = request.POST
-        if not (request.POST['new_password1'] or request.POST['new_password2']):
-            data = None
-
-        password_form = CustomSetPasswordForm(request.user, data)
-        if password_form.is_valid():
-            messages.success(request, _(u'Succesfully updated your password.'))
-            password_form.save()
-
     else:
         form = CustomUserProfileForm(instance=request.user)
-        password_form = CustomSetPasswordForm(user=request.user)
+    return form
 
+
+def profile_password_change_handler(request, form_class):
+    form = form_class(user=request.user)
+    if request.method == 'POST':
+        data = request.POST
+        # only validate if the user tried to change the password
+        if data['new_password1'] or data['new_password2']:
+            form = form_class(request.user, data)
+            if form.is_valid():
+                messages.success(request, _(u'Succesfully updated your password.'))
+                form.save()
+    return form
+
+
+@csrf_protect
+@login_required
+def profile(request, *args, **kwargs):
     context = {
-        "form": form,
-        "password_form": password_form,
+        'form': profile_user_data_handler(request, CustomUserProfileForm),
+        'password_form': profile_password_change_handler(request, CustomSetPasswordForm),
+        'tab': request.GET.get('tab', 'user'),
     }
+    #FIXME: UX is confuse when one form is valid and the other contain errors
     return render(request, 'accounts/profile.html', context)

@@ -1,24 +1,49 @@
 {% extends "apps.html" %}{% load i18n l10n pages widget_tweaks %}
 
 {% block content %}
-    <form action="" method="post" class="form-panel" role="form">
+
+    {% include "_includes/message_panels.html" %}
+    {% include "_includes/form_errors.html" with form=form %}
+    {% include "_includes/form_errors.html" with form=password_form %}
+
+    <h1>{% trans "Profile" %}</h1>
+    <ul class="nav nav-tabs" role="tablist" id="profileTab">
+        <li{% if tab == 'user' %} class="active" {% endif %}><a href="#user" role="tab" data-toggle="tab" data-name="user">{% trans 'User' %}</a></li>
+        <li{% if tab == 'security' %} class="active" {% endif %}><a href="#security" role="tab" data-toggle="tab" data-name="security">{% trans 'Security' %}</a></li>
+        <li{% if tab == 'social' %} class="active" {% endif %}><a href="#social" role="tab" data-toggle="tab" data-name="social">{% trans 'Social' %}</a></li>
+    </ul>
+
+    <form id="profile-form" action="" method="post" class="form-panel" role="form">
         {% csrf_token %}
-
-        <h1>{% trans "Profile" %}</h1>
-
-        {% include "_includes/message_panels.html" %}
-
-        {% include "_includes/field.html" with field=form.name|attr:"autofocus" %}
-        {% include "_includes/field.html" with field=form.email %}
-
-        <h3>{% trans "Change password" %}</h3>
-
-        {% include "_includes/field.html" with field=password_form.new_password1 %}
-        {% include "_includes/field.html" with field=password_form.new_password2 %}
-
+        <div class="tab-content">
+            <div class="tab-pane {% if tab == 'user' %}active{% endif %}" id="user">
+                <h3>{% trans 'Account data' %}</h3>
+                {% include "_includes/field.html" with field=form.name|attr:"autofocus" %}
+                {% include "_includes/field.html" with field=form.email %}
+            </div>
+            <div class="tab-pane {% if tab == 'security' %}active{% endif %}" id="security">
+                <h3>{% trans "Change password" %}</h3>
+                {% include "_includes/field.html" with field=password_form.new_password1 %}
+                {% include "_includes/field.html" with field=password_form.new_password2 %}
+            </div>
+            <div class="tab-pane {% if tab == 'social' %}active{% endif %}" id="social">
+                <h3>{% trans "Social data" %}</h3>
+            </div>
+        </div>
         <div class="form-group">
             <button class="btn btn-primary" type="submit">{% trans "Update" %}</button>
             <a class="btn btn-default" href="{% url "app:index" %}">{% trans "Back" %}</a>
         </div>
     </form>
+
+{% endblock %}
+{% block end_body %}{{ block.super }}
+<script type="text/javascript" charset="utf-8">
+$(function() {
+  $('#profileTab a:active').tab('show');
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    $('#profile-form').attr('action', '?tab=' + e.target.getAttribute('data-name'));
+  });
+})
+</script>
 {% endblock %}
