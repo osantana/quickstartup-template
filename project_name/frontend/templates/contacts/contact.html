@@ -15,6 +15,7 @@
                 <h2>{% trans "Contact" %}</h2>
 
                 {% include "_includes/message_panels.html" %}
+                {% include "_includes/form_errors.html" %}
 
                 {{ form.antispam|safe }}
                 {% if form.antispam.errors %}

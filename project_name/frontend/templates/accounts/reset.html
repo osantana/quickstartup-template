@@ -15,6 +15,7 @@
                     <p>{% trans "Forgotten your password? Enter your email address below, and we'll email instructions for setting a new one." %}</p>
 
                     {% include "_includes/message_panels.html" %}
+                    {% include "_includes/form_errors.html" %}
                     {% include "_includes/field.html" with field=form.email|attr:"autofocus" %}
 
                     <div class="form-group">

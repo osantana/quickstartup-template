@@ -15,6 +15,7 @@
                     <p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
 
                     {% include "_includes/message_panels.html" %}
+                    {% include "_includes/form_errors.html" %}
                     {% include "_includes/field.html" with field=form.new_password1|attr:"autofocus" %}
                     {% include "_includes/field.html" with field=form.new_password2 %}
 
