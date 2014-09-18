@@ -5,15 +5,14 @@
     {% include "_includes/message_panels.html" %}
     {% include "_includes/form_errors.html" %}
 
-    <h1>{% trans "Profile" %}</h1>
+    <h1>{% trans "Security" %}</h1>
 
-    <form action="{% url 'qs_accounts:profile' %}" method="post" class="form-panel" role="form">
+    <form action="{% url 'qs_accounts:profile-security' %}" method="post" class="form-panel" role="form">
         {% csrf_token %}
-        {% include "_includes/field.html" with field=form.name|attr:"autofocus" %}
-        {% include "_includes/field.html" with field=form.email %}
+        {% include "_includes/field.html" with field=form.new_password1|attr:"autofocus" %}
+        {% include "_includes/field.html" with field=form.new_password2 %}
         <div class="form-group">
             <button class="btn btn-primary" type="submit">{% trans "Update" %}</button>
         </div>
     </form>
-
 {% endblock %}
