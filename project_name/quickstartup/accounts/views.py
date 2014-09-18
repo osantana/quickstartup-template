@@ -2,15 +2,16 @@
 
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, redirect, resolve_url
 from django.template.response import TemplateResponse
 from django.views.decorators.csrf import csrf_protect
+from django.views.generic import UpdateView
 from django.utils.translation import ugettext_lazy as _
 
-from .forms import (CustomPasswordResetForm, CustomSetPasswordForm,
-                    CustomUserProfileForm)
+from braces.views import LoginRequiredMixin
+
+from .forms import CustomPasswordResetForm
 
 
 def signup(request, *args, **kwargs):
@@ -60,37 +61,29 @@ def password_reset(request, is_admin_site=False,
     return TemplateResponse(request, template_name, context, current_app=current_app)
 
 
-def profile_user_data_handler(request, form_class):
-    if request.method == 'POST':
-        form = CustomUserProfileForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, _(u'Succesfully updated profile.'))
-    else:
-        form = CustomUserProfileForm(instance=request.user)
-    return form
+class ProfileMixin(object):
+    def get_object(self, *args, **kwargs):
+        return self.request.user
 
 
-def profile_password_change_handler(request, form_class):
-    form = form_class(user=request.user)
-    if request.method == 'POST':
-        data = request.POST
-        # only validate if the user tried to change the password
-        if data['new_password1'] or data['new_password2']:
-            form = form_class(request.user, data)
-            if form.is_valid():
-                messages.success(request, _(u'Succesfully updated your password.'))
-                form.save()
-    return form
+class UserProfile(LoginRequiredMixin, ProfileMixin, UpdateView):
+    success_url = reverse_lazy('qs_accounts:profile')
+
+    def form_valid(self, form):
+        messages.success(self.request, _(u'Succesfully updated profile.'))
+        return super(UserProfile, self).form_valid(form)
 
 
-@csrf_protect
-@login_required
-def profile(request, *args, **kwargs):
-    context = {
-        'form': profile_user_data_handler(request, CustomUserProfileForm),
-        'password_form': profile_password_change_handler(request, CustomSetPasswordForm),
-        'tab': request.GET.get('tab', 'user'),
-    }
-    #FIXME: UX is confuse when one form is valid and the other contain errors
-    return render(request, 'accounts/profile.html', context)
+class UserSecurityProfile(LoginRequiredMixin, ProfileMixin, UpdateView):
+    success_url = reverse_lazy('qs_accounts:profile-security')
+
+    def form_valid(self, form):
+        messages.success(self.request, _(u'Succesfully updated your password.'))
+        return super(UserSecurityProfile, self).form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super(UserSecurityProfile, self).get_form_kwargs()
+        kwargs.update({'user': self.object})
+        if 'instance' in kwargs:
+            del kwargs['instance']
+        return kwargs

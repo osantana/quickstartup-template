@@ -3,7 +3,8 @@
 
 from django.conf.urls import patterns, url
 
-from .forms import CustomAuthenticationForm, CustomSetPasswordForm
+from .forms import CustomAuthenticationForm, CustomSetPasswordForm, CustomUserProfileForm
+from .views import UserProfile, UserSecurityProfile
 
 
 urlpatterns = patterns('',
@@ -28,7 +29,12 @@ urlpatterns = patterns('',
 
     # TODO:
     url(r"^signup/$", "quickstartup.accounts.views.signup", name="signup"),
-    url(r"^profile/$", "quickstartup.accounts.views.profile", name="profile"),
+    url(r"^profile/$",
+        UserProfile.as_view(template_name='accounts/profile.html',
+                            form_class=CustomUserProfileForm), name="profile"),
+    url(r"^profile/security/$",
+        UserSecurityProfile.as_view(template_name='accounts/profile-security.html',
+                                    form_class=CustomSetPasswordForm), name="profile-security"),
     url(r"^password/change/$", "django.contrib.auth.views.password_change", name="password_change"),
     url(r"^password/change/done/$", "django.contrib.auth.views.password_change_done", name="password_change_done"),
 )
