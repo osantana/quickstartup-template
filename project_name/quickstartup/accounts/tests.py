@@ -67,3 +67,26 @@ class AccountTest(BaseTestCase):
         message = mail.outbox[0]
         self.assertIn("Hi John Doe,", message.text)
         self.assertIn("<h3>Hi John Doe,</h3>", message.html)
+
+    def test_simple_signup(self):
+        url = reverse("qs_accounts:signup")
+        data = {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "password1": "sekr3t",
+            "password2": "sekr3t",
+        }
+        response = self.client.post(url, data)
+        self.assertStatusCode(response, 302)
+
+        user = self.user_model.objects.get(email="john.doe@example.com")
+        self.assertEqual(user.name, "John Doe")
+        self.assertEqual(user.is_active, False)
+        self.assertEqual(user.is_staff, False)
+        self.assertEqual(user.is_superuser, False)
+        self.assertEqual(user.activation_key_expired(), False)
+
+        message = mail.outbox[0]
+        self.assertIn("Hi John Doe,")
+        self.assertIn("<h3>Hi John Doe,</h3>", message.html)
+        self.fail()

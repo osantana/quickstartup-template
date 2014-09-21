@@ -46,7 +46,6 @@ def print_header(deploy_method_name, step):
     print
     print "  •", green("Method:"), deploy_method_name
     print "  •", green("Step:  "), step
-    print
 
 
 def print_help(title, doc):
@@ -70,7 +69,3 @@ def print_help(title, doc):
     print
     print yellow("=" * (2 * center + len(title) + 2))
     print
-
-
-def print_step(step):
-    print "  •", red("Next Step:"), step, "(fab -ak {})".format(step)

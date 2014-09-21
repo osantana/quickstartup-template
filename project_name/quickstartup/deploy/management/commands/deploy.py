@@ -35,6 +35,8 @@ class Command(BaseCommand):
         method_name = settings.DEPLOY_METHOD
         deployer = get_deployer(method_name)
         deploy_data = copy(settings.DEPLOY_DATA)
+        deploy_data["project_id"] = settings.PROJECT_ID
+        deploy_data["args"] = args
 
         if "setup" in options and options["setup"]:
             print_header(method_name, "setup")

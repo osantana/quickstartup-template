@@ -24,7 +24,7 @@ class CustomUserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('name', 'email')
+        fields = ('name', 'email', 'password1', 'password2')
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -36,12 +36,9 @@ class CustomUserCreationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        user = super(CustomUserCreationForm, self).save(commit=False)
-
-        user.set_password(self.cleaned_data["password1"])
-        if commit:
-            user.save()
-
+        user_model = get_user_model()
+        user = user_model.objects.create_inactive_user(email=self.cleaned_data["email"],
+                                                       password=self.cleaned_data["password1"])
         return user
 
 

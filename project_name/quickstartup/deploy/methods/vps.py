@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from decouple import config
+from fabric.colors import green
 from fabric.context_managers import cd, settings
 from fabric.contrib.files import append, sed
 from fabric.operations import sudo, local
@@ -187,5 +187,15 @@ class VPSBaseDeployer(BaseDeployer):
         self._setup_finalize()
 
     def deploy(self, **kwargs):
-        print "ok"
+        branch = "master"
+        if "args" in kwargs and kwargs["args"]:
+            branch = kwargs["args"][0]
+
+        print "  •", green("Branch:"), branch
+
+        templates = {
+            'git': "git archive --format tar.gz --prefix={project_id}/ -9 -o {project_id}.tar.gz {branch}",
+        }
+
+        local(templates['git'].format(branch=branch, project_id=kwargs["project_id"]))
 

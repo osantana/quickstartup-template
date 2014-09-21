@@ -7,7 +7,7 @@ import random
 import hashlib
 
 from django.conf import settings
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser as DjangoAbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -23,13 +23,15 @@ user_activated = Signal(providing_args=["user"])
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None, is_active=True):
+    def create_user(self, email, password=None, is_active=True, commit=True):
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(email=self.normalize_email(email), is_active=is_active)
         user.set_password(password)
-        user.save(using=self._db)
+
+        if commit:
+            user.save(using=self._db)
 
         return user
 
@@ -75,12 +77,12 @@ class UserManager(BaseUserManager):
             return user
 
 
-class BaseUser(AbstractBaseUser, PermissionsMixin):
+class BaseUser(DjangoAbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     email = models.EmailField(_("email"), max_length=255, unique=True, db_index=True)
     created = models.DateTimeField(_("created"), default=timezone.now)
-    is_active = models.BooleanField(_("active"), default=True)
+    is_active = models.BooleanField(_("active"), default=False)
     is_staff = models.BooleanField(_("staff"), default=False)
     activation_key = models.CharField(_('activation key'), max_length=40, db_index=True)
 
