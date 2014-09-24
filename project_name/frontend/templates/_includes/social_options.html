@@ -1,0 +1,10 @@
+{% load i18n %}
+{# it certainly needs improvement #}
+<div>
+  <p>{% trans 'Or' %}</p>
+  <ul class="list-inline">
+    {% trans 'Login' as default_verb %}
+    <li><a href="{% url 'social:begin' 'twitter' %}">{{ verb|default:default_verb }} {% trans 'with Twitter' %}</a></li>
+    <li><a href="{% url 'social:begin' 'google-oauth' %}">{{ verb|default:default_verb }} {% trans 'with Google' %}</a></li>
+  </ul>
+</div>
