@@ -8,3 +8,4 @@ dj-database-url==0.3.0
 django-widget-tweaks==1.3
 django-braces==1.4.0
 django-model-utils==2.2
+python-social-auth==0.2.1
