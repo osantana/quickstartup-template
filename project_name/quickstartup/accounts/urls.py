@@ -9,7 +9,7 @@ from .views import UserProfile, UserSecurityProfile
 
 
 urlpatterns = patterns('',
-    url(r"^signin/$", "django.contrib.auth.views.login",
+    url(r"^signin/$", "quickstartup.accounts.views.login",
         {"template_name": "accounts/signin.html", "authentication_form": CustomAuthenticationForm},
         name="signin"),
     url(r"^logout/$", "django.contrib.auth.views.logout", {"next_page": "/"}, name="logout"),

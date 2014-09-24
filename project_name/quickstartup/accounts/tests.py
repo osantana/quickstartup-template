@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
+from django.shortcuts import resolve_url
 from django.test import override_settings
 
 from ..tests.base import BaseTestCase
@@ -90,3 +91,15 @@ class AccountTest(BaseTestCase):
         self.assertIn("Hi John Doe,")
         self.assertIn("<h3>Hi John Doe,</h3>", message.html)
         self.fail()
+
+    def test_redirect_if_authenticated(self):
+        logged = self.client.login(username=self.user.email, password='secret')
+        self.assertTrue(logged)
+
+        response = self.client.get(reverse('qs_accounts:signin'))
+        self.assertStatusCode(response, 302)
+        self.assertIn(resolve_url(settings.LOGIN_REDIRECT_URL), response['location'])
+
+        response = self.client.get(reverse('qs_accounts:signup'))
+        self.assertStatusCode(response, 302)
+        self.assertIn(resolve_url(settings.LOGIN_REDIRECT_URL), response['location'])

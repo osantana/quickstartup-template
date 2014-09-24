@@ -1,7 +1,9 @@
 # coding: utf-8
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.views import login as auth_login
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, redirect, resolve_url
 from django.template.response import TemplateResponse
@@ -21,6 +23,8 @@ from .forms import CustomPasswordResetForm, CustomUserCreationForm
 @never_cache
 def signup(request, template_name='accounts/signup.html', redirect_to="qs_accounts:signin",
            signup_form=CustomUserCreationForm, extra_context=None):
+    if request.user.is_authenticated():
+        return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
     if request.method == "POST":
         form = signup_form(request.POST, request.FILES)
         if form.is_valid():
@@ -39,6 +43,15 @@ def signup(request, template_name='accounts/signup.html', redirect_to="qs_accoun
         context.update(extra_context)
 
     return render(request, template_name, context)
+
+
+@sensitive_post_parameters()
+@csrf_protect
+@never_cache
+def login(request, *args, **kwargs):
+    if request.user.is_authenticated():
+        return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
+    return auth_login(request, *args, **kwargs)
 
 
 @csrf_protect
