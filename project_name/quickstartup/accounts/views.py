@@ -15,7 +15,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from braces.views import LoginRequiredMixin
 
-from .forms import CustomPasswordResetForm, CustomUserCreationForm
+from .forms import CustomPasswordResetForm, CustomUserCreationForm, CustomSetPasswordForm
 
 
 @sensitive_post_parameters()
@@ -112,6 +112,12 @@ class UserProfile(LoginRequiredMixin, ProfileMixin, UpdateView):
 
 class UserSecurityProfile(LoginRequiredMixin, ProfileMixin, UpdateView):
     success_url = reverse_lazy('qs_accounts:profile-security')
+
+    def get_form_class(self):
+        # Probably, user was authenticated with social auth
+        if not self.request.user.has_usable_password():
+            return CustomSetPasswordForm
+        return self.form_class
 
     def form_valid(self, form):
         messages.success(self.request, _(u'Succesfully updated your password.'))
