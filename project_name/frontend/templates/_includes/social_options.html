@@ -1,10 +1,12 @@
-{% load i18n %}
+{% load i18n get_social_backends %}
 {# it certainly needs improvement #}
 <div>
   <p>{% trans 'Or' %}</p>
   <ul class="list-inline">
-    {% trans 'Login' as default_verb %}
-    <li><a href="{% url 'social:begin' 'twitter' %}">{{ verb|default:default_verb }} {% trans 'with Twitter' %}</a></li>
-    <li><a href="{% url 'social:begin' 'google-oauth' %}">{{ verb|default:default_verb }} {% trans 'with Google' %}</a></li>
+    {% trans 'Login with' as default_verb %}
+    {% get_social_backends as social_auth_backends %}
+    {% for backend_name, _ in social_auth_backends.items %}
+    <li><a href="{% url 'social:begin' backend_name %}">{{ verb|default:default_verb }} {{ backend_name|title }}</a></li>
+    {% endfor %}
   </ul>
 </div>

@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import resolve_url
 from django.test import override_settings
 
+from .templatetags.get_social_backends import get_social_backends
 from ..tests.base import BaseTestCase
 
 
@@ -103,3 +104,13 @@ class AccountTest(BaseTestCase):
         response = self.client.get(reverse('qs_accounts:signup'))
         self.assertStatusCode(response, 302)
         self.assertIn(resolve_url(settings.LOGIN_REDIRECT_URL), response['location'])
+
+
+class AccountTemplateTagsTest(BaseTestCase):
+
+    @override_settings(AUTHENTICATION_BACKENDS=('social.backends.twitter.TwitterOAuth',
+                                                'django.contrib.auth.backends.ModelBackend'))
+    def test_get_backends(self):
+        backends = get_social_backends()
+        self.assertTrue('twitter' in backends)
+        self.assertEquals(len(backends), 1)
