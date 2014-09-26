@@ -1,0 +1,37 @@
+{% extends "accounts/base_profile.html" %}{% load i18n l10n pages widget_tweaks %}
+
+{% block content %}
+
+    {% include "_includes/message_panels.html" %}
+    {% include "_includes/form_errors.html" %}
+
+    <h1>{% trans "Social" %}</h1>
+    {% if not request.user.social_auth.exists %}
+    <p>{% trans "There are no social accounts associated with you." %}</p>
+    {% else %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{% trans 'uid' %}</th>
+                <th>{% trans 'Provider' %}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for social_account in request.user.social_auth.all %}
+        <tr>
+            <td>{{ social_account.uid }}</td>
+            <td>{{ social_account.provider }}</td>
+            <td>
+                <form method="post" action="{% url 'social:disconnect_individual' social_account.provider social_account.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">{% trans 'Disconnect' %}</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+{% endblock %}

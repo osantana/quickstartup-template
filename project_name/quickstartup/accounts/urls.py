@@ -5,7 +5,7 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.forms import PasswordChangeForm
 
 from .forms import CustomAuthenticationForm, CustomSetPasswordForm, CustomUserProfileForm
-from .views import UserProfile, UserSecurityProfile
+from .views import UserProfile, UserSecurityProfile, UserSocialProfile
 
 
 urlpatterns = patterns('',
@@ -38,6 +38,9 @@ urlpatterns = patterns('',
                                     form_class=PasswordChangeForm,
                                     form_class_without_password=CustomSetPasswordForm),
         name="profile-security"),
+    url("^profile/social/$",
+        UserSocialProfile.as_view(template_name='accounts/profile-social.html'),
+        name='profile-social'),
     url(r"^password/change/$", "django.contrib.auth.views.password_change", name="password_change"),
     url(r"^password/change/done/$", "django.contrib.auth.views.password_change_done", name="password_change_done"),
 )

@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect, resolve_url
 from django.template.response import TemplateResponse
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, TemplateView
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.translation import ugettext_lazy as _
 
@@ -130,3 +130,7 @@ class UserSecurityProfile(LoginRequiredMixin, ProfileMixin, UpdateView):
         if 'instance' in kwargs:
             del kwargs['instance']
         return kwargs
+
+
+class UserSocialProfile(LoginRequiredMixin, ProfileMixin, TemplateView):
+    pass

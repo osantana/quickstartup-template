@@ -54,6 +54,7 @@ SOCIAL_AUTH_LOGIN_URL = LOGIN_REDIRECT_URL
 SOCIAL_AUTH_LOGIN_ERROR_URL = LOGIN_URL
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/'  # -> signout ?
 SOCIAL_AUTH_INACTIVE_USER_URL = '/'  # -> signup ?
+SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/accounts/profile/'
 SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
 SOCIAL_AUTH_USER_MODEL = AUTH_USER_MODEL

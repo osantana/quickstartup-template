@@ -6,5 +6,7 @@
     <a class="list-group-item {% if request.path == profile_url %}active{% endif %}" href="{{ profile_url }}">{% trans 'Profile' %}</a>
     {% url 'qs_accounts:profile-security' as security_url %}
     <a class="list-group-item {% if request.path == security_url %}active {% endif %}" href="{{ security_url }}">{% trans 'Security' %}</a>
+    {% url 'qs_accounts:profile-social' as social_url %}
+    <a class="list-group-item {% if request.path == social_url %}active {% endif %}" href="{{ social_url }}">{% trans 'Social' %}</a>
 </div>
 {% endblock %}
