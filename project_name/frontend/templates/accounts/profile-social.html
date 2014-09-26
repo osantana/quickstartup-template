@@ -1,4 +1,4 @@
-{% extends "accounts/base_profile.html" %}{% load i18n l10n pages widget_tweaks %}
+{% extends "accounts/base_profile.html" %}{% load i18n l10n pages widget_tweaks get_social_backends %}
 
 {% block content %}
 
@@ -12,21 +12,23 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>{% trans 'uid' %}</th>
                 <th>{% trans 'Provider' %}</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-
-        {% for social_account in request.user.social_auth.all %}
+        {% get_social_backends as social_auth_backends %}
+        {% for social_account_name, _ in social_auth_backends.items %}
         <tr>
-            <td>{{ social_account.uid }}</td>
-            <td>{{ social_account.provider }}</td>
+            <td>{{ social_account_name }}</td>
             <td>
-                <form method="post" action="{% url 'social:disconnect_individual' social_account.provider social_account.pk %}">
+                <form method="post" action="">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">{% trans 'Disconnect' %}</button>
+                    {% if social_account_name in backends.not_associated %}
+                    <button type="submit" class="btn btn-success">{% trans 'Connect' %}</button>
+                    {% else %}
+                    <button type="submit" class="btn btn-primary disabled">{% trans 'Connected' %}</button>
+                    {% endif %}
                 </form>
             </td>
         </tr>
