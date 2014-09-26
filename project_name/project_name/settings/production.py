@@ -50,8 +50,6 @@ LOGIN_URL = "/accounts/signin/"
 ACCOUNT_ACTIVATION_DAYS = 7
 # social authentication, more at http://python-social-auth.readthedocs.org
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = LOGIN_REDIRECT_URL
-SOCIAL_AUTH_LOGIN_URL = LOGIN_REDIRECT_URL
-SOCIAL_AUTH_LOGIN_ERROR_URL = LOGIN_URL
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/'  # -> signout ?
 SOCIAL_AUTH_INACTIVE_USER_URL = '/'  # -> signup ?
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/accounts/profile/'
