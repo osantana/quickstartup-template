@@ -19,14 +19,12 @@
         <tr>
             <td>{{ social_account_name }}</td>
             <td>
-                <form method="post" action="">
-                    {% csrf_token %}
-                    {% if social_account_name in backends.not_associated %}
-                    <button type="submit" class="btn btn-success">{% trans 'Connect' %}</button>
-                    {% else %}
-                    <button type="submit" class="btn btn-primary disabled">{% trans 'Connected' %}</button>
-                    {% endif %}
-                </form>
+                {% if social_account_name in backends.not_associated %}
+                {% url 'qs_accounts:profile-social' as next_url %}
+                    <a class="btn btn-success" role="button" href="{% url 'social:begin' social_account_name %}?next={{ next_url }}">{% trans 'Connect' %}</a>
+                {% else %}
+                <span class="btn btn-primary disabled">{% trans 'Connected' %}</span>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
