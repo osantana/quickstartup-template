@@ -6,9 +6,6 @@
     {% include "_includes/form_errors.html" %}
 
     <h1>{% trans "Social" %}</h1>
-    {% if not request.user.social_auth.exists %}
-    <p>{% trans "There are no social accounts associated with you." %}</p>
-    {% else %}
     <table class="table table-hover">
         <thead>
             <tr>
@@ -35,5 +32,4 @@
         {% endfor %}
         </tbody>
     </table>
-    {% endif %}
 {% endblock %}
