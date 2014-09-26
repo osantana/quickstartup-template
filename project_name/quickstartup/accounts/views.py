@@ -115,7 +115,6 @@ class UserSecurityProfile(LoginRequiredMixin, ProfileMixin, UpdateView):
     form_class_without_password = None
 
     def get_form_class(self):
-        print self.form_class_without_password
         # Probably, user was authenticated with social auth
         if not self.request.user.has_usable_password():
             return self.form_class_without_password or self.form_class
