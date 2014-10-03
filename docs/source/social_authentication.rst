@@ -4,12 +4,20 @@ Social Authentication
 The social authentication is implemented based on `python-social-auth
 <http://python-social-auth.readthedocs.org/en/latest/index.html/>`_ and their documentation, please
 check it seriously if you are going to implement social authentication.
+The scope of this document are everything outside their documentation and the assumptions made in
+the project.
 
 
 Setting up social authentication
 --------------------------------
 
-TODO
+Design decisions:
+
+* User can sign-up with social accounts, but login is disabled by default
+* User can connect to other social accounts when he is already authenticated
+* The user email will not be overriden when connecting with other social account
+* We will not handle disconnection (user should revoke the token in his social account)
+
 
 
 Disabling social authentication
