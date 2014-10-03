@@ -41,6 +41,7 @@ urlpatterns = patterns('',
     url("^profile/social/$",
         UserSocialProfile.as_view(template_name='accounts/profile-social.html'),
         name='profile-social'),
+    url("^social-auth-errors/$", "quickstartup.accounts.views.social_auth_errors"),
     url(r"^password/change/$", "django.contrib.auth.views.password_change", name="password_change"),
     url(r"^password/change/done/$", "django.contrib.auth.views.password_change_done", name="password_change_done"),
 )

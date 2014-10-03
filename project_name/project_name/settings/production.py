@@ -50,13 +50,13 @@ LOGIN_URL = "/accounts/signin/"
 ACCOUNT_ACTIVATION_DAYS = 7
 # social authentication, more at http://python-social-auth.readthedocs.org
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = LOGIN_REDIRECT_URL
-SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/'  # -> signout ?
-SOCIAL_AUTH_INACTIVE_USER_URL = '/'  # -> signup ?
-SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/accounts/profile/'
 SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
 SOCIAL_AUTH_USER_MODEL = AUTH_USER_MODEL
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/accounts/social-auth-errors/'
+# If user already exists, do not override his email
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email']
 # This should be set properly by each backend (check the documentation)
 #SOCIAL_AUTH_TWITTER_KEY = ''
 #SOCIAL_AUTH_TWITTER_SECRET = ''
@@ -139,6 +139,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.gzip.GZipMiddleware',
+    'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
     'quickstartup.website.middleware.WebsitePageMiddleware',
 )
 

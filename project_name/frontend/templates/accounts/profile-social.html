@@ -1,10 +1,7 @@
 {% extends "accounts/base_profile.html" %}{% load i18n l10n pages widget_tweaks get_social_backends %}
 
 {% block content %}
-
-    {% include "_includes/message_panels.html" %}
-    {% include "_includes/form_errors.html" %}
-
+    {% include "_includes/message_panels.html" with messages=error_messages %}
     <h1>{% trans "Social" %}</h1>
     <table class="table table-hover">
         <thead>
