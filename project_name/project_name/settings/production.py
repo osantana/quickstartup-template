@@ -88,8 +88,8 @@ LOCALE_PATHS = (
 
 
 # Miscelaneous
-ROOT_URLCONF = "project_name.urls"
-WSGI_APPLICATION = "project_name.wsgi.application"
+ROOT_URLCONF = "{}.urls".format(PROJECT_NAME)
+WSGI_APPLICATION = "{}.wsgi.application".format(PROJECT_NAME)
 
 
 # Media & Static
