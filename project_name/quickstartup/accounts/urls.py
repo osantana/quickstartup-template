@@ -5,11 +5,11 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.forms import PasswordChangeForm
 
 from .forms import CustomAuthenticationForm, CustomSetPasswordForm, CustomUserProfileForm
-from .views import UserProfile, UserSecurityProfile
+from .views import UserProfile, UserSecurityProfile, UserSocialProfile
 
 
 urlpatterns = patterns('',
-    url(r"^signin/$", "django.contrib.auth.views.login",
+    url(r"^signin/$", "quickstartup.accounts.views.login",
         {"template_name": "accounts/signin.html", "authentication_form": CustomAuthenticationForm},
         name="signin"),
     url(r"^logout/$", "django.contrib.auth.views.logout", {"next_page": "/"}, name="logout"),
@@ -37,7 +37,14 @@ urlpatterns = patterns('',
                             form_class=CustomUserProfileForm), name="profile"),
     url(r"^profile/security/$",
         UserSecurityProfile.as_view(template_name='accounts/profile-security.html',
-                                    form_class=PasswordChangeForm), name="profile-security"),
+                                    form_class=PasswordChangeForm,
+                                    form_class_without_password=CustomSetPasswordForm),
+        name="profile-security"),
+    url("^profile/social/$",
+        UserSocialProfile.as_view(template_name='accounts/profile-social.html'),
+        name='profile-social'),
+    url("^social-auth-errors/$", "quickstartup.accounts.views.social_auth_errors",
+        name='social-auth-errors'),
     url(r"^password/change/$", "django.contrib.auth.views.password_change", name="password_change"),
     url(r"^password/change/done/$", "django.contrib.auth.views.password_change_done", name="password_change_done"),
 )

@@ -52,6 +52,27 @@ LOGIN_REDIRECT_URL = "/app/"
 LOGIN_URL = "/accounts/signin/"
 ACCOUNT_ACTIVATION_DAYS = 7
 
+# social authentication, more at http://python-social-auth.readthedocs.org
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = LOGIN_REDIRECT_URL
+SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
+SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
+SOCIAL_AUTH_USER_MODEL = AUTH_USER_MODEL
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/accounts/social-auth-errors/'
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email']  # If user already exists, do not override his email
+
+# This should be set properly by each backend (check the documentation)
+#SOCIAL_AUTH_TWITTER_KEY = ''
+#SOCIAL_AUTH_TWITTER_SECRET = ''
+#SOCIAL_AUTH_GOOGLE_OAUTH_KEY = ''
+#SOCIAL_AUTH_GOOGLE_OAUTH_SECRET = ''
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.twitter.TwitterOAuth',
+    'social.backends.google.GoogleOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.' + config("PASSWORD_HASHER", default="PBKDF2PasswordHasher"),
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
@@ -116,6 +137,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
+    "social.apps.django_app.context_processors.backends",
+    "social.apps.django_app.context_processors.login_redirect",
     "quickstartup.context_processors.project_infos",
     "quickstartup.context_processors.project_settings",
 )
@@ -131,6 +154,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.gzip.GZipMiddleware',
+    'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
     'quickstartup.website.middleware.WebsitePageMiddleware',
 )
 
@@ -145,6 +169,7 @@ INSTALLED_APPS = (
     # 3rd party libs
     'django_extensions',
     'widget_tweaks',
+    'social.apps.django_app.default',
 
     # Quick Startup Apps
     'quickstartup.accounts',

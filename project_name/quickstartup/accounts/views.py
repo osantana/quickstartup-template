@@ -1,19 +1,22 @@
 # coding: utf-8
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.views import login as auth_login
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, redirect, resolve_url
 from django.template.response import TemplateResponse
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, TemplateView
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.translation import ugettext_lazy as _
 
 from braces.views import LoginRequiredMixin
 
 from .forms import CustomPasswordResetForm, CustomUserCreationForm
+from .utils import get_social_message_errors
 
 
 @sensitive_post_parameters()
@@ -21,6 +24,8 @@ from .forms import CustomPasswordResetForm, CustomUserCreationForm
 @never_cache
 def signup(request, template_name='accounts/signup.html', redirect_to="qs_accounts:signin",
            signup_form=CustomUserCreationForm, extra_context=None):
+    if request.user.is_authenticated():
+        return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
     if request.method == "POST":
         form = signup_form(request.POST, request.FILES)
         if form.is_valid():
@@ -32,11 +37,21 @@ def signup(request, template_name='accounts/signup.html', redirect_to="qs_accoun
 
     context = {
         'form': form,
+        'error_messages': get_social_message_errors(request),
     }
     if extra_context is not None:
         context.update(extra_context)
 
     return render(request, template_name, context)
+
+
+@sensitive_post_parameters()
+@csrf_protect
+@never_cache
+def login(request, *args, **kwargs):
+    if request.user.is_authenticated():
+        return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
+    return auth_login(request, *args, **kwargs)
 
 
 @csrf_protect
@@ -97,6 +112,13 @@ class UserProfile(LoginRequiredMixin, ProfileMixin, UpdateView):
 
 class UserSecurityProfile(LoginRequiredMixin, ProfileMixin, UpdateView):
     success_url = reverse_lazy('qs_accounts:profile-security')
+    form_class_without_password = None
+
+    def get_form_class(self):
+        # Probably, user was authenticated with social auth
+        if not self.request.user.has_usable_password():
+            return self.form_class_without_password or self.form_class
+        return self.form_class
 
     def form_valid(self, form):
         messages.success(self.request, _(u'Succesfully updated your password.'))
@@ -108,3 +130,29 @@ class UserSecurityProfile(LoginRequiredMixin, ProfileMixin, UpdateView):
         if 'instance' in kwargs:
             del kwargs['instance']
         return kwargs
+
+
+class UserSocialProfile(LoginRequiredMixin, TemplateView):
+    def get_context_data(self, **kwargs):
+        context = super(UserSocialProfile, self).get_context_data(**kwargs)
+        context['error_messages'] = get_social_message_errors(self.request)
+        return context
+
+
+@never_cache
+def social_auth_errors(request, default_redirect='qs_accounts:signup'):
+    """Handles social auth errors. Some assumptions here is:
+        - If the user is authenticated, then he will be redirected to social profile view
+        - If the user is not authenticated, then he will be redirect to the <default_redirect> view,
+          defaults to sign-up view
+    """
+    if request.user.is_authenticated():
+        url = reverse('qs_accounts:profile-social')
+    else:
+        url = reverse(default_redirect)
+
+    args = request.META.get('QUERY_STRING', '')
+    if args:
+        url = '{}?{}'.format(url, args)
+
+    return redirect(url)
