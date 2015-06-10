@@ -1,3 +1,4 @@
+braces
 -r production.txt
 mock==1.0.1
-django-extensions==1.4.0
+django-extensions==1.5.5

@@ -1,6 +1,5 @@
 # coding: utf-8
 
-
 from django.conf import settings
 from django.core import mail
 from django.core.urlresolvers import reverse
@@ -8,7 +7,6 @@ from django.contrib.auth import get_user_model
 from django.test import override_settings
 
 from ..tests.base import BaseTestCase
-
 
 STATIC_ROOT = str(settings.FRONTEND_DIR / "static")
 
@@ -87,6 +85,7 @@ class AccountTest(BaseTestCase):
         self.assertEqual(user.activation_key_expired(), False)
 
         message = mail.outbox[0]
-        self.assertIn("Hi John Doe,")
+        self.assertIn("Hi John Doe,", message.html)
         self.assertIn("<h3>Hi John Doe,</h3>", message.html)
+        # TODO: continue from here
         self.fail()

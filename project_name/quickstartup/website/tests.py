@@ -73,4 +73,4 @@ class PageTest(BaseTestCase):
         response = self.client.get("/")
         self.assertStatusCode(response, 200)
         self.assertTemplateUsed(response, "website/index.html")
-        self.assertInHTML("<title>Django Quickstartup</title>", response.content)
+        self.assertInHTML("<title>Django Quickstartup</title>", response.content.decode("utf-8"))

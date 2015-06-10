@@ -1,0 +1,11 @@
+# .env sample for local development
+
+DEBUG=True
+LOG_LEVEL=DEBUG
+PROJECT_DOMAIN=localhost:8000
+SECRET_KEY=SUPER-SEKRET
+
+# It's strogly recommended to run your tests agains with the same
+# database that will be used under production.
+DATABASE_URL=sqlite:///tmp/quickstartup.db
+EMAIL_URL=file:///tmp/email-messages

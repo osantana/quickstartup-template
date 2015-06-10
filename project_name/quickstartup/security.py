@@ -18,4 +18,4 @@ def get_antispam_tokens():
         settings.SECRET_KEY + yesterday,
     )
 
-    return [sha1(secret).hexdigest() for secret in secrets]
+    return [sha1(secret.encode("ascii")).hexdigest() for secret in secrets]

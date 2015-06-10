@@ -7,7 +7,7 @@ import posixpath
 import email.charset
 
 from email.mime.image import MIMEImage
-from urllib import unquote
+from urllib.parse import unquote
 
 from django.conf import settings
 from django.core.mail import SafeMIMEMultipart, SafeMIMEText
@@ -53,8 +53,8 @@ class HTMLMessage(object):
         html = re.sub(INLINE_SCHEME, repl, self.html)
 
         alternative = SafeMIMEMultipart("alternative")
-        alternative.attach(SafeMIMEText(self.text, "plain", charset=DEFAULT_CHARSET))
-        alternative.attach(SafeMIMEText(html, "html", charset=DEFAULT_CHARSET))
+        alternative.attach(SafeMIMEText(self.text, "plain", _charset=DEFAULT_CHARSET))
+        alternative.attach(SafeMIMEText(html, "html", _charset=DEFAULT_CHARSET))
         mail.attach(alternative)
 
         for index, path in enumerate(paths):

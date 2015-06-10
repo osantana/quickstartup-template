@@ -38,7 +38,8 @@ class CustomUserCreationForm(forms.ModelForm):
     def save(self, commit=True):
         user_model = get_user_model()
         user = user_model.objects.create_inactive_user(email=self.cleaned_data["email"],
-                                                       password=self.cleaned_data["password1"])
+                                                       password=self.cleaned_data["password1"],
+                                                       name=self.cleaned_data["name"])
         return user
 
 
@@ -61,6 +62,7 @@ class CustomAuthenticationForm(AuthenticationForm):
 class CustomPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label=_("E-Mail"), max_length=254, widget=EmailInput())
 
+    # TODO: remove this "extra arguments" from here and move the messaging to a signal handler
     def save(self, domain_override=None,
              subject_template_name='registration/password_reset_subject.txt',
              email_template_name='registration/password_reset_email.txt',

@@ -28,8 +28,10 @@ urlpatterns = patterns('',
         {"template_name": "accounts/reset-complete.html"},
         name="password_reset_complete"),
 
-    # TODO:
     url(r"^signup/$", "quickstartup.accounts.views.signup", name="signup"),
+    # TODO: signup activation
+    # url(r"^signup/activation/$", "quickstartup.accounts.views.signup_activation", name="activation"),
+
     url(r"^profile/$",
         UserProfile.as_view(template_name='accounts/profile.html',
                             form_class=CustomUserProfileForm), name="profile"),

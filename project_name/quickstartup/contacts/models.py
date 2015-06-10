@@ -56,5 +56,4 @@ def send_contact_mail(instance, created, **kwargs):
     email.send(fail_silently=True)
 
 
-if settings.DEFAULT_TRANSACTIONAL_EMAIL.get("contact"):
-    post_save.connect(send_contact_mail, Contact, dispatch_uid="quickstartup.contacts")
+post_save.connect(send_contact_mail, Contact, dispatch_uid="quickstartup.contacts")

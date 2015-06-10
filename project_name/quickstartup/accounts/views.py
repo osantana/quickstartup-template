@@ -25,10 +25,8 @@ def signup(request, template_name='accounts/signup.html', redirect_to="qs_accoun
         form = signup_form(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-
             url = reverse(redirect_to) if redirect_to.startswith("/") else redirect_to
             return redirect(url)
-
     else:
         form = signup_form()
 

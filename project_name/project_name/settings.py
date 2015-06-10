@@ -2,44 +2,47 @@
 
 
 from pathlib import Path
-from decouple import config
+from prettyconf import config
 from dj_database_url import parse as parse_db_url
+from dj_email_url import parse as parse_email_url
 
+from quickstartup.settings_utils import get_project_package, get_loggers
 
-BASE_DIR = Path(__file__).parents[3]
-PROJECT_DIR = Path(__file__).parents[2]
+# Project Structure
+BASE_DIR = Path(__file__).absolute().parents[2]
+PROJECT_DIR = Path(__file__).absolute().parents[1]
 FRONTEND_DIR = PROJECT_DIR / "frontend"
 
 
 # Project Info
-PROJECT_ID = "quickstartup"   # BOOTSTRAP: PROJECT_ID = "@@id@@"
-PROJECT_NAME = "Django Quickstartup"  # BOOTSTRAP: PROJECT_NAME = "@@name@@"
-PROJECT_DOMAIN = "quickstartup.us"  # BOOTSTRAP: PROJECT_DOMAIN = "@@domain@@"
-PROJECT_CONTACT = "contact@quickstartup.us"  # BOOTSTRAP: PROJECT_CONTACT = "@@contact@@"
+PROJECT_NAME = "Django Quickstartup"
+PROJECT_CONTACT = "contact@quickstartup.us"
+PROJECT_DOMAIN = config("PROJECT_DOMAIN")
 
 
 # Debug & Development
-DEBUG = config("DEBUG", default=False, cast=bool)
-TEMPLATE_DEBUG = config("TEMPLATE_DEBUG", default=DEBUG, cast=bool)
+DEBUG = config("DEBUG", default=False, cast=config.boolean)
+TEMPLATE_DEBUG = config("TEMPLATE_DEBUG", default=DEBUG, cast=config.boolean)
 
 
 # Database
 DATABASES = {
-    'default': config(
-        'DATABASE_URL',
-        default='sqlite:///%s' % ((BASE_DIR / "db.sqlite3"),),
-        cast=parse_db_url
-    )
+    'default': config('DATABASE_URL', cast=parse_db_url),
 }
-DATABASES['default']['ATOMIC_REQUESTS'] = True  # transactions tied to request->response
 DATABASES['default']['CONN_MAX_AGE'] = None  # always connected
 
 
 # Email
+_email_config = config("EMAIL_URL", cast=parse_email_url)
+EMAIL_FILE_PATH = _email_config['EMAIL_FILE_PATH']
+EMAIL_HOST_USER = _email_config['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = _email_config['EMAIL_HOST_PASSWORD']
+EMAIL_HOST = _email_config['EMAIL_HOST']
+EMAIL_PORT = _email_config['EMAIL_PORT']
+EMAIL_BACKEND = _email_config['EMAIL_BACKEND']
+EMAIL_USE_TLS = _email_config['EMAIL_USE_TLS']
 DEFAULT_FROM_EMAIL = PROJECT_CONTACT
-DEFAULT_TRANSACTIONAL_EMAIL = {
-    "contact": True,
-}
+
 
 # Security & Authentication
 ALLOWED_HOSTS = ["*"]
@@ -48,6 +51,16 @@ AUTH_USER_MODEL = "accounts.User"
 LOGIN_REDIRECT_URL = "/app/"
 LOGIN_URL = "/accounts/signin/"
 ACCOUNT_ACTIVATION_DAYS = 7
+
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.' + config("PASSWORD_HASHER", default="PBKDF2PasswordHasher"),
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.UnsaltedMD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher',
+)
 
 
 # i18n & l10n
@@ -68,8 +81,9 @@ LOCALE_PATHS = (
 
 
 # Miscelaneous
-ROOT_URLCONF = "project_name.urls"
-WSGI_APPLICATION = "project_name.wsgi.application"
+_project_package = get_project_package(PROJECT_DIR)
+ROOT_URLCONF = "{}.urls".format(_project_package)
+WSGI_APPLICATION = "{}.wsgi.application".format(_project_package)
 
 
 # Media & Static
@@ -133,7 +147,6 @@ INSTALLED_APPS = (
     'widget_tweaks',
 
     # Quick Startup Apps
-    'quickstartup.deploy',
     'quickstartup.accounts',
     'quickstartup.website',
     'quickstartup.contacts',
@@ -143,13 +156,22 @@ INSTALLED_APPS = (
 )
 
 
-# Deployment Settings
-DEPLOY_METHOD = config("DEPLOY_METHOD", default="linode")
-
-# TODO: check these defaults
-DEPLOY_DATA = {
-    "hostname": config("DEPLOY_HOSTNAME", default=PROJECT_ID),
-    "server_ip": config("DEPLOY_SERVER_IP", default=PROJECT_DOMAIN),
-    "username": config("DEPLOY_USERNAME", default=PROJECT_ID),
-    "user_pubkey": config("DEPLOY_USER_PUBKEY", default="~/.ssh/id_rsa.pub"),
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s'},
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+        },
+        'null': {
+            'class': 'logging.NullHandler',
+        },
+    },
+    'loggers': get_loggers(config("LOG_LEVEL", default="INFO"),
+                           config("LOGGERS", default="", cast=config.list)),
 }

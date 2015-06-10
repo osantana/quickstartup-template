@@ -1,1 +1,1 @@
-jquery.inputmask-2.4.18.js
+jquery.inputmask/dist/jquery.inputmask.bundle.js
