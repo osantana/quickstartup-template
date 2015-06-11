@@ -5,44 +5,17 @@ from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import login as auth_login
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.shortcuts import render, redirect, resolve_url
+from django.shortcuts import redirect, resolve_url
 from django.template.response import TemplateResponse
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import UpdateView, TemplateView
 from django.views.decorators.debug import sensitive_post_parameters
 from django.utils.translation import ugettext_lazy as _
-
 from braces.views import LoginRequiredMixin
 
-from .forms import CustomPasswordResetForm, CustomUserCreationForm
+from .forms import CustomPasswordResetForm
 from .utils import get_social_message_errors
-
-
-@sensitive_post_parameters()
-@csrf_protect
-@never_cache
-def signup(request, template_name='accounts/signup.html', redirect_to="qs_accounts:signin",
-           signup_form=CustomUserCreationForm, extra_context=None):
-    if request.user.is_authenticated():
-        return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
-    if request.method == "POST":
-        form = signup_form(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            url = reverse(redirect_to) if redirect_to.startswith("/") else redirect_to
-            return redirect(url)
-    else:
-        form = signup_form()
-
-    context = {
-        'form': form,
-        'error_messages': get_social_message_errors(request),
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-
-    return render(request, template_name, context)
 
 
 @sensitive_post_parameters()

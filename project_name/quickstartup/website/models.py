@@ -2,13 +2,14 @@
 
 
 from django.db import models
+from django.template import loader
 from django.utils.translation import ugettext_lazy as _
 
 
 class Page(models.Model):
     slug = models.SlugField(max_length=255, blank=True, unique=True, db_index=True,
                             help_text=_("URL Path. Example: about for /about/"))
-    template = models.CharField(max_length=255, help_text=_("Template filename. Example: website/about.html"))
+    template_name = models.CharField(max_length=255, help_text=_("Template filename. Example: website/about.html"))
     login_required = models.BooleanField(default=False)
 
     @property
@@ -20,3 +21,7 @@ class Page(models.Model):
 
     def get_absolute_url(self):
         return self.path
+
+    @property
+    def template(self):
+        return loader.get_template(self.template_name)

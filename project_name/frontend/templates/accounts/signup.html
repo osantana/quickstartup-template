@@ -21,7 +21,8 @@
                     </div>
                 {% endif %}
 
-                {% include "_includes/field.html" with field=form.email|attr:"autofocus" %}
+                {% include "_includes/field.html" with field=form.name|attr:"autofocus" %}
+                {% include "_includes/field.html" with field=form.email %}
                 {% include "_includes/field_password.html" with field=form.password1 %}
                 {% include "_includes/field_password.html" with field=form.password2 %}
 

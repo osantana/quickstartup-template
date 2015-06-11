@@ -1,9 +1,7 @@
 # coding: utf-8
 
 
-import os
 import logging
-
 
 class CustomAdapter(logging.LoggerAdapter):
     def process(self, msg, kwargs):
@@ -44,3 +42,9 @@ def get_project_package(base_dir):
         project_name = "{{ project_name }}"  # rendered by django-admin.py startproject
 
     return project_name
+
+
+def get_site_id(domain, name):
+    from django.contrib.sites.models import Site
+    site, _ = Site.objects.get_or_create(domain=domain, name=name)
+    return site.id

@@ -8,4 +8,5 @@
 .env
 tmp
 app-messages
-static
+/static
+/media

@@ -10,7 +10,7 @@ from .forms import PageForm
 class PageAdmin(admin.ModelAdmin):
     form = PageForm
     fieldsets = (
-        (None, {'fields': ("slug", "template", "login_required")}),
+        (None, {'fields': ("slug", "template_name", "login_required")}),
     )
     list_display = ("slug",)
     list_display_links = ("slug",)

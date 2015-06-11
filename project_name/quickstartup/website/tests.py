@@ -2,29 +2,55 @@
 
 
 from django.core.urlresolvers import NoReverseMatch
+from django.test import override_settings
 
 from ..tests.base import BaseTestCase, TEST_ROOT_DIR
 from .models import Page
 from .urlresolver import page_reverse
 
 
-TEMPLATE_DIRS = (
-    str(TEST_ROOT_DIR / "templates"),
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': (
+            str(TEST_ROOT_DIR / "templates"),
+        ),
+        'OPTIONS': {
+            'debug': True,
+            'context_processors': (
+                "django.contrib.auth.context_processors.auth",
+                "django.core.context_processors.debug",
+                "django.core.context_processors.i18n",
+                "django.core.context_processors.media",
+                "django.core.context_processors.static",
+                "django.core.context_processors.request",
+                "django.core.context_processors.tz",
+                "django.contrib.messages.context_processors.messages",
+                "social.apps.django_app.context_processors.backends",
+                "social.apps.django_app.context_processors.login_redirect",
+                "quickstartup.context_processors.project_infos",
+                "quickstartup.context_processors.project_settings",
+            ),
+        },
+    },
+]
 
 
 class PageTest(BaseTestCase):
+    @override_settings(TEMPLATES=TEMPLATES)
     def test_success_reverse(self):
-        Page.objects.create(slug="about", template="about.html")
+        Page.objects.create(slug="about", template_name="about.html")
         url = page_reverse("about")
         self.assertEquals("/about/", url)
 
-    def test_fail_reverse_missing_template(self):
+    def test_fail_reverse_missing_page(self):
         with self.assertRaises(NoReverseMatch):
             page_reverse("unknown")
 
     def test_fail_reverse_invalid_url(self):
-        self.assertRaises(NoReverseMatch, page_reverse, "/")
+        with self.assertRaises(NoReverseMatch):
+            page_reverse("/")
 
     def test_bootstrap_pages(self):
         self.assertEquals(Page.objects.get(slug="").get_absolute_url(), "/")
@@ -55,19 +81,18 @@ class PageTest(BaseTestCase):
         response = self.client.get("/err/or/")
         self.assertStatusCode(response, 404)
 
+    @override_settings(TEMPLATES=TEMPLATES, DEBUG=False)
     def test_call_template_with_error_and_debug_disabled(self):
-        Page.objects.create(slug="buggy-template", template="buggy-template.html")
-        with self.settings(TEMPLATE_DIRS=TEMPLATE_DIRS, DEBUG=False):
-            url = page_reverse("buggy-template")
-            response = self.client.get(url)
+        Page.objects.create(slug="buggy-template", template_name="buggy-template.html")
+        response = self.client.get(page_reverse("buggy-template"))
         self.assertStatusCode(response, 404)  # original error is 404 because we dont map pages urls
 
+    @override_settings(TEMPLATES=TEMPLATES, DEBUG=True)
     def test_reraise_when_calling_template_with_error_and_debug_enabled(self):
-        Page.objects.create(slug="buggy-template", template="buggy-template.html")
-        with self.settings(TEMPLATE_DIRS=TEMPLATE_DIRS, DEBUG=True):
-            url = page_reverse("buggy-template")
-            with self.assertRaises(NoReverseMatch):
-                self.client.get(url)
+        Page.objects.create(slug="buggy-template", template_name="buggy-template.html")
+        url = page_reverse("buggy-template")
+        with self.assertRaises(NoReverseMatch):
+            self.client.get(url)
 
     def test_index_page_anonymous_user(self):
         response = self.client.get("/")

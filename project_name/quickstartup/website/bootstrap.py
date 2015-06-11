@@ -4,9 +4,9 @@
 def bootstrap_website_pages(apps, schema_editor=None):
     page_model = apps.get_model("website", "Page")
     pages = [
-        {"slug": "", "template": "website/index.html"},
-        {"slug": "privacy", "template": "website/privacy.html"},
-        {"slug": "terms", "template": "website/terms.html"},
+        {"slug": "", "template_name": "website/index.html"},
+        {"slug": "privacy", "template_name": "website/privacy.html"},
+        {"slug": "terms", "template_name": "website/terms.html"},
     ]
 
     for page in pages:

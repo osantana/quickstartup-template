@@ -1,12 +1,14 @@
 {% load i18n get_social_backends %}
-{# it certainly needs improvement #}
+
+{% get_social_backends as social_auth_backends %}
+{% if social_auth_backends %}
 <div>
   <p>{% trans 'Or' %}</p>
   <ul class="list-inline">
     {% trans 'Login with' as default_verb %}
-    {% get_social_backends as social_auth_backends %}
     {% for backend_name, _ in social_auth_backends.items %}
     <li><a href="{% url 'social:begin' backend_name %}">{{ verb|default:default_verb }} {{ backend_name|title }}</a></li>
     {% endfor %}
   </ul>
 </div>
+{% endif %}

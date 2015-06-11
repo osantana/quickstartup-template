@@ -2,11 +2,13 @@
 
 
 from pathlib import Path
+
 from prettyconf import config
 from dj_database_url import parse as parse_db_url
 from dj_email_url import parse as parse_email_url
 
-from quickstartup.settings_utils import get_project_package, get_loggers
+from quickstartup.settings_utils import get_project_package, get_loggers, get_site_id
+
 
 # Project Structure
 BASE_DIR = Path(__file__).absolute().parents[2]
@@ -22,7 +24,6 @@ PROJECT_DOMAIN = config("PROJECT_DOMAIN")
 
 # Debug & Development
 DEBUG = config("DEBUG", default=False, cast=config.boolean)
-TEMPLATE_DEBUG = config("TEMPLATE_DEBUG", default=DEBUG, cast=config.boolean)
 
 
 # Database
@@ -44,15 +45,23 @@ EMAIL_USE_TLS = _email_config['EMAIL_USE_TLS']
 DEFAULT_FROM_EMAIL = PROJECT_CONTACT
 
 
-# Security & Authentication
+# Security & Signup/Signin
 ALLOWED_HOSTS = ["*"]
 SECRET_KEY = config("SECRET_KEY")
 AUTH_USER_MODEL = "accounts.User"
 LOGIN_REDIRECT_URL = "/app/"
 LOGIN_URL = "/accounts/signin/"
 ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True  # Automatically log the user in.
+REGISTRATION_OPEN = True
+INCLUDE_AUTH_URLS = True
+INCLUDE_REGISTER_URL = True
+REGISTRATION_FORM = "quickstartup.accounts.forms.SignupForm"
 
-# social authentication, more at http://python-social-auth.readthedocs.org
+
+SEND_ACTIVATION_EMAIL = False  # TODO: REMOVE
+
+# Social authentication
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = LOGIN_REDIRECT_URL
 SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
@@ -62,14 +71,14 @@ SOCIAL_AUTH_LOGIN_ERROR_URL = '/accounts/social-auth-errors/'
 SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email']  # If user already exists, do not override his email
 
 # This should be set properly by each backend (check the documentation)
-#SOCIAL_AUTH_TWITTER_KEY = ''
-#SOCIAL_AUTH_TWITTER_SECRET = ''
-#SOCIAL_AUTH_GOOGLE_OAUTH_KEY = ''
-#SOCIAL_AUTH_GOOGLE_OAUTH_SECRET = ''
+# SOCIAL_AUTH_TWITTER_KEY = ''
+# SOCIAL_AUTH_TWITTER_SECRET = ''
+# SOCIAL_AUTH_GOOGLE_OAUTH_KEY = ''
+# SOCIAL_AUTH_GOOGLE_OAUTH_SECRET = ''
 
 AUTHENTICATION_BACKENDS = (
-    'social.backends.twitter.TwitterOAuth',
-    'social.backends.google.GoogleOAuth',
+    # 'social.backends.twitter.TwitterOAuth',
+    # 'social.backends.google.GoogleOAuth',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -105,6 +114,7 @@ LOCALE_PATHS = (
 _project_package = get_project_package(PROJECT_DIR)
 ROOT_URLCONF = "{}.urls".format(_project_package)
 WSGI_APPLICATION = "{}.wsgi.application".format(_project_package)
+SITE_ID = get_site_id(PROJECT_DOMAIN, PROJECT_NAME)
 
 
 # Media & Static
@@ -117,31 +127,34 @@ STATICFILES_DIRS = (
     str(FRONTEND_DIR / "static"),
 )
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
 
-
-# Template
-TEMPLATE_DIRS = (
-    str(FRONTEND_DIR / "templates"),
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.request",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-    "social.apps.django_app.context_processors.backends",
-    "social.apps.django_app.context_processors.login_redirect",
-    "quickstartup.context_processors.project_infos",
-    "quickstartup.context_processors.project_settings",
-)
+# Templates
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': (
+            str(FRONTEND_DIR / "templates"),
+        ),
+        'OPTIONS': {
+            'debug': config("TEMPLATE_DEBUG", default=DEBUG, cast=config.boolean),
+            'context_processors': (
+                "django.contrib.auth.context_processors.auth",
+                "django.core.context_processors.debug",
+                "django.core.context_processors.i18n",
+                "django.core.context_processors.media",
+                "django.core.context_processors.static",
+                "django.core.context_processors.request",
+                "django.core.context_processors.tz",
+                "django.contrib.messages.context_processors.messages",
+                "social.apps.django_app.context_processors.backends",
+                "social.apps.django_app.context_processors.login_redirect",
+                "quickstartup.context_processors.project_infos",
+                "quickstartup.context_processors.project_settings",
+            ),
+        },
+    },
+]
 
 
 # Application
@@ -164,11 +177,13 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
 
     # 3rd party libs
     'django_extensions',
     'widget_tweaks',
+    'registration',
     'social.apps.django_app.default',
 
     # Quick Startup Apps
