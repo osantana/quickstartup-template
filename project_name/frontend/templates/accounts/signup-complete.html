@@ -1,0 +1,24 @@
+{% extends "pages.html" %}{% load i18n %}{% load l10n %}{% load pages %}
+
+
+{% block menu_signup %}<li class="active"><a href="{% url "qs_accounts:signup" %}">{% trans "Sign up" %}</a></li>{% endblock %}
+
+
+{% block container %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="form-panel">
+                    <h2>{% trans "Activation email sent" %}</h2>
+                    <p>{% trans "Please check your email to complete the registration process." %}</p>
+                    <a class="btn btn-default" href="{% url "qs_accounts:signin" %}">{% trans "Back to Sign in" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+{% endblock %}
+

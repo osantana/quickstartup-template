@@ -10,9 +10,10 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # QUICKSTARTUP: Replace the url mapping bellow with your application urls module
-    url("^", include("apps.sample.urls", namespace="app")),
+    url(r"^", include("apps.sample.urls", namespace="app")),
+
     # social authentication
-    url('', include('social.apps.django_app.urls', namespace='social')),
+    url(r"^", include('social.apps.django_app.urls', namespace='social')),
 
     # Django Admin Interface
     url(r"^admin/", include(admin.site.urls)),

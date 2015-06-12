@@ -1,16 +1,19 @@
-{% load i18n l10n pages %}{% autoescape off %}
-{% if user_account.name %}<h3>{% trans "Hi " %}{{ user_account.name }},</h3>
-{% else %}<h3>{% trans "Hi," %}</h3>{% endif %}
-{% blocktrans %}
-You're receiving this email because you requested a password reset
-for your user account at {{ PROJECT_NAME }}.
-{% endblocktrans %}
-{% trans "Please go to the following page and choose a new password:" %}
-{{ protocol }}://{{ PROJECT_DOMAIN }}{{ path }}
+{% load i18n l10n pages %}{% autoescape off %}{% if user.name %}{% trans "Hi " %}{{ user.name }}, {% else %}{% trans "Hi," %}{% endif %}
+{% blocktrans with site_name=site.name %}
+You (or someone pretending to be you) have asked to register an account
+at {{ site_name }}.
 
-{% trans "If you did not request this change ignore this email." %}
-{% blocktrans %}
+If this wasn't you, please ignore this email and your address will be
+removed from our records.
+
+You need to activate your account within the next {{ expiration_days }} days.
+{% endblocktrans %}
+{% trans "To activate your account follow the link below:" %}
+
+  http://{{site.domain}}{% url 'qs_accounts:activate' activation_key %}
+
+{% blocktrans with site_name=site.name %}
 Thanks,
-The {{ PROJECT_NAME }} team
+The {{ site_name }} team
 {% endblocktrans %}
 {% endautoescape %}

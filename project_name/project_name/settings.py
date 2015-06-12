@@ -44,22 +44,17 @@ EMAIL_BACKEND = _email_config['EMAIL_BACKEND']
 EMAIL_USE_TLS = _email_config['EMAIL_USE_TLS']
 DEFAULT_FROM_EMAIL = PROJECT_CONTACT
 
-
 # Security & Signup/Signin
 ALLOWED_HOSTS = ["*"]
 SECRET_KEY = config("SECRET_KEY")
 AUTH_USER_MODEL = "accounts.User"
-LOGIN_REDIRECT_URL = "/app/"
-LOGIN_URL = "/accounts/signin/"
+LOGIN_REDIRECT_URL = "app:index"
+LOGIN_URL = "qs_accounts:signin"
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True  # Automatically log the user in.
 REGISTRATION_OPEN = True
-INCLUDE_AUTH_URLS = True
-INCLUDE_REGISTER_URL = True
 REGISTRATION_FORM = "quickstartup.accounts.forms.SignupForm"
 
-
-SEND_ACTIVATION_EMAIL = False  # TODO: REMOVE
 
 # Social authentication
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = LOGIN_REDIRECT_URL

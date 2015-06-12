@@ -1,11 +1,11 @@
-{% extends "mails/base.html" %}{% load i18n staticfiles %}{% load staticfiles %}
+{% extends "mails/base.html" %}{% load i18n staticfiles %}
 
 
 {% block head_title %}{{ subject }}{% endblock head_title %}
 
 
-{% block logo %}<img src="inline://{% static "website/logo-200x50.png" %}">{% endblock logo %}
+{% block logo %}<img src="http://{{ site.domain }}{% static "website/logo-200x50.png" %}">{% endblock %}
 
 {% block footer_content %}
-    <p>&copy; {{ PROJECT_NAME }}</p>
+    <p>&copy; {{ site.domain }}</p>
 {% endblock footer_content %}

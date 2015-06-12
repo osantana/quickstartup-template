@@ -1,4 +1,5 @@
-{% extends "mails/activation-email.txt"     %}
+{% extends "mails/activation-email.txt" %}
+foo
 
 {#     PLEASE DO NOT CHANGE THIS FILE!       #}
 {#     ===============================       #}
