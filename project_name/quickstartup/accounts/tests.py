@@ -34,9 +34,9 @@ class AccountTest(BaseTestCase):
         self.assertTemplateUsed(response, "mails/password-reset.html")
         self.assertTemplateUsed(response, "mails/password-reset.txt")
 
-        message = mail.outbox[0]
-        self.assertIn("Hi,", message.text)
-        self.assertIn("<h3>Hi,</h3>", message.html)
+        text, html = self.get_mail_payloads(mail.outbox[0])
+        self.assertIn("Hi,", text)
+        self.assertIn("<h3>Hi,</h3>", html)
 
         reset_token_url = response.context["path"]
         data = {"new_password1": "new-sekret", "new_password2": "new-sekret"}
@@ -67,9 +67,9 @@ class AccountTest(BaseTestCase):
         data = {"email": "test@example.com"}
         self.client.post(url, data)
 
-        message = mail.outbox[0]
-        self.assertIn("Hi John Doe,", message.text)
-        self.assertIn("<h3>Hi John Doe,</h3>", message.html)
+        text, html = self.get_mail_payloads(mail.outbox[0])
+        self.assertIn("Hi John Doe,", text)
+        self.assertIn("<h3>Hi John Doe,</h3>", html)
 
     def test_simple_signup(self):
         url = reverse("qs_accounts:signup")
