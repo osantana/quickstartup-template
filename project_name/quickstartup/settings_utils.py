@@ -3,6 +3,7 @@
 
 import logging
 
+
 class CustomAdapter(logging.LoggerAdapter):
     def process(self, msg, kwargs):
         messages = []
@@ -46,5 +47,16 @@ def get_project_package(base_dir):
 
 def get_site_id(domain, name):
     from django.contrib.sites.models import Site
-    site, _ = Site.objects.get_or_create(domain=domain, name=name)
+    from django.db import ProgrammingError
+    try:
+        site = Site.objects.get(pk=1)
+    except Site.DoesNotExist:
+        site = Site.objects.create(domain=domain, name=name)
+    except ProgrammingError:
+        return 1
+
+    site.domain = domain
+    site.name = name
+    site.save()
+
     return site.id
