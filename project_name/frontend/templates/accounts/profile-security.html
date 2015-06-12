@@ -1,19 +1,26 @@
 {% extends "accounts/base_profile.html" %}{% load i18n l10n pages widget_tweaks %}
 
-{% block content %}
+{% block tab_profile_security %}
+    <li class="active"><a href="{% url 'qs_accounts:profile-security' %}">{% trans 'Security' %}</a></li>{% endblock %}
 
-    {% include "_includes/message_panels.html" %}
+{% block profile_content %}
     {% include "_includes/form_errors.html" %}
 
-    <h1>{% trans "Security" %}</h1>
+    <h2>{% trans "Security" %}</h2>
 
-    <form action="{% url 'qs_accounts:profile-security' %}" method="post" class="form-panel" role="form">
-        {% csrf_token %}
-        {% include "_includes/field.html" with field=form.old_password|attr:"autofocus" %}
-        {% include "_includes/field.html" with field=form.new_password1 %}
-        {% include "_includes/field.html" with field=form.new_password2 %}
-        <div class="form-group">
-            <button class="btn btn-primary" type="submit">{% trans "Update" %}</button>
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <form action="{% url 'qs_accounts:profile-security' %}" method="post" class="form-panel" role="form">
+                {% csrf_token %}
+                {% include "_includes/field.html" with field=form.old_password|attr:"autofocus" %}
+                {% include "_includes/field.html" with field=form.new_password1 %}
+                {% include "_includes/field.html" with field=form.new_password2 %}
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">{% trans "Update" %}</button>
+                </div>
+            </form>
+
         </div>
-    </form>
+    </div>
 {% endblock %}

@@ -1,19 +1,25 @@
 {% extends "accounts/base_profile.html" %}{% load i18n l10n pages widget_tweaks %}
 
-{% block content %}
+{% block tab_profile_main %}
+    <li class="active"><a href="{% url 'qs_accounts:profile' %}">{% trans "Profile" %}</a></li>{% endblock %}
 
-    {% include "_includes/message_panels.html" %}
+{% block profile_content %}
+
     {% include "_includes/form_errors.html" %}
 
-    <h1>{% trans "Profile" %}</h1>
+    <h2>{% trans "Profile Informations" %}</h2>
 
-    <form action="{% url 'qs_accounts:profile' %}" method="post" class="form-panel" role="form">
-        {% csrf_token %}
-        {% include "_includes/field.html" with field=form.name|attr:"autofocus" %}
-        {% include "_includes/field.html" with field=form.email %}
-        <div class="form-group">
-            <button class="btn btn-primary" type="submit">{% trans "Update" %}</button>
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <form action="{% url 'qs_accounts:profile' %}" method="post" class="form-panel" role="form">
+                {% csrf_token %}
+                {% include "_includes/field.html" with field=form.name|attr:"autofocus" %}
+                {% include "_includes/field.html" with field=form.email %}
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">{% trans "Update" %}</button>
+                </div>
+            </form>
         </div>
-    </form>
-
+    </div>
 {% endblock %}

@@ -1,12 +1,15 @@
-{% extends "apps.html" %}{% load i18n %}
+{% extends "apps.html" %}{% load i18n get_social_backends %}
 
-{% block sidebar %}{{ block.super }}
-<div class="sidebar-nav list-group">
-    {% url 'qs_accounts:profile' as profile_url %}
-    <a class="list-group-item {% if request.path == profile_url %}active{% endif %}" href="{{ profile_url }}">{% trans 'Profile' %}</a>
-    {% url 'qs_accounts:profile-security' as security_url %}
-    <a class="list-group-item {% if request.path == security_url %}active {% endif %}" href="{{ security_url }}">{% trans 'Security' %}</a>
-    {% url 'qs_accounts:profile-social' as social_url %}
-    <a class="list-group-item {% if request.path == social_url %}active {% endif %}" href="{{ social_url }}">{% trans 'Social' %}</a>
-</div>
+{% block content %}
+    {% get_social_backends as social_backends %}
+
+    <ul class="nav nav-tabs">
+        {% block tab_profile_main %}<li><a href="{% url 'qs_accounts:profile' %}">{% trans "Profile" %}</a></li>{% endblock %}
+        {% block tab_profile_security %}<li><a href="{% url 'qs_accounts:profile-security' %}">{% trans 'Security' %}</a></li>{% endblock %}
+        {% if social_backends %}
+        {% block tab_profile_social %}<li><a href="{% url 'qs_accounts:profile-social' %}">{% trans 'Social' %}</a></li>{% endblock %}
+        {% endif %}
+    </ul>
+
+    {% block profile_content %}{% endblock %}
 {% endblock %}

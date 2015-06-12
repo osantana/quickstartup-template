@@ -1,13 +1,17 @@
 # coding: utf-8
 
 
+from django.conf import settings
 from django.conf.urls import patterns, url
 from django.contrib.auth.forms import PasswordChangeForm
 from django.views.generic import TemplateView
+
 from registration.backends.default.views import RegistrationView
+from social.backends.utils import load_backends
 
 from .forms import CustomAuthenticationForm, CustomSetPasswordForm, CustomUserProfileForm
 from .views import UserProfile, UserSecurityProfile, UserSocialProfile, SignupActivationView
+
 
 urlpatterns = patterns(
     '',  # prefix
@@ -77,12 +81,18 @@ urlpatterns = patterns(
         ),
         name="profile-security"),
 
-    # Social Auth
-    url("^profile/social/$",
-        view=UserSocialProfile.as_view(
-            template_name='accounts/profile-social.html',
-        ),
-        name='profile-social'),
-    url("^social-auth-errors/$", "quickstartup.accounts.views.social_auth_errors",
-        name='social-auth-errors'),
 )
+
+
+# Social Auth
+if load_backends(settings.AUTHENTICATION_BACKENDS):
+    urlpatterns += patterns(
+        "",  # prefix
+        url("^profile/social/$",
+            view=UserSocialProfile.as_view(
+                template_name='accounts/profile-social.html',
+            ),
+            name='profile-social'),
+        url("^social-auth-errors/$", "quickstartup.accounts.views.social_auth_errors",
+            name='social-auth-errors'),
+    )

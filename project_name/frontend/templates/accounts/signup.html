@@ -1,4 +1,4 @@
-{% extends "pages.html" %}{% load i18n l10n pages widget_tweaks %}
+{% extends "pages.html" %}{% load i18n l10n pages widget_tweaks get_social_backends %}
 
 
 {% block body_tag %}<body class="signup">{% endblock %}
@@ -29,8 +29,12 @@
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">{% trans "Sign up" %}</button>
                 </div>
-                {% trans "Sign up with" as verb %}
-                {% include "_includes/social_options.html" with verb=verb %}
+
+                {% get_social_backends as social_auth_backends %}
+                {% if social_auth_backends %}
+                    {% trans "Sign up with" as verb %}
+                    {% include "_includes/social_options.html" with verb=verb %}
+                {% endif %}
             </form>
         </div>
     </div>

@@ -2,10 +2,3 @@
 body {
     padding-top: 10px;
 }
-
-/* Content Panel */
-.content {
-    border: 1px solid #e7e7e7;
-    border-radius: 5px;
-    padding: 0 20px 10px 20px;
-}

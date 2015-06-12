@@ -1,7 +1,7 @@
 {% load i18n get_social_backends %}
 
 {% get_social_backends as social_auth_backends %}
-{% if social_auth_backends %}
+
 <div>
   <p>{% trans 'Or' %}</p>
   <ul class="list-inline">
@@ -11,4 +11,3 @@
     {% endfor %}
   </ul>
 </div>
-{% endif %}
