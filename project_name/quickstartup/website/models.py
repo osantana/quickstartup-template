@@ -16,6 +16,9 @@ class Page(models.Model):
     def path(self):
         return "/{}/".format(self.slug) if self.slug else "/"
 
+    def __str__(self):
+        return self.path
+
     def __repr__(self):
         return "<Page: {}>".format(self.path)
 

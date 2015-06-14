@@ -12,8 +12,8 @@ class PageAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ("slug", "template_name", "login_required")}),
     )
-    list_display = ("slug",)
-    list_display_links = ("slug",)
+    list_display = ("path", "template_name")
+    list_display_links = ("path", "template_name")
     list_filter = ("login_required",)
     search_fields = ("slug",)
 
