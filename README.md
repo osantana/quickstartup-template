@@ -35,3 +35,32 @@ SECRET_KEY=SUPER-SEKRET
 DATABASE_URL=postgresql://PROJECT:PROJECT@localhost/PROJECT
 EMAIL_URL=file:///tmp/email-messages
 ```
+
+
+## Basic installation
+
+```bash
+$ pip install -r requirements-local.txt
+$ cd PROJECT
+$ chmod +x manage.py
+$ ./manage.py migrate
+```
+
+```python
+# PROJECT/settings.py
+
+# EDIT and change the following settings:
+PROJECT_NAME="My Personal Project"
+PROJECT_CONTACT="contact@personal_project.com"
+```
+
+
+## Running
+
+```bash
+$ ./manage.py runserver
+```
+
+## It Worked!
+
+http://localhost:8000/
