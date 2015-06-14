@@ -40,7 +40,7 @@ class BaseUser(DjangoAbstractBaseUser, PermissionsMixin):
     objects = BaseUserManager()
 
     email = models.EmailField(_("email"), max_length=255, unique=True, db_index=True)
-    date_joined = models.DateTimeField(_("created"), default=timezone.now)
+    date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     is_active = models.BooleanField(_("active"), default=False)
     is_staff = models.BooleanField(_("staff"), default=False)
 

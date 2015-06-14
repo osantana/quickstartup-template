@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-quickstartup 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-14 04:42+0000\n"
+"POT-Creation-Date: 2015-06-14 04:56+0000\n"
 "PO-Revision-Date: 2013-04-07 01:46-0300\n"
 "Last-Translator: Osvaldo Santana Neto <quickstartup@osantana.me>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
@@ -322,6 +322,7 @@ msgid "Password Reset"
 msgstr "Redefinir Senha"
 
 #: frontend/templates/mails/password-reset.html:15
+#, python-format
 msgid ""
 "You're receiving this email because you\n"
 "requested a password reset for your user account at %(site_name)s."
@@ -345,6 +346,10 @@ msgid "If you did not request this change ignore this email."
 msgstr "Se você não solicitou essa alteração ignore este email."
 
 #: frontend/templates/mails/password-reset.html:31
+#, fuzzy, python-format
+#| msgid ""
+#| "Thanks,<br>\n"
+#| "The %(site.domain)s team"
 msgid ""
 "Thanks,<br>\n"
 "The %(site.domain)s team"
@@ -439,8 +444,8 @@ msgid "email"
 msgstr "email"
 
 #: quickstartup/accounts/models.py:43
-msgid "created"
-msgstr "criado em"
+msgid "date joined"
+msgstr "data de entrada"
 
 #: quickstartup/accounts/models.py:44
 msgid "active"
@@ -547,3 +552,6 @@ msgstr "Path da URL. Exemplo: about para /about/"
 #: quickstartup/website/models.py:12
 msgid "Template filename. Example: website/about.html"
 msgstr "Nome do arquivo de template. Exemplo: website/about.html"
+
+#~ msgid "created"
+#~ msgstr "criado em"
