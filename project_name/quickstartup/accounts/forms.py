@@ -46,7 +46,7 @@ class UserAdminCreationForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('name', 'email', 'password1', 'password2')
+        fields = ('name', 'email', 'password1', 'password2', 'is_staff')
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -58,11 +58,8 @@ class UserAdminCreationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        user_model = get_user_model()
-        user = user_model.objects.create_user(email=self.cleaned_data["email"],
-                                              password=self.cleaned_data["password1"],
-                                              name=self.cleaned_data["name"],
-                                              commit=commit)
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
         return user
 
 
