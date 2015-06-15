@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-quickstartup 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-15 05:03+0000\n"
+"POT-Creation-Date: 2015-06-15 05:32+0000\n"
 "PO-Revision-Date: 2013-04-07 01:46-0300\n"
 "Last-Translator: Osvaldo Santana Neto <quickstartup@osantana.me>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
@@ -329,7 +329,7 @@ msgid ""
 "requested a password reset for your user account at %(site_name)s."
 msgstr ""
 "Você está recebendo este email porque solicitou uma redefinição de senha\n"
-"para sua conta no %(site_name)s.\n"
+"para sua conta no %(site_name)s."
 
 #: frontend/templates/mails/password-reset.html:20
 msgid "To reset your password"
@@ -384,9 +384,34 @@ msgstr "Termos de uso"
 msgid "This is a template for a simple web application in Django."
 msgstr "Este é um template para uma aplicação web em Django."
 
-#: frontend/templates/website/index.html:31
-msgid "Subscribe our newsletter"
-msgstr "Assine a nossa newsletter"
+#: frontend/templates/website/index.html:14
+msgid "Create your Account!"
+msgstr "Cadastre-se!"
+
+#: frontend/templates/website/index.html:20
+msgid "Start Now!"
+msgstr "Comece Já!"
+
+#: frontend/templates/website/index.html:22
+msgid ""
+"Quickstartup provides the basic components and design to start\n"
+"your web application quickly."
+msgstr ""
+"Quickstartup oferece os componentes e o design para iniciar\n"
+"a sua aplicação web rapidamente."
+
+#: frontend/templates/website/index.html:27
+msgid "Go Live!"
+msgstr "No Ar!"
+
+#: frontend/templates/website/index.html:29
+msgid ""
+"Quickstartup includes deployment script for the major Django\n"
+"host providers. You can put your application online with one command."
+msgstr ""
+"Quickstartup inclui roteiros de deployment para os maiores\n"
+"provedores de hospedagem dispon[iveis. Você pode colocar a sua aplicação"
+"no ar com apenas um comando."
 
 #: frontend/templates/website/privacy.html:3
 #: frontend/templates/website/privacy.html:10
