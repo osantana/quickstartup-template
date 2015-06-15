@@ -9,3 +9,4 @@ django-model-utils==2.2
 python-social-auth==0.2.10
 django-registration-redux==1.2
 django-extensions==1.5.5
+uWSGI==2.0.10
