@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django-quickstartup 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-14 04:56+0000\n"
+"POT-Creation-Date: 2015-06-15 05:03+0000\n"
 "PO-Revision-Date: 2013-04-07 01:46-0300\n"
 "Last-Translator: Osvaldo Santana Neto <quickstartup@osantana.me>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
@@ -269,6 +269,7 @@ msgid "click here"
 msgstr "clique aqui"
 
 #: frontend/templates/mails/activation-email.html:27
+#: frontend/templates/mails/password-reset.html:31
 #, python-format
 msgid ""
 "Thanks,<br>\n"
@@ -345,18 +346,6 @@ msgstr ""
 msgid "If you did not request this change ignore this email."
 msgstr "Se você não solicitou essa alteração ignore este email."
 
-#: frontend/templates/mails/password-reset.html:31
-#, fuzzy, python-format
-#| msgid ""
-#| "Thanks,<br>\n"
-#| "The %(site.domain)s team"
-msgid ""
-"Thanks,<br>\n"
-"The %(site.domain)s team"
-msgstr ""
-"Obrigado,<br>\n"
-"Equipe %(site_name)s"
-
 #: frontend/templates/mails/password-reset.txt:4
 #, python-format
 msgid ""
@@ -418,7 +407,7 @@ msgid "Create your Terms of Service here"
 msgstr "Crie os seus Termos de Uso aqui"
 
 #: quickstartup/accounts/forms.py:19 quickstartup/accounts/forms.py:44
-#: quickstartup/accounts/forms.py:82
+#: quickstartup/accounts/forms.py:79
 msgid "Password"
 msgstr "Senha"
 
@@ -426,15 +415,15 @@ msgstr "Senha"
 msgid "Password (verify)"
 msgstr "Senha (verificação)"
 
-#: quickstartup/accounts/forms.py:81 quickstartup/accounts/forms.py:86
+#: quickstartup/accounts/forms.py:78 quickstartup/accounts/forms.py:83
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: quickstartup/accounts/forms.py:113
+#: quickstartup/accounts/forms.py:110
 msgid "New password"
 msgstr "Nova senha"
 
-#: quickstartup/accounts/forms.py:114
+#: quickstartup/accounts/forms.py:111
 msgid "New password confirmation"
 msgstr "Confirmação da nova senha"
 
@@ -552,6 +541,3 @@ msgstr "Path da URL. Exemplo: about para /about/"
 #: quickstartup/website/models.py:12
 msgid "Template filename. Example: website/about.html"
 msgstr "Nome do arquivo de template. Exemplo: website/about.html"
-
-#~ msgid "created"
-#~ msgstr "criado em"
