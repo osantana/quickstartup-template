@@ -15,8 +15,21 @@ from django.core.wsgi import get_wsgi_application
 _application = get_wsgi_application()
 
 
-def application(environ, start_response):
+try:
+    from dj_static import MediaCling
+    _application = MediaCling(get_wsgi_application())
+except ImportError:
+    pass
 
+
+try:
+    from dj_static import Cling
+    _application = Cling(get_wsgi_application())
+except ImportError:
+    pass
+
+
+def application(environ, start_response):
     # Copy all QS_* wsgi environments to os.environ removing QS_ prefix
     # This is useful to use Apache SetEnv option to pass configuration
     # arguments to application.

@@ -7,7 +7,8 @@ from prettyconf import config
 from dj_database_url import parse as parse_db_url
 from dj_email_url import parse as parse_email_url
 
-from quickstartup.settings_utils import get_project_package, get_loggers, get_site_id
+from quickstartup.settings_utils import (get_project_package, get_loggers,
+                                         get_site_id, get_static_root, get_media_root)
 
 
 # Project Structure
@@ -114,10 +115,10 @@ SITE_ID = get_site_id(PROJECT_DOMAIN, PROJECT_NAME)
 
 # Media & Static
 MEDIA_URL = "/media/"
-MEDIA_ROOT = str(BASE_DIR / "media")
+MEDIA_ROOT = get_media_root(BASE_DIR)
 
 STATIC_URL = "/static/"
-STATIC_ROOT = str(BASE_DIR / "static")
+STATIC_ROOT = get_static_root(BASE_DIR)
 STATICFILES_DIRS = (
     str(FRONTEND_DIR / "static"),
 )

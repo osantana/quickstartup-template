@@ -1,4 +1,7 @@
 # coding: utf-8
+#
+# Extract heavy logic from settings.py, manage.py and wsgi.py
+#
 
 
 import logging
@@ -60,3 +63,21 @@ def get_site_id(domain, name):
     site.save()
 
     return site.id
+
+
+def get_static_root(base_dir):
+    try:
+        from dj_static import Cling
+    except ImportError:
+        return str(base_dir / "static")
+
+    return "staticfiles"
+
+
+def get_media_root(base_dir):
+    try:
+        from dj_static import MediaCling
+    except ImportError:
+        return str(base_dir / "media")
+
+    return "media"
