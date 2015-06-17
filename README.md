@@ -15,7 +15,7 @@
 $ cd directory/of/PROJECT
 $ virtualenv-3.4 --no-site-packages PROJECT
 $ pip3 install django
-$ django-admin.py startproject --template=https://github.com/osantana/quickstartup/archive/master.zip PROJECT
+$ django-admin.py startproject --template=https://github.com/osantana/quickstartup-template/archive/master.zip PROJECT
 ```
 
 ## Database configuration
