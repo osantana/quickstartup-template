@@ -183,6 +183,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
 
     # Quick Startup Apps
+    'quickstartup.core',
     'quickstartup.accounts',
     'quickstartup.website',
     'quickstartup.contacts',
