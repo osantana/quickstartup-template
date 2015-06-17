@@ -2,7 +2,7 @@
 
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.db import models
 from django.core.mail import EmailMessage
 from django.db.models.signals import post_save
@@ -29,7 +29,10 @@ class Contact(models.Model):
 
     @property
     def admin_url(self):
-        return reverse("admin:contacts_contact_change", args=(self.pk,))
+        try:
+            return reverse("admin:contacts_contact_change", args=(self.pk,))
+        except NoReverseMatch:
+            return ""  # admin disabled
 
 
 def send_contact_mail(instance, created, **kwargs):

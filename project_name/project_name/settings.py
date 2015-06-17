@@ -55,7 +55,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True  # Automatically log the user in.
 REGISTRATION_OPEN = True
 REGISTRATION_FORM = "quickstartup.accounts.forms.SignupForm"
-
+ADMIN_URL = "admin"  # empty to disable admin URLs
 
 # Social authentication
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = LOGIN_REDIRECT_URL
