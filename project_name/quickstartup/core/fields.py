@@ -4,8 +4,8 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from .security import get_antispam_tokens
-from .widgets import AntiSpamWidget
+from quickstartup.security import get_antispam_tokens
+from quickstartup.widgets import AntiSpamWidget
 
 
 ERROR_MESSAGE = _(u'You need to enable JavaScript to complete this form.')
