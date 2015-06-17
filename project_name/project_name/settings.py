@@ -128,12 +128,15 @@ STATICFILES_DIRS = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': True,
         'DIRS': (
             str(FRONTEND_DIR / "templates"),
         ),
         'OPTIONS': {
             'debug': config("TEMPLATE_DEBUG", default=DEBUG, cast=config.boolean),
+            'loaders': (
+                'django.template.loaders.filesystem.Loader',
+                'quickstartup.template_loader.Loader'
+            ),
             'context_processors': (
                 "django.contrib.auth.context_processors.auth",
                 "django.core.context_processors.debug",

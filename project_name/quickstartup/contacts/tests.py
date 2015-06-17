@@ -17,7 +17,7 @@ TEMPLATE_DIRS = (
 
 
 class ContactTest(BaseTestCase):
-    @mock.patch("quickstartup.fields.AntiSpamField.clean")
+    @mock.patch("quickstartup.core.fields.AntiSpamField.clean")
     def test_send_contact(self, patched_clean):
         patched_clean.return_value = "1337"
         data = {
