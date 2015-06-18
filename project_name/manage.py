@@ -8,7 +8,7 @@ from pathlib import Path
 from quickstartup.settings_utils import get_project_package
 
 
-PROJECT_DIR = Path(__file__).absolute().parents[1]
+PROJECT_DIR = Path(__file__).absolute().parent
 PROJECT_PACKAGE = get_project_package(PROJECT_DIR)
 
 
