@@ -45,19 +45,36 @@ EMAIL_BACKEND = _email_config['EMAIL_BACKEND']
 EMAIL_USE_TLS = _email_config['EMAIL_USE_TLS']
 DEFAULT_FROM_EMAIL = PROJECT_CONTACT
 
+
 # Security & Signup/Signin
 ALLOWED_HOSTS = ["*"]
 SECRET_KEY = config("SECRET_KEY")
+
 AUTH_USER_MODEL = "accounts.User"
-LOGIN_REDIRECT_URL = "app:index"
+REGISTRATION_FORM = "quickstartup.accounts.forms.SignupForm"
+PROFILE_FORM = "quickstartup.accounts.forms.ProfileForm"
+
 LOGIN_URL = "qs_accounts:signin"
+LOGIN_REDIRECT_URL = "app:index"
+ADMIN_URL = "admin"  # empty to disable admin URLs
+
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True  # Automatically log the user in.
 REGISTRATION_OPEN = True
-REGISTRATION_FORM = "quickstartup.accounts.forms.SignupForm"
-ADMIN_URL = "admin"  # empty to disable admin URLs
 
-# Social authentication
+PASSWORD_HASHERS = (
+    # Set PASSWORD_HASHER=UnsaltedMD5PasswordHasher to make test running faster
+    'django.contrib.auth.hashers.' + config("PASSWORD_HASHER", default="PBKDF2PasswordHasher"),
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.UnsaltedMD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher',
+)
+
+
+# Social
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = LOGIN_REDIRECT_URL
 SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
@@ -66,7 +83,6 @@ SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/accounts/social-auth-errors/'
 SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email']  # If user already exists, do not override his email
 
-# This should be set properly by each backend (check the documentation)
 # SOCIAL_AUTH_TWITTER_KEY = ''
 # SOCIAL_AUTH_TWITTER_SECRET = ''
 # SOCIAL_AUTH_GOOGLE_OAUTH_KEY = ''
@@ -76,16 +92,6 @@ AUTHENTICATION_BACKENDS = (
     # 'social.backends.twitter.TwitterOAuth',
     # 'social.backends.google.GoogleOAuth',
     'django.contrib.auth.backends.ModelBackend',
-)
-
-PASSWORD_HASHERS = (
-    'django.contrib.auth.hashers.' + config("PASSWORD_HASHER", default="PBKDF2PasswordHasher"),
-    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-    'django.contrib.auth.hashers.BCryptPasswordHasher',
-    'django.contrib.auth.hashers.SHA1PasswordHasher',
-    'django.contrib.auth.hashers.MD5PasswordHasher',
-    'django.contrib.auth.hashers.UnsaltedMD5PasswordHasher',
-    'django.contrib.auth.hashers.CryptPasswordHasher',
 )
 
 

@@ -1,6 +1,6 @@
 django==1.8.2
 psycopg2==2.6
-quickstartup==0.1.6
+quickstartup==0.1.9
 prettyconf==0.3.2
 dj-database-url==0.3.0
 dj-email-url==0.0.4
