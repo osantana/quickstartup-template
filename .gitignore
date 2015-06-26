@@ -10,3 +10,4 @@ tmp
 app-messages
 /static
 /media
+staticfiles

@@ -17,14 +17,14 @@ _application = get_wsgi_application()
 
 try:
     from dj_static import MediaCling
-    _application = MediaCling(get_wsgi_application())
+    _application = MediaCling(_application)
 except ImportError:
     pass
 
 
 try:
     from dj_static import Cling
-    _application = Cling(get_wsgi_application())
+    _application = Cling(_application)
 except ImportError:
     pass
 
