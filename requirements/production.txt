@@ -1,5 +1,5 @@
 psycopg2==2.6.1
-quickstartup==0.2.2
+quickstartup==0.2.3
 prettyconf==0.3.2
 dj-database-url==0.3.0
 dj-email-url==0.0.4
