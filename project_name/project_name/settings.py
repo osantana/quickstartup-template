@@ -3,6 +3,8 @@
 
 from pathlib import Path
 
+from django.contrib.messages import constants as message_constants
+
 from prettyconf import config
 from dj_database_url import parse as parse_db_url
 from dj_email_url import parse as parse_email_url
@@ -221,3 +223,6 @@ LOGGING = {
     'loggers': get_loggers(config("LOG_LEVEL", default="INFO"),
                            config("LOGGERS", default="", cast=config.list)),
 }
+
+
+MESSAGE_TAGS = {message_constants.ERROR: 'danger'}
