@@ -38,9 +38,10 @@ DATABASES['default']['CONN_MAX_AGE'] = None  # always connected
 
 # Email
 _email_config = config("EMAIL_URL", cast=parse_email_url)
+_email_password = config("EMAIL_PASSWORD", default=_email_config["EMAIL_HOST_PASSWORD"])
 EMAIL_FILE_PATH = _email_config['EMAIL_FILE_PATH']
 EMAIL_HOST_USER = _email_config['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = _email_config['EMAIL_HOST_PASSWORD']
+EMAIL_HOST_PASSWORD = _email_password
 EMAIL_HOST = _email_config['EMAIL_HOST']
 EMAIL_PORT = _email_config['EMAIL_PORT']
 EMAIL_BACKEND = _email_config['EMAIL_BACKEND']

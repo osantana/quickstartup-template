@@ -9,4 +9,7 @@ SECRET_KEY=SUPER-SEKRET
 # database that will be used under production.
 # DATABASE_URL=postgresql://quickstartup:quickstartup@localhost/quickstartup
 DATABASE_URL=sqlite:///tmp/quickstartup.db
-EMAIL_URL=file:///tmp/email-messages
+EMAIL_URL=file:///./email-messages
+
+# Uncomment following option if password has reserved chars (eg. '/')
+#EMAIL_PASSWORD=sekret
