@@ -1,4 +1,4 @@
-quickstartup==0.5.0
+quickstartup==0.5.1
 psycopg2==2.6.1
 prettyconf==0.3.3
 dj-database-url==0.3.0
