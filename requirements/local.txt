@@ -1,2 +1,2 @@
 -r production.txt
-mock==1.0.1
+mock

@@ -1,9 +1,11 @@
 # coding: utf-8
 
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+
+from .views import home
 
 
-urlpatterns = patterns('',
-    url(r"^app/$", "apps.sample.views.home", name="index"),
-)
+urlpatterns = [
+    url(r"^app/$", home, name="index"),
+]

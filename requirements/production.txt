@@ -1,6 +1,7 @@
-quickstartup==0.5.7
+Django==1.9.4
+quickstartup==0.9.1
 psycopg2==2.6.1
-prettyconf==0.4.1
-dj-database-url==0.3.0
+prettyconf==1.2.3
+dj-database-url==0.4.0
 dj-email-url==0.0.4
-django-extensions==1.5.5
+django-extensions==1.6.1
