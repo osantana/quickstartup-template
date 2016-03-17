@@ -97,8 +97,8 @@ USE_L10N = True
 USE_TZ = True
 LANGUAGE_CODE = "en-us"
 LANGUAGES = (
-    ("en", u"English"),
-    ("pt-br", u"Português (Brasil)"),
+    ("en", "English"),
+    ("pt-br", "Português (Brasil)"),
 )
 LOCALE_PATHS = (
     str(PROJECT_DIR / "locale"),
