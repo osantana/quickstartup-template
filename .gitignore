@@ -1,5 +1,4 @@
 *.py[co]
-*.mo
 .DS_Store
 .idea
 *.swp*
@@ -9,6 +8,6 @@
 tmp
 app-messages/
 *.log
-/static
-/media
-staticfiles
+static/
+media/
+staticfiles/
