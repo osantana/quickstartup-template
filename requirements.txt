@@ -1,2 +1,2 @@
-# This file is used by Heroku to install application dependencies
--r requirements/heroku.txt
+# This file is used by some PaaS providers to install application dependencies
+-r requirements/paas.txt
