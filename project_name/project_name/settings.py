@@ -1,6 +1,3 @@
-# coding: utf-8
-
-
 from pathlib import Path
 
 from dj_database_url import parse as parse_db_url
@@ -33,7 +30,6 @@ DATABASES = {
 }
 DATABASES['default']['CONN_MAX_AGE'] = None  # always connected
 
-
 # Email
 _email_config = config("EMAIL_URL", cast=parse_email_url)
 _email_password = config("EMAIL_PASSWORD", default=_email_config["EMAIL_HOST_PASSWORD"])
@@ -47,10 +43,10 @@ EMAIL_PORT = _email_config['EMAIL_PORT']
 EMAIL_USE_TLS = _email_config['EMAIL_USE_TLS']
 DJMAIL_REAL_BACKEND = _email_config['EMAIL_BACKEND']
 
-
 # Security & Signup/Signin
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=config.list, default="*")
 SECRET_KEY = config("SECRET_KEY")
+
 PASSWORD_HASHERS = (
     # Set PASSWORD_HASHER=UnsaltedMD5PasswordHasher to make test running faster
     'django.contrib.auth.hashers.' + config("PASSWORD_HASHER", default="PBKDF2PasswordHasher"),
@@ -76,7 +72,6 @@ AUTH_PASSWORD_VALIDATORS = (
     },
 )
 
-
 # Custom User & Profile Settings
 AUTH_USER_MODEL = "qs_accounts.User"
 LOGIN_REDIRECT_URL = "app:index"
@@ -88,7 +83,6 @@ QS_SIGNUP_FORM = "quickstartup.qs_accounts.forms.SignupForm"
 QS_PROFILE_FORM = "quickstartup.qs_accounts.forms.ProfileForm"
 QS_PASSWORD_CHANGE_FORM = 'quickstartup.qs_accounts.forms.PasswordChangeForm'
 QS_ADMIN_URL = "admin"  # empty to disable admin URLs
-
 
 # i18n & l10n
 TIME_ZONE = "UTC"
