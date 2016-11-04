@@ -13,17 +13,10 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{}.settings".format(PROJECT_PAC
 from django.core.wsgi import get_wsgi_application
 _application = get_wsgi_application()
 
-
 try:
-    from dj_static import MediaCling
-    _application = MediaCling(_application)
-except ImportError:
-    pass
+    from whitenoise.django import DjangoWhiteNoise
 
-
-try:
-    from dj_static import Cling
-    _application = Cling(_application)
+    _application = DjangoWhiteNoise(_application)
 except ImportError:
     pass
 

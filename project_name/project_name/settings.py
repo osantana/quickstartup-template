@@ -5,13 +5,11 @@ from dj_email_url import parse as parse_email_url
 from django.contrib.messages import constants as message_constants
 from prettyconf import config
 from quickstartup import settings_utils
+from quickstartup.settings_utils import get_loggers, get_logging_config
 
-
-# Project Structure
 BASE_DIR = Path(__file__).absolute().parents[2]
 PROJECT_DIR = Path(__file__).absolute().parents[1]
 FRONTEND_DIR = PROJECT_DIR / "frontend"
-
 
 # Project Info
 QS_PROJECT_NAME = "Django Quickstartup"
@@ -19,10 +17,74 @@ QS_PROJECT_DOMAIN = config("PROJECT_DOMAIN")
 QS_PROJECT_CONTACT = "contact@{}".format(QS_PROJECT_DOMAIN)
 QS_PROJECT_URL = "http://{}".format(QS_PROJECT_DOMAIN)
 
-
 # Debug & Development
 DEBUG = config("DEBUG", default=False, cast=config.boolean)
 
+# Application definition
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # 3rd party libs
+    'django_extensions',
+    'widget_tweaks',
+    'djmail',
+
+    # Quick Startup Apps
+    'quickstartup.qs_core',
+    'quickstartup.qs_accounts',
+    'quickstartup.qs_website',
+    'quickstartup.qs_contacts',
+
+    # QUICKSTARTUP: Your apps, you can replace the sample aplication bellow with your app
+    'apps.sample',
+]
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
+    'quickstartup.qs_website.middleware.website_page_middleware',
+]
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': (
+            str(FRONTEND_DIR / "templates"),
+        ),
+        'OPTIONS': {
+            'debug': config("TEMPLATE_DEBUG", default=DEBUG, cast=config.boolean),
+            'loaders': (
+                'django.template.loaders.filesystem.Loader',
+                'quickstartup.template_loader.Loader'
+            ),
+            'context_processors': (
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.request",
+                "django.template.context_processors.tz",
+                "django.contrib.messages.context_processors.messages",
+                "quickstartup.context_processors.project_infos",
+                "quickstartup.context_processors.project_settings",
+            ),
+        },
+    },
+]
 
 # Database
 DATABASES = {
@@ -57,9 +119,7 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.UnsaltedMD5PasswordHasher',
     'django.contrib.auth.hashers.CryptPasswordHasher',
 )
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-)
+
 AUTH_PASSWORD_VALIDATORS = (
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
@@ -98,108 +158,25 @@ LOCALE_PATHS = (
     str(PROJECT_DIR / "locale"),
 )
 
-
 # Miscelaneous
 _project_package = settings_utils.get_project_package(PROJECT_DIR)
 ROOT_URLCONF = "{}.urls".format(_project_package)
 WSGI_APPLICATION = "{}.wsgi.application".format(_project_package)
 MESSAGE_TAGS = {message_constants.ERROR: 'danger'}
 
-
 # Media & Static
 MEDIA_URL = "/media/"
-MEDIA_ROOT = settings_utils.get_media_root(BASE_DIR)
+MEDIA_ROOT = str(BASE_DIR / "media")
 
 STATIC_URL = "/static/"
-STATIC_ROOT = settings_utils.get_static_root(BASE_DIR)
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
 STATICFILES_DIRS = (
     str(FRONTEND_DIR / "static"),
 )
-
-
-# Templates
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': (
-            str(FRONTEND_DIR / "templates"),
-        ),
-        'OPTIONS': {
-            'debug': config("TEMPLATE_DEBUG", default=DEBUG, cast=config.boolean),
-            'loaders': (
-                'django.template.loaders.filesystem.Loader',
-                'quickstartup.template_loader.Loader'
-            ),
-            'context_processors': (
-                "django.contrib.auth.context_processors.auth",
-                "django.template.context_processors.debug",
-                "django.template.context_processors.i18n",
-                "django.template.context_processors.media",
-                "django.template.context_processors.static",
-                "django.template.context_processors.request",
-                "django.template.context_processors.tz",
-                "django.contrib.messages.context_processors.messages",
-                "quickstartup.context_processors.project_infos",
-                "quickstartup.context_processors.project_settings",
-            ),
-        },
-    },
-]
-
-
-# Applications
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.gzip.GZipMiddleware',
-    'quickstartup.qs_website.middleware.WebsitePageMiddleware',
-)
-
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.admin',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    # 3rd party libs
-    'django_extensions',
-    'widget_tweaks',
-    'djmail',
-
-    # Quick Startup Apps
-    'quickstartup.qs_core',
-    'quickstartup.qs_accounts',
-    'quickstartup.qs_website',
-    'quickstartup.qs_contacts',
-
-    # QUICKSTARTUP: Your apps, you can replace the sample aplication bellow with your app
-    'apps.sample',
-)
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Logging
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'default': {'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s'},
-    },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'default',
-        },
-        'null': {
-            'class': 'logging.NullHandler',
-        },
-    },
-    'loggers': settings_utils.get_loggers(config("LOG_LEVEL", default="INFO"),
-                                          config("LOGGERS", default="", cast=config.list)),
-}
+_loggers = settings_utils.get_loggers(config("LOG_LEVEL", default="INFO"),
+                                      config("LOGGERS", default="", cast=config.list))
+_logging = settings_utils.get_logging_config(_loggers)
+LOGGING = _logging
