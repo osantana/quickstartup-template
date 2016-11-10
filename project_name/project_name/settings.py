@@ -136,7 +136,7 @@ AUTH_USER_MODEL = "qs_accounts.User"
 LOGIN_REDIRECT_URL = "app:index"
 LOGIN_URL = "qs_accounts:signin"
 QS_SIGNUP_AUTO_LOGIN = True
-QS_SIGNUP_OPEN = True
+QS_SIGNUP_OPEN = config("REGISTRATION_OPEN", default=True, cast=config.boolean)
 QS_SIGNUP_TOKEN_EXPIRATION_DAYS = 7
 QS_SIGNUP_FORM = "quickstartup.qs_accounts.forms.SignupForm"
 QS_PROFILE_FORM = "quickstartup.qs_accounts.forms.ProfileForm"
