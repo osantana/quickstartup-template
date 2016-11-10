@@ -5,7 +5,6 @@ from dj_email_url import parse as parse_email_url
 from django.contrib.messages import constants as message_constants
 from prettyconf import config
 from quickstartup import settings_utils
-from quickstartup.settings_utils import get_loggers, get_logging_config
 
 BASE_DIR = Path(__file__).absolute().parents[2]
 PROJECT_DIR = Path(__file__).absolute().parents[1]
