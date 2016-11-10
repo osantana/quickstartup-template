@@ -140,8 +140,8 @@ QS_SIGNUP_OPEN = config("REGISTRATION_OPEN", default=True, cast=config.boolean)
 QS_SIGNUP_TOKEN_EXPIRATION_DAYS = 7
 QS_SIGNUP_FORM = "quickstartup.qs_accounts.forms.SignupForm"
 QS_PROFILE_FORM = "quickstartup.qs_accounts.forms.ProfileForm"
-QS_PASSWORD_CHANGE_FORM = 'quickstartup.qs_accounts.forms.PasswordChangeForm'
-QS_ADMIN_URL = "admin"  # empty to disable admin URLs
+QS_PASSWORD_CHANGE_FORM = "quickstartup.qs_accounts.forms.PasswordChangeForm"
+QS_ADMIN_URL = config("ADMIN_URL", default=r"admin")  # empty to disable admin URLs
 
 # i18n & l10n
 TIME_ZONE = "UTC"
