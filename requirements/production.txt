@@ -6,4 +6,4 @@ dj-database-url==0.4.1
 dj-email-url==0.0.10
 belogging==0.0.2
 django-extensions==1.7.4
-quickstartup==0.12.1
+quickstartup==0.12.2
