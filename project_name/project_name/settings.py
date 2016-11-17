@@ -6,6 +6,9 @@ from django.contrib.messages import constants as message_constants
 from prettyconf import config
 from quickstartup import settings_utils
 
+from django.utils.translation import ugettext_lazy as _
+
+
 BASE_DIR = Path(__file__).absolute().parents[2]
 PROJECT_DIR = Path(__file__).absolute().parents[1]
 FRONTEND_DIR = PROJECT_DIR / "frontend"
@@ -151,7 +154,7 @@ USE_TZ = True
 LANGUAGE_CODE = "en-us"
 LANGUAGES = (
     ("en", "English"),
-    ("pt-br", "Português (Brasil)"),
+    ("pt-br", _("Brazilian Portuguese")),
 )
 LOCALE_PATHS = (
     str(PROJECT_DIR / "locale"),
