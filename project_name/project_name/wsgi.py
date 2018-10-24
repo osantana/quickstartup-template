@@ -14,6 +14,7 @@ from django.core.wsgi import get_wsgi_application
 _application = get_wsgi_application()
 
 try:
+    # noinspection PyUnresolvedReferences
     from whitenoise.django import DjangoWhiteNoise
 
     _application = DjangoWhiteNoise(_application)

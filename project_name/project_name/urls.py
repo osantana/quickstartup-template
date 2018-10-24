@@ -1,9 +1,8 @@
-from django.conf.urls import include, url
-
+from django.urls import include, path
 
 urlpatterns = [
-    url(r"^", include("apps.sample.urls", namespace="app")),
+    path("", include("apps.sample.urls")),
 
     # Quickstartup: This url mapping must be the last one
-    url(r"^", include("quickstartup.urls")),
+    path("", include("quickstartup.urls")),
 ]

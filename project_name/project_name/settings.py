@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     # Quick Startup Apps
     'quickstartup.qs_core',
     'quickstartup.qs_accounts',
-    'quickstartup.qs_website',
+    'quickstartup.qs_pages',
     'quickstartup.qs_contacts',
 
     # QUICKSTARTUP: Your apps, you can replace the sample aplication bellow with your app
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.gzip.GZipMiddleware',
-    'quickstartup.qs_website.middleware.website_page_middleware',
+    'quickstartup.qs_pages.middleware.website_page_middleware',
 ]
 
 TEMPLATES = [

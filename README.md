@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Python 3.4 or newer
+- Python 3.7 or newer
 - pip
 
 ### Recommended
@@ -13,7 +13,7 @@
 
 ```bash
 $ cd directory/of/PROJECT
-$ virtualenv-3.4 --no-site-packages PROJECT
+$ virtualenv --no-site-packages PROJECT
 $ pip3 install django
 $ django-admin.py startproject --template=https://github.com/osantana/quickstartup-template/archive/master.zip PROJECT
 ```
